@@ -9,18 +9,21 @@
 #include "instruction.h"
 using namespace std;
 
-namespace assembler {
-    class op_table {
-    private:
-        unordered_map<string, string> optab;
-        op_table(){};
-        static op_table* instance;
-    public:
-        // singleton
-        static op_table* getInstance();
-        string get(string);
-    };
-}
 
+class op_table {
+private:
+    unordered_map<string, string> optab;
+    op_table();
+//    static op_table& instance;
+public:
+    // singleton
+    static op_table& getInstance()
+    {
+        static op_table instance; // Guaranteed to be destroyed.
+        // Instantiated on first use.
+        return instance;
+    }
+    string get(string);
+};
 
 #endif //SIC_XE_ASSEMBLER_OPTABLE_H
