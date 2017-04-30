@@ -7,7 +7,14 @@
 
 
 enum class operand_type {
-
+    ASTRIC, // ccc      equ     *
+    NUMBER, // aaa      resw    1
+    LETERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
+    EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
+    REGISTER, // CLEAR   A
+    TWO_REGISTERS, // COMPR   A,T
+    LABEL, // LDA TEMP
+    ADDRESS // START 0x1000
 };
 
 class operand {
