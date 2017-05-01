@@ -5,11 +5,13 @@
 #ifndef SIC_XE_ASSEMBLER_PASS_TWO_H
 #define SIC_XE_ASSEMBLER_PASS_TWO_H
 
+#include "file_reader.h"
+
 class pass_two {
 private:
-    input_reader reader;
+    file_reader reader;
 public:
-    pass_two(input_reader);
+    pass_two(file_reader);
     void pass(); // this method to start the pass one of the compiler
 };
 
