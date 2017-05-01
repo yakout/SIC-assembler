@@ -7,7 +7,8 @@
 
 #include <iostream>
 
-namespace assembler {
+namespace sic_assembler {
+    const int INSTRCUTION_LENGTH = 3;
     int location_counter;
     int starting_address;
     int program_length;

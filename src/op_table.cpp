@@ -26,8 +26,6 @@ bool op_table::lookup(std::string label) {
 }
 
 void op_table::init_table() {
-//    todo add the hex value not the decimal
-
 //    table.insert({"add", 24});
 //    table.insert({"and", 64});
 //    table.insert({"comp", 40});
@@ -51,4 +49,28 @@ void op_table::init_table() {
 //    table.insert({"td", 224});
 //    table.insert({"tix", 44});
 //    table.insert({"wd", 220});
+
+    table.insert({"add", "18"});
+    table.insert({"and", "40"});
+    table.insert({"comp", "28"});
+    table.insert({"div", "24"});
+    table.insert({"j", "3C"});
+    table.insert({"jgt", "34"});
+    table.insert({"jlt", "38"});
+    table.insert({"jsub", "48"});
+    table.insert({"lda", "00"});
+    table.insert({"ldch", "50"});
+    table.insert({"ldx", "04"});
+    table.insert({"mul", "20"});
+    table.insert({"or", "44"});
+    table.insert({"rd", "D8"});
+    table.insert({"rsub", "4C"});
+    table.insert({"sta", "0C"});
+    table.insert({"stch", "54"});
+    table.insert({"stl", "D4"});
+    table.insert({"stx", "10"});
+    table.insert({"sub", "1C"});
+    table.insert({"td", "F8"});
+    table.insert({"tix", "2C"});
+    table.insert({"wd", "DC"});
 }

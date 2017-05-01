@@ -14,7 +14,7 @@ pass_one::pass_one() {
 }
 
 void pass_one::pass() {
-    using namespace assembler;
+    using namespace sic_assembler;
     bool pass_one_ended = false;
     file_reader reader;
     instruction* next_instruction = reader.get_next_instruction();
@@ -41,11 +41,11 @@ void pass_one::pass() {
                 sym_table::get_instance().insert(next_instruction->get_label());
             }
             if (op_table::get_instance()->lookup(next_instruction->get_mnemonic()->get_name())) {
-                location_counter += 3;
+                location_counter += INSTRCUTION_LENGTH;
             } else if (*next_instruction->get_mnemonic() == "WORD") {
-                location_counter += 3;
+                location_counter += INSTRCUTION_LENGTH;
             } else if (*next_instruction->get_mnemonic() == "RESW") {
-                location_counter += 3 * std::stoi(next_instruction->get_operand()->get_name());
+                location_counter += INSTRCUTION_LENGTH * std::stoi(next_instruction->get_operand()->get_name());
             } else if (*next_instruction->get_mnemonic() == "RESB") {
                 location_counter +=  stoi(next_instruction->get_operand()->get_name());
             } else if (*next_instruction->get_mnemonic() == "BYTE") {
