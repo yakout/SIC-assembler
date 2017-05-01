@@ -7,6 +7,7 @@
 
 
 #include <iostream>
+
 using namespace std;
 
 class mnemonic {
@@ -21,9 +22,13 @@ public:
 //        _is_extended = extended;
 //    }
     mnemonic(string);
+
     string get_opcode();
+
     string get_name();
+
     bool is_directive();
+
     bool is_extended();
 };
 

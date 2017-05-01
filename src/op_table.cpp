@@ -4,7 +4,7 @@
 
 #include "op_table.h"
 
-op_table* op_table::instance = nullptr;
+op_table *op_table::instance = nullptr;
 
 op_table::op_table() {
     optab["add"] = "18";
@@ -12,8 +12,8 @@ op_table::op_table() {
     // todo
 }
 
-op_table* op_table::get_instance() {
-    if (op_table::instance == nullptr){
+op_table *op_table::get_instance() {
+    if (op_table::instance == nullptr) {
         op_table::instance = new op_table();
     }
     return op_table::instance;

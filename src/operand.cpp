@@ -4,7 +4,7 @@
 
 #include "operand.h"
 
-operand::operand(std::string abcdefg){
+operand::operand(std::string abcdefg) {
     // todo
 }
 

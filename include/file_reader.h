@@ -16,9 +16,12 @@ private:
     std::string buffer;
 public:
     file_reader();
+
     bool has_next_instruction();
+
     bool is_comment_line();
-    instruction* get_next_instruction();
+
+    instruction *get_next_instruction();
 };
 
 #endif //SIC_XE_ASSEMBLER_FILE_READER_H

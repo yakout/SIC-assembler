@@ -21,8 +21,11 @@ enum class operand_type {
 class operand {
 public:
     operand(std::string);
+
     bool is_indexing();
+
     bool is_indirect();
+
     bool is_immediate();
 };
 

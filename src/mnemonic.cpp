@@ -7,7 +7,7 @@
 #include "op_table.h"
 
 mnemonic::mnemonic(string name) {
-    if (op_table::get_instance()->get(name).length() == 0){
+    if (op_table::get_instance()->get(name).length() == 0) {
         throw "Invalid Mnemonic";
     }
     mnemonic::name = name;

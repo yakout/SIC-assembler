@@ -13,25 +13,34 @@ using namespace std;
 
 class instruction {
 private:
-    operand* _operand;
-    mnemonic* _mnemonic;
+    operand *_operand;
+    mnemonic *_mnemonic;
     string label;
     string comment;
 
 public:
     instruction();
+
     bool has_label();
+
     bool has_operand();
+
     // setters
     void set_label(string);
-    void set_mnemonic(mnemonic*);
-    void set_operand(operand*);
+
+    void set_mnemonic(mnemonic *);
+
+    void set_operand(operand *);
+
     void set_comment(string);
 
     // getters
     string get_label();
-    mnemonic* get_mnemonic();
-    operand* get_operand();
+
+    mnemonic *get_mnemonic();
+
+    operand *get_operand();
+
     string get_comment();
 
 };
