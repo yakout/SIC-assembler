@@ -5,6 +5,7 @@
 #ifndef SIC_XE_ASSEMBLER_OPERAND_H
 #define SIC_XE_ASSEMBLER_OPERAND_H
 
+#include <string>
 
 enum class operand_type {
     ASTRIC, // ccc      equ     *
@@ -19,6 +20,7 @@ enum class operand_type {
 
 class operand {
 public:
+    operand(std::string);
     bool is_indexing();
     bool is_indirect();
     bool is_immediate();
