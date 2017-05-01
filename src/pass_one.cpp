@@ -9,24 +9,24 @@
 #include "op_table.h"
 
 
-pass_one::pass_one() {
-    // todo // initalize the input reader
+pass_one::pass_one(file_reader *_reader) {
+    reader = _reader;
 }
 
 void pass_one::pass() {
     using namespace sic_assembler;
     bool pass_one_ended = false;
-    file_reader reader;
-    instruction* next_instruction = reader.get_next_instruction();
+    instruction* next_instruction = reader->get_next_instruction();
 
     if (*next_instruction->get_mnemonic() == "START") {
         starting_address = hex_to_int(next_instruction->get_operand()->get_name());
         location_counter = starting_address;
+    } else {
+        // todo throw error
     }
-    // todo throw error
 
-    while(reader.has_next_instruction()) {
-        next_instruction = reader.get_next_instruction();
+    while(reader->has_next_instruction()) {
+        next_instruction = reader->get_next_instruction();
         if (*next_instruction->get_mnemonic() == "END") {
             pass_one_ended = true;
             break;
@@ -35,10 +35,11 @@ void pass_one::pass() {
             continue;
         }
         if (next_instruction->has_label()) {
-            if (sym_table::get_instance().lookup(next_instruction->get_label())) {
+            if (sym_table::get_instance()->lookup(next_instruction->get_label())) {
                 // todo throw error
             } else {
-                sym_table::get_instance().insert(next_instruction->get_label());
+                sym_table::get_instance()->insert(next_instruction->get_label(),
+                                                 sic_assembler::location_counter);
             }
             if (op_table::get_instance()->lookup(next_instruction->get_mnemonic()->get_name())) {
                 location_counter += INSTRCUTION_LENGTH;

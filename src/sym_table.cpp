@@ -9,8 +9,8 @@ bool sym_table::lookup(std::string label) {
     return table.find(label) != table.end();
 }
 
-void sym_table::insert(std::string label) {
-    table.insert({label, nullptr});
+void sym_table::insert(std::string label, int loc_cntr) {
+    table.insert({label, loc_cntr});
 }
 
 std::string sym_table::get(std::string label) {

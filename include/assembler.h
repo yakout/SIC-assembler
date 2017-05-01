@@ -15,6 +15,14 @@ namespace sic_assembler {
     int hex_to_int(std::string hex) {
         return 0;
     }
+    std::string to_lower(std::string str) {
+        std::transform(str.begin(), str.end(), str.begin(), std::tolower);
+        return str;
+    }
+    std::string to_upper(std::string str) {
+        std::transform(str.begin(), str.end(), str.begin(), std::toupper);
+        return str;
+    }
 }
 
 #endif //SIC_XE_ASSEMBLER_ASSEMBLER_H

@@ -36,3 +36,7 @@ int operand::get_length() {
     //todo
     return 0;
 }
+
+operand::operand_type operand::get_type() {
+    return type;
+}

@@ -9,6 +9,7 @@
 #include "iostream"
 
 class operand {
+public:
     enum class operand_type {
         ASTRIC, // ccc      equ     *
         NUMBER, // aaa      resw    1
@@ -17,10 +18,13 @@ class operand {
         REGISTER, // CLEAR   A
         TWO_REGISTERS, // COMPR   A,T
         LABEL, // LDA TEMP
-        ADDRESS // START 0x1000
+        ADDRESS, // START 0x1000
+        INDEXING // LDCH     STR,X
     };
+
 private:
     std::string name;
+    operand_type type;
 public:
     operand(std::string);
 
@@ -35,6 +39,8 @@ public:
     bool is_direct();
 
     std::string get_name();
+
+    operand_type get_type();
 
     int get_length();
 };
