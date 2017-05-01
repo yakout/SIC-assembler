@@ -15,12 +15,12 @@ private:
     bool _is_directive;
     bool _is_extended;
 public:
-    mnemonic(string name, bool directive, bool extended) {
-        this->name = name;
-        _is_directive = directive;
-        _is_extended = extended;
-    }
-    ~mnemonic(){};
+//    mnemonic(string name, bool directive, bool extended) {
+//        this->name = name;
+//        _is_directive = directive;
+//        _is_extended = extended;
+//    }
+    mnemonic(string);
     string get_opcode();
     string get_name();
     bool is_directive();
