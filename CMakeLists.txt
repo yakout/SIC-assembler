@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(SIC_XE_assembler)
+project(SIC_assembler)
 
 set(CMAKE_CXX_STANDARD 11)
 

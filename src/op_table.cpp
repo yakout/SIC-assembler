@@ -17,11 +17,11 @@ op_table *op_table::get_instance() {
     return op_table::instance;
 }
 
-string op_table::get(string key) {
+std::string op_table::get(std::string key) {
     return table[key];
 }
 
-bool op_table::lookup(string label) {
+bool op_table::lookup(std::string label) {
     return table.find(label) != table.end();
 }
 

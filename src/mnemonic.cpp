@@ -6,7 +6,7 @@
 #include "mnemonic.h"
 #include "op_table.h"
 
-mnemonic::mnemonic(string name) {
+mnemonic::mnemonic(std::string name) {
     if (op_table::get_instance()->get(name).length() == 0) {
         throw "Invalid Mnemonic";
     }
@@ -15,11 +15,11 @@ mnemonic::mnemonic(string name) {
 }
 
 
-string mnemonic::get_name() {
+std::string mnemonic::get_name() {
     return mnemonic::name;
 }
 
-string mnemonic::get_opcode() {
+std::string mnemonic::get_opcode() {
     return op_table::get_instance()->get(mnemonic::name);
 }
 
@@ -31,7 +31,7 @@ bool mnemonic::is_extended() {
     return mnemonic::_is_extended;
 }
 
-bool mnemonic::operator==(string second_mnemonic_name) {
+bool mnemonic::operator==(std::string second_mnemonic_name) {
     return this->name == second_mnemonic_name;
 }
 

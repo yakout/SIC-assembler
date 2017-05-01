@@ -6,7 +6,7 @@
 
 #include "pass_two.h"
 
-pass_two::pass_two(file_reader _reader) {
+pass_two::pass_two(file_reader *_reader) {
     reader = _reader;
 }
 

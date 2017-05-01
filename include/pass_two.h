@@ -9,9 +9,9 @@
 
 class pass_two {
 private:
-    file_reader reader;
+    file_reader *reader;
 public:
-    pass_two(file_reader);
+    pass_two(file_reader*);
     void pass(); // this method to start the pass one of the compiler
 };
 

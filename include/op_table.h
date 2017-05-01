@@ -10,7 +10,7 @@
 
 class op_table {
 private:
-    unordered_map<string, string> table;
+    unordered_map<string, std::string> table;
     op_table();
     void init_table();
     static op_table *instance;
@@ -25,7 +25,7 @@ public:
 //        return instance;
 //    }
 
-    string get(string);
-    bool lookup(string);
+    string get(std::string);
+    bool lookup(std::string);
 };
 #endif //SIC_XE_ASSEMBLER_OPTABLE_H

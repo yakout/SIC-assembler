@@ -15,10 +15,10 @@ pass_one::pass_one() {
 
 void pass_one::pass() {
     using namespace assembler;
-
     bool pass_one_ended = false;
-    file_reader reader; 
+    file_reader reader;
     instruction* next_instruction = reader.get_next_instruction();
+
     if (*next_instruction->get_mnemonic() == "START") {
         starting_address = hex_to_int(next_instruction->get_operand()->get_name());
         location_counter = starting_address;
@@ -29,6 +29,7 @@ void pass_one::pass() {
         next_instruction = reader.get_next_instruction();
         if (*next_instruction->get_mnemonic() == "END") {
             pass_one_ended = true;
+            break;
         }
         if (next_instruction->is_comment()) {
             continue;
@@ -44,7 +45,7 @@ void pass_one::pass() {
             } else if (*next_instruction->get_mnemonic() == "WORD") {
                 location_counter += 3;
             } else if (*next_instruction->get_mnemonic() == "RESW") {
-                location_counter += 3 * strtod(next_instruction->get_operand()->get_name());
+                location_counter += 3 * std::stoi(next_instruction->get_operand()->get_name());
             } else if (*next_instruction->get_mnemonic() == "RESB") {
                 location_counter +=  stoi(next_instruction->get_operand()->get_name());
             } else if (*next_instruction->get_mnemonic() == "BYTE") {
@@ -54,5 +55,9 @@ void pass_one::pass() {
             }
         }
     }
-    program_length = location_counter - starting_address;
+    if (!pass_one_ended) {
+//        todo throw error : no END directive found
+    } else {
+        program_length = location_counter - starting_address;
+    }
 }
