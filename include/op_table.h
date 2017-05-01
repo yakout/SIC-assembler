@@ -8,27 +8,24 @@
 #include <unordered_map>
 #include "instruction.h"
 
-using namespace std;
-
-
 class op_table {
 private:
-    unordered_map<string, string> optab;
-
+    unordered_map<string, string> table;
     op_table();
-
+    void init_table();
     static op_table *instance;
 public:
     // singleton
     static op_table *get_instance();
-//    static op_table& getInstance()
 
+//    static op_table& getInstance()
 //    {
 //        static op_table instance; // Guaranteed to be destroyed.
 //         Instantiated on first use.
 //        return instance;
 //    }
-    string get(string);
-};
 
+    string get(string);
+    bool lookup(string);
+};
 #endif //SIC_XE_ASSEMBLER_OPTABLE_H

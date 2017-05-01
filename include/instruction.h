@@ -9,14 +9,13 @@
 #include "operand.h"
 #include "mnemonic.h"
 
-using namespace std;
-
 class instruction {
 private:
     operand *_operand;
     mnemonic *_mnemonic;
     string label;
     string comment;
+    std::string full_instr;
 
 public:
     instruction();
@@ -42,6 +41,9 @@ public:
     operand *get_operand();
 
     string get_comment();
+
+    // helpers
+    bool is_comment();
 
 };
 

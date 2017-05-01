@@ -31,3 +31,7 @@ bool mnemonic::is_extended() {
     return mnemonic::_is_extended;
 }
 
+bool mnemonic::operator==(string second_mnemonic_name) {
+    return this->name == second_mnemonic_name;
+}
+

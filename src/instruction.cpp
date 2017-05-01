@@ -60,4 +60,8 @@ string instruction::get_comment() {
     return instruction::comment;
 }
 
+bool instruction::is_comment() {
+    return full_instr[0] == '.';
+}
+
 

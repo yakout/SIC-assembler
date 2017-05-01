@@ -30,6 +30,7 @@ public:
     bool is_directive();
 
     bool is_extended();
+    bool operator==(string);
 };
 
 #endif //SIC_XE_ASSEMBLER_MNEMONIC_H

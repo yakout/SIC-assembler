@@ -4,5 +4,8 @@ project(SIC_XE_assembler)
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories( "include" )
-set(SOURCE_FILES main.cpp include/instruction.h include/mnemonic.h src/mnemonic.cpp include/op_table.h src/instruction.cpp src/op_table.cpp include/operand.h src/operand.cpp include/pass_one.h include/pass_two.h include/sym_table.h src/temp.cpp include/file_reader.h src/file_reader.cpp include/regex_patterns.h)
+set(SOURCE_FILES main.cpp include/instruction.h include/mnemonic.h src/mnemonic.cpp include/op_table.h
+        src/instruction.cpp src/op_table.cpp include/operand.h src/operand.cpp include/pass_one.h include/pass_two.h
+        include/sym_table.h src/pass_one.cpp include/assembler.h src/sym_table.cpp src/pass_two.cpp src/temp.cpp
+        include/file_reader.h src/file_reader.cpp include/regex_patterns.h)
 add_executable(SIC_XE_assembler ${SOURCE_FILES})

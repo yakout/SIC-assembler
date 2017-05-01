@@ -6,19 +6,21 @@
 #define SIC_XE_ASSEMBLER_OPERAND_H
 
 #include <string>
-
-enum class operand_type {
-    ASTRIC, // ccc      equ     *
-    NUMBER, // aaa      resw    1
-    LETERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
-    EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
-    REGISTER, // CLEAR   A
-    TWO_REGISTERS, // COMPR   A,T
-    LABEL, // LDA TEMP
-    ADDRESS // START 0x1000
-};
+#include "iostream"
 
 class operand {
+    enum class operand_type {
+        ASTRIC, // ccc      equ     *
+        NUMBER, // aaa      resw    1
+        LETERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
+        EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
+        REGISTER, // CLEAR   A
+        TWO_REGISTERS, // COMPR   A,T
+        LABEL, // LDA TEMP
+        ADDRESS // START 0x1000
+    };
+private:
+    std::string name;
 public:
     operand(std::string);
 
@@ -27,6 +29,14 @@ public:
     bool is_indirect();
 
     bool is_immediate();
+
+    bool is_hex_address();
+
+    bool is_direct();
+
+    std::string get_name();
+
+    int get_length();
 };
 
 
