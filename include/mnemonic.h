@@ -30,6 +30,7 @@ public:
     bool is_directive();
 
     bool is_extended();
+
     bool operator==(string);
 };
 
