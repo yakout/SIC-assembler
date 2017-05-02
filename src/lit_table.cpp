@@ -5,9 +5,13 @@
 
 #include "lit_table.h"
 
-lit_table::lit_table() {}
+lit_table::lit_table(): table(), unassigned_literals() {
 
-lit_table::~lit_table() {}
+}
+
+lit_table::~lit_table() {
+
+}
 
 lit_table* lit_table::get_instance() {
     if (instance == nullptr) {
@@ -26,4 +30,15 @@ void lit_table::insert(std::string literal, std::string address) {
 
 bool lit_table::lookup(std::string literal) {
     return table.find(literal) != table.end();
+}
+
+void lit_table::insert(std::string literal) {
+    if (!lookup(literal)) {
+        unassigned_literals.push_back(literal);
+        insert(literal, nullptr);
+    }
+}
+
+std::vector<std::string> lit_table::get_unassigned_literals() {
+    return unassigned_literals;
 }

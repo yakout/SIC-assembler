@@ -11,9 +11,9 @@
 class sym_table {
 private:
     std::unordered_map<std::string, std::string> table;
-    sym_table():table() {};
+    sym_table();
 public:
-    ~sym_table() {};
+    ~sym_table();
 
     // singleton
     static sym_table* get_instance() {

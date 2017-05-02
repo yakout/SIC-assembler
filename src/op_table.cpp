@@ -6,7 +6,7 @@
 
 op_table *op_table::instance = nullptr;
 
-op_table::op_table() {
+op_table::op_table(): table() {
     init_table();
 }
 
