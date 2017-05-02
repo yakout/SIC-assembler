@@ -12,14 +12,12 @@ class operand {
 public:
     enum class operand_type {
         ASTRIC, // ccc      equ     *
-        NUMBER, // aaa      resw    1
+        NUMBER, // aaa      word    1
         LETERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
         EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
-        REGISTER, // CLEAR   A
-        TWO_REGISTERS, // COMPR   A,T
         LABEL, // LDA TEMP
         ADDRESS, // START 0x1000
-        INDEXING // LDCH     STR,X
+        INDEXING // LDCH     STR,X **we add (8000)16 to the STR address
     };
 
 private:

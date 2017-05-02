@@ -2,6 +2,7 @@
 // Created by Ahmed Yakout on 5/1/17.
 //
 
+#include "assembler.h"
 #include "object_program_writter.h"
 
 
@@ -34,7 +35,7 @@ void object_program_writter::write_header_record(std::string program_name, std::
 
 void object_program_writter::write_text_record() {
     std::string final_text_record = TEXT_RECORD_SYMBOL + current_starting_address
-                                    + current_text_record_length + current_text_record;
+                                    + std::to_string(current_text_record_length) + current_text_record;
     file << final_text_record << "\n";
 }
 
@@ -53,8 +54,8 @@ void object_program_writter::add_to_text_record(const instruction* instruction) 
 //    current_column_counter += instruction->get_object_code().length();
 }
 
-void object_program_writter::write_end_record(std::string starting_address) {
-    std::string final_record = END_RECORD_SYMBOL + starting_address;
+void object_program_writter::write_end_record(int starting_address) {
+    std::string final_record = END_RECORD_SYMBOL + sic_assembler::decimal_to_hex(starting_address);
     file << final_record << "\n";
 }
 

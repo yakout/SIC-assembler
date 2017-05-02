@@ -32,7 +32,7 @@ public:
     ~object_program_writter();
     void write_header_record(std::string program_name, std::string starting_address, std::string program_length);
     void write_text_record();
-    void write_end_record(std::string starting_address);
+    void write_end_record(int starting_address);
     void add_to_text_record(const instruction*);
 };
 

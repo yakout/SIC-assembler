@@ -20,7 +20,6 @@ void pass_one::pass() {
 
     if (*next_instruction->get_mnemonic() == "START") {
         starting_address = hex_to_int(next_instruction->get_operand()->get_name());
-        location_counter = starting_address;
     } else {
         // todo throw error
     }
@@ -42,15 +41,13 @@ void pass_one::pass() {
                                                  sic_assembler::location_counter);
             }
             if (op_table::get_instance()->lookup(next_instruction->get_mnemonic()->get_name())) {
-                location_counter += INSTRCUTION_LENGTH;
             } else if (*next_instruction->get_mnemonic() == "WORD") {
-                location_counter += INSTRCUTION_LENGTH;
             } else if (*next_instruction->get_mnemonic() == "RESW") {
-                location_counter += INSTRCUTION_LENGTH * std::stoi(next_instruction->get_operand()->get_name());
+                sic_assembler::INSTRUCTION_LENGTH * std::stoi(next_instruction->get_operand()->get_name());
             } else if (*next_instruction->get_mnemonic() == "RESB") {
-                location_counter +=  stoi(next_instruction->get_operand()->get_name());
+                stoi(next_instruction->get_operand()->get_name());
             } else if (*next_instruction->get_mnemonic() == "BYTE") {
-                location_counter += next_instruction->get_operand()->get_length();
+                next_instruction->get_operand()->get_length();
             } else {
                 // todo throw error: invalid operation code
             }
@@ -58,7 +55,5 @@ void pass_one::pass() {
     }
     if (!pass_one_ended) {
 //        todo throw error : no END directive found
-    } else {
-        program_length = location_counter - starting_address;
     }
 }
