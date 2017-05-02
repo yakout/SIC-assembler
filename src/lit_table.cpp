@@ -5,8 +5,9 @@
 
 #include "lit_table.h"
 
-lit_table::lit_table(): table(), unassigned_literals() {
+lit_table *lit_table::instance = nullptr;
 
+lit_table::lit_table(): table(), unassigned_literals() {
 }
 
 lit_table::~lit_table() {
@@ -14,10 +15,10 @@ lit_table::~lit_table() {
 }
 
 lit_table* lit_table::get_instance() {
-    if (instance == nullptr) {
-        instance = new lit_table();
+    if (lit_table::instance == nullptr) {
+        lit_table::instance = new lit_table();
     }
-    return instance;
+    return lit_table::instance;
 }
 
 std::string lit_table::get(std::string literal) {

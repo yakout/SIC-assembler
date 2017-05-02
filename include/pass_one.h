@@ -11,7 +11,7 @@ class pass_one {
 private:
     file_reader *reader;
 public:
-    pass_one(file_reader*); // todo this constructor should take the input_reader (by marwan)
+    pass_one(file_reader*);
     void pass(); // this method to start the pass one of the compiler
 };
 
