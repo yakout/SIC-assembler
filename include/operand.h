@@ -10,17 +10,20 @@
 
 class operand {
     enum class operand_type {
-        ASTRIC, // ccc      equ     *
-        NUMBER, // aaa      resw    1
-        LETERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
-        EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
+        LOC_COUNTER, // ccc      equ     *
+        DECIMAL_ADDRESS, // aaa      resw    1
+        HEXA_ADDRESS, // START 0x1000
+        LABEL, // LDA TEMP
+        LABEL_INDEXED,
         REGISTER, // CLEAR   A
         TWO_REGISTERS, // COMPR   A,T
-        LABEL, // LDA TEMP
-        ADDRESS // START 0x1000
+        EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
+        WORD_LITERAL, // LDA     =C'string' / LDA =C'F23'   / LDA   =1234
+        HEXA_LITERAL // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
     };
 private:
     std::string name;
+    operand_type type;
 public:
     operand(std::string);
 
@@ -35,6 +38,10 @@ public:
     bool is_direct();
 
     std::string get_name();
+
+    void set_type(operand_type);
+
+    operand_type get_type();
 
     int get_length();
 };
