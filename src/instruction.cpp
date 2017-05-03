@@ -48,11 +48,11 @@ string instruction::get_label() {
     return instruction::label;
 }
 
-mnemonic *instruction::get_mnemonic() {
+mnemonic* instruction::get_mnemonic() {
     return instruction::_mnemonic;
 }
 
-operand *instruction::get_operand() {
+operand* instruction::get_operand() {
     return instruction::_operand;
 }
 

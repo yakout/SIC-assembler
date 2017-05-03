@@ -9,6 +9,7 @@
 #include "iostream"
 
 class operand {
+public:
     enum class operand_type {
         LOC_COUNTER, // ccc      equ     *
         DECIMAL_ADDRESS, // aaa      resw    1
@@ -21,6 +22,7 @@ class operand {
         WORD_LITERAL, // LDA     =C'string' / LDA =C'F23'   / LDA   =1234
         HEXA_LITERAL // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
     };
+
 private:
     std::string name;
     operand_type type;
@@ -38,8 +40,6 @@ public:
     bool is_direct();
 
     std::string get_name();
-
-    void set_type(operand_type);
 
     operand_type get_type();
 

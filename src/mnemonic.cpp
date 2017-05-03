@@ -3,6 +3,7 @@
 //
 
 
+#include "assembler.h"
 #include "mnemonic.h"
 #include "op_table.h"
 
@@ -32,6 +33,6 @@ bool mnemonic::is_extended() {
 }
 
 bool mnemonic::operator==(std::string second_mnemonic_name) {
-    return this->name == second_mnemonic_name;
+    return sic_assembler::to_lower(name) == sic_assembler::to_lower(second_mnemonic_name);
 }
 

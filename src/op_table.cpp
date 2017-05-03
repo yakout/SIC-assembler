@@ -6,7 +6,7 @@
 
 op_table *op_table::instance = nullptr;
 
-op_table::op_table() {
+op_table::op_table(): table() {
     init_table();
 }
 
@@ -50,27 +50,28 @@ void op_table::init_table() {
 //    table.insert({"tix", 44});
 //    table.insert({"wd", 220});
 
-    table.insert({"add", "18"});
-    table.insert({"and", "40"});
-    table.insert({"comp", "28"});
-    table.insert({"div", "24"});
-    table.insert({"j", "3C"});
-    table.insert({"jgt", "34"});
-    table.insert({"jlt", "38"});
-    table.insert({"jsub", "48"});
-    table.insert({"lda", "00"});
-    table.insert({"ldch", "50"});
-    table.insert({"ldx", "04"});
-    table.insert({"mul", "20"});
-    table.insert({"or", "44"});
-    table.insert({"rd", "D8"});
-    table.insert({"rsub", "4C"});
-    table.insert({"sta", "0C"});
-    table.insert({"stch", "54"});
-    table.insert({"stl", "D4"});
-    table.insert({"stx", "10"});
-    table.insert({"sub", "1C"});
-    table.insert({"td", "F8"});
-    table.insert({"tix", "2C"});
-    table.insert({"wd", "DC"});
+                                 // operand type
+    table.insert({"add", "18"}); // m
+    table.insert({"and", "40"}); // m
+    table.insert({"comp", "28"}); // m
+    table.insert({"div", "24"}); // m
+    table.insert({"j", "3C"}); // m
+    table.insert({"jgt", "34"}); // m
+    table.insert({"jlt", "38"}); // m
+    table.insert({"jsub", "48"}); // m
+    table.insert({"lda", "00"}); // m
+    table.insert({"ldch", "50"}); // m
+    table.insert({"ldx", "04"}); // m
+    table.insert({"mul", "20"}); // m
+    table.insert({"or", "44"}); // m
+    table.insert({"rd", "D8"}); // m
+    table.insert({"rsub", "4C"}); // nothing
+    table.insert({"sta", "0C"}); // m
+    table.insert({"stch", "54"}); // m
+    table.insert({"stl", "D4"}); // m
+    table.insert({"stx", "10"}); // m
+    table.insert({"sub", "1C"}); // m
+    table.insert({"td", "F8"}); // m
+    table.insert({"tix", "2C"}); // m
+    table.insert({"wd", "DC"}); // m
 }
