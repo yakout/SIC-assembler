@@ -25,6 +25,8 @@ public:
     bool lookup(std::string);
     void insert(std::string, int i);
     int get(std::string);
+
+    void print_table();
 };
 
 #endif //SIC_XE_ASSEMBLER_SYM_TABLE_H

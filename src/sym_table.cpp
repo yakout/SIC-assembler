@@ -25,3 +25,10 @@ sym_table::sym_table(): table() {
 sym_table::~sym_table() {
 
 }
+
+void sym_table::print_table() {
+    std::cout << std::endl << "   S Y M B O L     T A B L E" << std::endl;
+    for (auto it : table) {
+        std::cout << it.first << "      "  << sic_assembler::decimal_to_hex(it.second) << std::endl;
+    }
+}
