@@ -25,6 +25,7 @@ public:
     static int starting_address;
     static int program_length;
     static const std::string directives[];
+    static const int TAB_WIDTH = 8;
 
     static int hex_to_int(std::string hex);
     static std::string decimal_to_hex(int decimal, int width = -1);
@@ -32,6 +33,7 @@ public:
     static std::string to_upper(std::string str);
     static std::string trim(std::string str);
     static bool is_directive(std::string);
+    static std::string remove_tabs(std::string str);
 
 };
 
