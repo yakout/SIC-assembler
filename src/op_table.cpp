@@ -56,10 +56,12 @@ void op_table::init_table() {
     table.insert({"comp", "28"}); // m
     table.insert({"div", "24"}); // m
     table.insert({"j", "3C"}); // m
+    table.insert({"jeq", "30"}); // m
     table.insert({"jgt", "34"}); // m
     table.insert({"jlt", "38"}); // m
     table.insert({"jsub", "48"}); // m
     table.insert({"lda", "00"}); // m
+    table.insert({"ldl", "08"}); // m
     table.insert({"ldch", "50"}); // m
     table.insert({"ldx", "04"}); // m
     table.insert({"mul", "20"}); // m
