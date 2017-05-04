@@ -36,16 +36,6 @@ public:
     operand(std::string);
     ~operand();
 
-    bool is_indexing();
-
-    bool is_indirect();
-
-    bool is_immediate();
-
-    bool is_hex_address();
-
-    bool is_direct();
-
     std::string get_name();
 
     operand_type get_type();
