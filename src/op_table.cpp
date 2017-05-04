@@ -73,7 +73,7 @@ void op_table::init_table() {
     table.insert({"stl", "14"}); // m
     table.insert({"stx", "10"}); // m
     table.insert({"sub", "1C"}); // m
-    table.insert({"td", "F8"}); // m
+    table.insert({"td", "E0"}); // m
     table.insert({"tix", "2C"}); // m
     table.insert({"wd", "DC"}); // m
 }
