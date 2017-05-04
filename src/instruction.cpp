@@ -6,6 +6,7 @@
 #include "regex_patterns.h"
 #include "mnemonic.h"
 #include <regex>
+#include <assembler.h>
 
 instruction::instruction() {
     instruction::_mnemonic = nullptr;
@@ -18,10 +19,19 @@ bool instruction::has_label() {
     return instruction::label.length() != 0;
 }
 
-void instruction::set_label(string label) {
-    if (regex_match(label, regex(EMPTY_STRING_PATTERN))) {
+std::string instruction::get_opcode(){
+    if (instruction::has_operand()) {
+        return instruction::_mnemonic->get_opcode() + instruction::_operand->get_opcode();
+    }
+    else {
+        return instruction::_mnemonic->get_opcode() + sic_assembler::decimal_to_hex(0, operand::OPERAND_WIDTH);
+    }
+}
+
+void instruction::set_label(std::string label) {
+    if (regex_match(label, std::regex(EMPTY_STRING_PATTERN))) {
         instruction::label.clear();
-    } else if (regex_match(label, regex(LABEL_PATTERN))) {
+    } else if (regex_match(label, std::regex(LABEL_PATTERN))) {
         instruction::label = label;
     } else {
         throw "Invalid LABEL field";
@@ -40,11 +50,11 @@ void instruction::set_operand(operand *_operand) {
     instruction::_operand = _operand;
 }
 
-void instruction::set_comment(string comment) {
+void instruction::set_comment(std::string comment) {
     instruction::comment = comment;
 }
 
-string instruction::get_label() {
+std::string instruction::get_label() {
     return instruction::label;
 }
 
@@ -56,12 +66,13 @@ operand* instruction::get_operand() {
     return instruction::_operand;
 }
 
-string instruction::get_comment() {
+std::string instruction::get_comment() {
     return instruction::comment;
 }
 
 bool instruction::is_comment() {
-    return full_instr[0] == '.';
+    // todo : remove it
+    return false;
 }
 
 

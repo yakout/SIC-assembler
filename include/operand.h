@@ -26,7 +26,11 @@ public:
 private:
     std::string name;
     operand_type type;
+    std::string opcode;
 public:
+    static const int OPERAND_WIDTH = 4;
+    static const int MAX_DECIMAL_ADDRESS = (1 << 16) - 1;
+
     operand(std::string);
 
     bool is_indexing();
@@ -44,6 +48,8 @@ public:
     operand_type get_type();
 
     int get_length();
+
+    std::string get_opcode();
 };
 
 

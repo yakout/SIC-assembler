@@ -8,13 +8,11 @@
 #include "op_table.h"
 
 mnemonic::mnemonic(std::string name) {
-    if (op_table::get_instance()->get(name).length() == 0) {
+    if (!op_table::get_instance()->lookup(name)) {
         throw "Invalid Mnemonic";
     }
     mnemonic::name = name;
-    // todo
 }
-
 
 std::string mnemonic::get_name() {
     return mnemonic::name;

@@ -8,11 +8,10 @@
 
 #include <iostream>
 
-using namespace std;
 
 class mnemonic {
 private:
-    string name;
+    std::string name;
     bool _is_directive;
     bool _is_extended;
 public:
@@ -21,17 +20,17 @@ public:
 //        _is_directive = directive;
 //        _is_extended = extended;
 //    }
-    mnemonic(string);
+    mnemonic(std::string);
 
-    string get_opcode();
+    std::string get_opcode();
 
-    string get_name();
+    std::string get_name();
 
     bool is_directive();
 
     bool is_extended();
 
-    bool operator==(string);
+    bool operator==(std::string);
 };
 
 #endif //SIC_XE_ASSEMBLER_MNEMONIC_H

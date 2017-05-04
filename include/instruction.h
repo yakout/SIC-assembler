@@ -13,34 +13,36 @@ class instruction {
 private:
     operand *_operand;
     mnemonic *_mnemonic;
-    string label;
-    string comment;
-    std::string full_instr;
+    std::string label;
+    std::string comment;
+//    std::string full_instr;
 
 public:
     instruction();
+
+    std::string get_opcode();
 
     bool has_label();
 
     bool has_operand();
 
     // setters
-    void set_label(string);
+    void set_label(std::string);
 
     void set_mnemonic(mnemonic *);
 
     void set_operand(operand *);
 
-    void set_comment(string);
+    void set_comment(std::string);
 
     // getters
-    string get_label();
+    std::string get_label();
 
     mnemonic *get_mnemonic();
 
     operand *get_operand();
 
-    string get_comment();
+    std::string get_comment();
 
     // helpers
     bool is_comment();
