@@ -10,7 +10,7 @@
 
 class sym_table {
 private:
-    std::unordered_map<std::string, std::string> table;
+    std::unordered_map<std::string, int> table;
     sym_table();
 public:
     ~sym_table();
@@ -24,7 +24,7 @@ public:
     // check if the symbol table contains some label
     bool lookup(std::string);
     void insert(std::string, int i);
-    std::string get(std::string);
+    int get(std::string);
 };
 
 #endif //SIC_XE_ASSEMBLER_SYM_TABLE_H

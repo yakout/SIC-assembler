@@ -11,10 +11,10 @@ bool sym_table::lookup(std::string label) {
 }
 
 void sym_table::insert(std::string label, int loc_cntr) {
-    table.insert({label, sic_assembler::decimal_to_hex(loc_cntr)});
+    table.insert({label, loc_cntr});
 }
 
-std::string sym_table::get(std::string label) {
+int sym_table::get(std::string label) {
     return table[label];
 }
 

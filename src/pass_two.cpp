@@ -23,7 +23,7 @@ void pass_two::pass() {
     if (*next_instruction.get_mnemonic() == "START") {
         writer.write_header_record(next_instruction.get_label(),
                                      std::to_string(sic_assembler::starting_address),
-                                     to_string(sic_assembler::program_length));
+                                     std::to_string(sic_assembler::program_length));
     } else {
         // todo throw error
     }

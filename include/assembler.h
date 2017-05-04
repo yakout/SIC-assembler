@@ -18,9 +18,11 @@ public:
     static int program_length;
 
     static int hex_to_int(std::string hex);
-    static std::string decimal_to_hex(int decimal);
+    static std::string decimal_to_hex(int decimal, int width = -1);
     static std::string to_lower(std::string str);
     static std::string to_upper(std::string str);
+    static std::string trim(std::string str);
+
 };
 
 #endif //SIC_XE_ASSEMBLER_ASSEMBLER_H
