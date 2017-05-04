@@ -32,23 +32,22 @@ operand::operand(std::string operand_field) {
         operand::opcode = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(LABEL_PATTERN))){
-        operand::type = operand::operand_type::LABEL;
-        if (sym_table::get_instance()->lookup(operand_field)){
-            operand::opcode = sic_assembler::decimal_to_hex(sym_table::get_instance()->get(operand_field), operand::OPERAND_WIDTH);
-        }
-        else {
-            throw "Invalid label";
-        }
+//        operand::type = operand::operand_type::LABEL;
+//        if (sym_table::get_instance()->lookup(operand_field)){
+//            operand::opcode = sic_assembler::decimal_to_hex(sym_table::get_instance()->get(operand_field), operand::OPERAND_WIDTH);
+//        } else {
+//            throw "Invalid label";
+//        }
     }
     else if (regex_match(operand_field, std::regex(LABEL_INDEXED_PATTERN))){
         operand::type = operand::operand_type::LABEL_INDEXED;
-        operand_field = operand_field.substr(0, operand_field.length() - 2);
-        if (sym_table::get_instance()->lookup(operand_field)){
-            operand::opcode = sic_assembler::decimal_to_hex((1 << 15) + sym_table::get_instance()->get(operand_field), operand::OPERAND_WIDTH);
-        }
-        else {
-            throw "Invalid label";
-        }
+//        operand_field = operand_field.substr(0, operand_field.length() - 2);
+//        if (sym_table::get_instance()->lookup(operand_field)){
+//            operand::opcode = sic_assembler::decimal_to_hex((1 << 15) + sym_table::get_instance()->get(operand_field), operand::OPERAND_WIDTH);
+//        }
+//        else {
+//            throw "Invalid label";
+//        }
     }
     else if (regex_match(operand_field, std::regex(STRING_PATTERN))){
         operand::type = operand::operand_type::STRING;
@@ -83,6 +82,12 @@ operand::operand(std::string operand_field) {
     else {
         throw "Invalid operand";
     }
+    name = operand_field;
+}
+
+
+operand::~operand() {
+
 }
 
 bool operand::is_indexing() {
@@ -114,8 +119,7 @@ bool operand::is_direct() {
 }
 
 int operand::get_length() {
-    //todo
-    return 0;
+    return (int) name.length() - 3; // the three is to remove the X' ' or C' '
 }
 
 std::string operand::get_opcode(){
