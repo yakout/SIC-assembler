@@ -70,3 +70,18 @@ bool sic_assembler::is_directive(std::string directive) {
     }
     return false;
 }
+
+std::string sic_assembler::remove_tabs(std::string str){
+    std::string str_new = "";
+    for (int i = 0; i < str.length(); i++){
+        if (str[i] == '\t'){
+            for (int j = 0; j < sic_assembler::TAB_WIDTH - (i % sic_assembler::TAB_WIDTH); j++){
+                str_new += ' ';
+            }
+        }
+        else {
+            str_new += str[i];
+        }
+    }
+    return str_new;
+}

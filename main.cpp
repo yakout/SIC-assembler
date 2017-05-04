@@ -1,5 +1,6 @@
 #include <iostream>
 #include <pass_one.h>
+#include <pass_two.h>
 #include "assembler.h"
 
 int main() {
@@ -11,9 +12,11 @@ int main() {
     }
 
     pass_one passOne(fileReader);
+    pass_two passTwo(fileReader);
 
     try {
         passOne.pass();
+        passTwo.pass();
     } catch (const std::string e) {
         std::cout << e << std::endl;
     } catch (const char *e) {

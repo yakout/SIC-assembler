@@ -16,21 +16,18 @@ pass_two::pass_two(file_reader *_reader) {
 
 void pass_two::pass() {
     bool pass_two_ended = false;
-    reader->get_next_instruction();
     object_program_writter writer;
 
     instruction next_instruction = *reader->get_next_instruction();
-    if (*next_instruction.get_mnemonic() == "START") {
+    if (*next_instruction.get_mnemonic() == "start") {
         writer.write_header_record(next_instruction.get_label(),
                                      std::to_string(sic_assembler::starting_address),
                                      std::to_string(sic_assembler::program_length));
-    } else {
-        // todo throw error
     }
 
     while(reader->has_next_instruction()) {
         next_instruction = *reader->get_next_instruction();
-        if (*next_instruction.get_mnemonic() == "END") {
+        if (*next_instruction.get_mnemonic() == "end") {
             pass_two_ended = true;
             break;
         }
@@ -40,8 +37,8 @@ void pass_two::pass() {
                     //
                 }
             }
-        } else if (*next_instruction.get_mnemonic() == "WORD"
-                || *next_instruction.get_mnemonic() == "BYTE") {
+        } else if (*next_instruction.get_mnemonic() == "word"
+                || *next_instruction.get_mnemonic() == "byte") {
             // next_instruction.get_operand()
             // convert constant to object code
             // next_instruction.set_object_code()

@@ -33,6 +33,7 @@ bool file_reader::has_next_instruction() {
     if (getline(file_reader::source_file, file_reader::buffer)) {
         buffer = buffer.substr(0, buffer.length() - 1);
         buffer = sic_assembler::to_lower(buffer);
+        buffer = sic_assembler::remove_tabs(buffer);
         return true;
     } else {
         buffer.clear();
