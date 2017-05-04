@@ -34,6 +34,7 @@ public:
     static const int MAX_DECIMAL_ADDRESS = (1 << 16) - 1;
 
     operand(std::string);
+    ~operand();
 
     bool is_indexing();
 

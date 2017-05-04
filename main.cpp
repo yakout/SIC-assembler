@@ -27,7 +27,7 @@ int main() {
 //    getline(file, line);
 //    std::cout << line << std::endl;
 
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "****************************" << std::endl;
     std::cout << sic_assembler::decimal_to_hex(123) << std::endl;
     std::cout << sic_assembler::hex_to_int("EF") << std::endl;
     std::cout << "Loc" << std::setw(20) <<  "source statement"

@@ -8,6 +8,13 @@
  *
  */
 
+
+/**
+ *  TODO
+ *  support tabs with spaces
+ *
+ */
+
 #ifndef SIC_XE_ASSEMBLER_ASSEMBLER_H
 #define SIC_XE_ASSEMBLER_ASSEMBLER_H
 
@@ -32,7 +39,6 @@ public:
     static std::string to_upper(std::string str);
     static std::string trim(std::string str);
     static bool is_directive(std::string);
-
 };
 
 #endif //SIC_XE_ASSEMBLER_ASSEMBLER_H

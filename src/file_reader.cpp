@@ -47,7 +47,7 @@ instruction *file_reader::get_next_instruction() {
     if (file_reader::is_comment_line()) {
         return file_reader::get_next_instruction();
     }
-    std::cout << buffer << std::endl;
+//    std::cout << buffer << std::endl;
     std::smatch matches;
     instruction *_instruction = new instruction();
     try {

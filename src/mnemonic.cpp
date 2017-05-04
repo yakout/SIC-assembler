@@ -11,7 +11,7 @@ mnemonic::mnemonic(std::string name) {
     if (!op_table::get_instance()->lookup(name) && sic_assembler::is_directive(name)) {
         throw "Invalid Mnemonic";
     }
-    mnemonic::name = name;
+    mnemonic::name = sic_assembler::trim(name);
 }
 
 std::string mnemonic::get_name() {
