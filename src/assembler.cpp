@@ -30,7 +30,19 @@ std::string sic_assembler::decimal_to_hex(int decimal, int width) {
 }
 
 std::string sic_assembler::to_lower(std::string str) {
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+//    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+    bool string_start = false;
+    for (int i = 0; i < str.length(); i++){
+        if (str[i] >= 'A' && str[i] <= 'Z' && !string_start){
+            str[i] = ('a' + str[i] - 'A');
+        }
+        if (i && str[i] == '\'' && str[i-1] == 'c' && !string_start){
+            string_start = true;
+        }
+        else if (str[i] == '\'' && string_start){
+            string_start = false;
+        }
+    }
     return str;
 }
 

@@ -16,6 +16,8 @@ public:
         HEXA_ADDRESS, // START 0x1000
         LABEL, // LDA TEMP
         LABEL_INDEXED,
+        STRING,
+        HEXA_STRING,
         REGISTER, // CLEAR   A
         TWO_REGISTERS, // COMPR   A,T
         EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2

@@ -19,5 +19,7 @@
 #define EXPRESSION_PATTERN "\\d([+-]\\d)+"
 #define WORD_LITERAL_PATTERN "[=][c]['][0-9a-z]+[']"
 #define HEXA_LITERAL_PATTERN "[=][x]['][0-9a-f]+[']"
+#define HEXA_STRING_PATTERN "[x]['][0-9a-f]+[']"
+#define STRING_PATTERN "[c]['].+[']"
 
 #endif //SIC_XE_ASSEMBLER_REGEX_PATTERNS_H

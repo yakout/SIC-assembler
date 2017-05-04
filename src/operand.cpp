@@ -50,6 +50,21 @@ operand::operand(std::string operand_field) {
             throw "Invalid label";
         }
     }
+    else if (regex_match(operand_field, std::regex(STRING_PATTERN))){
+        operand::type = operand::operand_type::STRING;
+        operand::opcode = "";
+        for (int i = 2; i < operand_field.length() - 1; i++){
+            operand::opcode += sic_assembler::decimal_to_hex((int) operand_field[i], 2);
+        }
+    }
+    else if (regex_match(operand_field, std::regex(HEXA_STRING_PATTERN))){
+        operand::type = operand::operand_type::HEXA_STRING;
+        int address = sic_assembler::hex_to_int(operand_field.substr(2, operand_field.length() - 3));
+        if (address > operand::MAX_DECIMAL_ADDRESS){
+            throw "Out of range [0, 65535]";
+        }
+        operand::opcode = sic_assembler::decimal_to_hex(address);
+    }
     else if (regex_match(operand_field, std::regex(REGISTER_PATTERN))){
         operand::type = operand::operand_type::REGISTER;
     }
