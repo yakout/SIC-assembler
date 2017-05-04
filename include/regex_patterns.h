@@ -7,7 +7,7 @@
 
 #define INSTRUCTION_WITH_COMMENT "(?:^)(.{8})\\s(.{6})\\s\\s(.{18})(.*)(?:$)"
 #define INSTRUCTION_WITHOUT_COMMENT "(?:^)(.{8})\\s(.{6})\\s\\s(.{1,18})(?:$)"
-#define INSTRUCTION_WITHOUT_OPERAND_WITHOUT_COMMENT "(?:^)(.{8})\\s(.{1,6})(?:$)"
+#define INSTRUCTION_WITHOUT_OPERAND_WITHOUT_COMMENT "(?:^)(.{8})\\s(.{1,6})(?:$)" // todo: remove \\s and put just space
 #define INSTRUCTION_WITHOUT_OPERAND_WITH_COMMENT "(?:^)(.{8})\\s(.{6})(?:\\s{20})(.*)(?:$)"
 #define LABEL_PATTERN "[a-z]\\w*\\s*"
 #define LABEL_INDEXED_PATTERN "[a-z]\\w*[,][x]\\s*"

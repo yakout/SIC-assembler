@@ -34,9 +34,6 @@ void pass_two::pass() {
             pass_two_ended = true;
             break;
         }
-        if (next_instruction.is_comment()) {
-            continue;
-        }
         if (op_table::get_instance()->lookup(next_instruction.get_mnemonic()->get_name())) {
             if (next_instruction.get_operand()->get_type() == operand::operand_type::LABEL) {
                 if (sym_table::get_instance()->lookup(next_instruction.get_operand()->get_name())) {

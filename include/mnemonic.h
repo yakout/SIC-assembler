@@ -8,7 +8,6 @@
 
 #include <iostream>
 
-
 class mnemonic {
 private:
     std::string name;
