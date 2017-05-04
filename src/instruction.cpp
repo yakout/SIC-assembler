@@ -4,7 +4,6 @@
 
 #include "instruction.h"
 #include "regex_patterns.h"
-#include "mnemonic.h"
 #include <regex>
 #include <assembler.h>
 
@@ -15,11 +14,14 @@ instruction::instruction() {
     instruction::comment.clear();
 }
 
+instruction::~instruction() {
+}
+
 bool instruction::has_label() {
     return instruction::label.length() != 0;
 }
 
-std::string instruction::get_opcode(){
+std::string instruction::get_opcode() {
     if (instruction::has_operand()) {
         return instruction::_mnemonic->get_opcode() + instruction::_operand->get_opcode();
     }
@@ -70,9 +72,5 @@ std::string instruction::get_comment() {
     return instruction::comment;
 }
 
-bool instruction::is_comment() {
-    // todo : remove it
-    return false;
-}
 
 

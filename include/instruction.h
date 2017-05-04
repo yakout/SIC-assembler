@@ -19,6 +19,7 @@ private:
 
 public:
     instruction();
+    ~instruction();
 
     std::string get_opcode();
 
@@ -43,10 +44,6 @@ public:
     operand *get_operand();
 
     std::string get_comment();
-
-    // helpers
-    bool is_comment();
-
 };
 
 #endif //SIC_XE_ASSEMBLER_INSTRUCTION_H
