@@ -56,6 +56,10 @@ void instruction::set_comment(std::string comment) {
     instruction::comment = comment;
 }
 
+void instruction::set_location(std::string location) {
+    instruction::location = location;
+}
+
 std::string instruction::get_label() {
     return instruction::label;
 }
@@ -72,5 +76,7 @@ std::string instruction::get_comment() {
     return instruction::comment;
 }
 
-
+std::string instruction::get_location() {
+    return instruction::location;
+}
 
