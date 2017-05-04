@@ -15,7 +15,8 @@ private:
     std::ifstream source_file;
     std::string buffer;
 public:
-    file_reader();
+    file_reader(std::string);
+    ~file_reader();
 
     bool has_next_instruction();
 

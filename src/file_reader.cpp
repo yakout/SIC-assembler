@@ -3,10 +3,20 @@
 //
 
 
+#include <assembler.h>
 #include "file_reader.h"
 #include "regex_patterns.h"
 
-file_reader::file_reader() {
+file_reader::file_reader(std::string path) {
+    source_file.open(path);
+    if (!source_file.is_open()) {
+        throw "error: file not found";
+    }
+}
+
+
+file_reader::~file_reader() {
+    source_file.close();
 }
 
 bool file_reader::is_comment_line() {
@@ -14,10 +24,15 @@ bool file_reader::is_comment_line() {
 }
 
 bool file_reader::has_next_instruction() {
-    if (file_reader::buffer.length() != 0) {
+    if (is_comment_line()) {
+        buffer.clear();
+    }
+    if (buffer.length() > 0) {
         return true;
     }
     if (getline(file_reader::source_file, file_reader::buffer)) {
+        buffer = buffer.substr(0, buffer.length() - 1);
+        buffer = sic_assembler::to_lower(buffer);
         return true;
     } else {
         buffer.clear();
@@ -32,8 +47,9 @@ instruction *file_reader::get_next_instruction() {
     if (file_reader::is_comment_line()) {
         return file_reader::get_next_instruction();
     }
+    std::cout << buffer << std::endl;
     std::smatch matches;
-    instruction *instruction;
+    instruction *instruction = new class instruction();
     try {
         if (regex_search(buffer, matches, std::regex(INSTRUCTION_WITH_COMMENT))) {
             instruction->set_label(matches[1].str());
@@ -59,7 +75,7 @@ instruction *file_reader::get_next_instruction() {
         throw error_msg;
     }
     buffer.clear();
-    return nullptr;
+    return instruction;
 }
 
 
