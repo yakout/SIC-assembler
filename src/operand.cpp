@@ -119,7 +119,12 @@ bool operand::is_direct() {
 }
 
 int operand::get_length() {
-    return (int) name.length() - 3; // the three is to remove the X' ' or C' '
+    if (name[0] == 'c') {
+        return (int) name.length() - 3; // -3 to remove c'' chars.
+    } else if (name[0] == 'x') {
+        return (int) ((name.length() - 3) / 2); // -3 to remove X'' and since two hex digits is one byte we divide by 2
+    }
+    return (int) name.length();
 }
 
 std::string operand::get_opcode(){
