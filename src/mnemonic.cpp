@@ -23,12 +23,7 @@ std::string mnemonic::get_opcode() {
 }
 
 bool mnemonic::is_directive() {
-    return mnemonic::_is_directive;
-}
-
-bool mnemonic::is_extended() {
-	// todo: remove 
-    return mnemonic::_is_extended;
+    return sic_assembler::is_directive(name);
 }
 
 bool mnemonic::operator==(std::string second_mnemonic_name) {
