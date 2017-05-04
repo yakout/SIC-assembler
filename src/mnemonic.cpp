@@ -8,7 +8,7 @@
 #include "op_table.h"
 
 mnemonic::mnemonic(std::string name) {
-    if (!op_table::get_instance()->lookup(name)) {
+    if (!op_table::get_instance()->lookup(name) && sic_assembler::is_directive(name)) {
         throw "Invalid Mnemonic";
     }
     mnemonic::name = name;
@@ -31,6 +31,6 @@ bool mnemonic::is_extended() {
 }
 
 bool mnemonic::operator==(std::string second_mnemonic_name) {
-    return sic_assembler::to_lower(name) == sic_assembler::to_lower(second_mnemonic_name);
+    return sic_assembler::trim(name) == second_mnemonic_name;
 }
 
