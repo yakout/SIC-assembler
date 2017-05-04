@@ -27,6 +27,7 @@ bool mnemonic::is_directive() {
 }
 
 bool mnemonic::is_extended() {
+	// todo: remove 
     return mnemonic::_is_extended;
 }
 

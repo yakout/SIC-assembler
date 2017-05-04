@@ -6,17 +6,26 @@
 int main() {
     file_reader* fileReader;
     try {
-        fileReader = new file_reader("../tests/valid_test1.txt");
+        fileReader = new file_reader("./tests/valid_test1.txt");
+    } catch (const char *error_msg) {
+        std::cout << error_msg << std::endl;
+    }
+
+    file_reader* fileReader2;
+    try {
+        fileReader2 = new file_reader("./tests/valid_test1.txt");
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
     }
 
     pass_one passOne(fileReader);
-    pass_two passTwo(fileReader);
+    pass_two passTwo(fileReader2);
 
     try {
         passOne.pass();
+        delete fileReader;
         passTwo.pass();
+        delete fileReader2;
     } catch (const std::string e) {
         std::cout << e << std::endl;
     } catch (const char *e) {

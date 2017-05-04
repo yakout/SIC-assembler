@@ -16,8 +16,6 @@ private:
     const std::string END_RECORD_SYMBOL = "E";
     const std::string FILE_EXTENSION = ".o";
     const int MAX_TEXT_RECORD_LENGTH = 69;
-    std::string file_name;
-    std::string path;
     std::ofstream file;
 
     // variables for text record
@@ -28,12 +26,12 @@ private:
 
     void reset_text_record();
 public:
-    object_program_writter();
+    object_program_writter(std::string, std::string);
     ~object_program_writter();
     void write_header_record(std::string program_name, std::string starting_address, std::string program_length);
     void write_text_record();
     void write_end_record(int starting_address);
-    void add_to_text_record(const instruction*);
+    void add_to_text_record(instruction*);
 };
 
 #endif //SIC_ASSEMBLER_OBJECT_PROG_WRITER_H

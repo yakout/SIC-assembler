@@ -38,7 +38,7 @@ public:
 
     std::string get_name();
 
-    operand_type get_type();
+    operand::operand_type get_type();
 
     int get_length();
 

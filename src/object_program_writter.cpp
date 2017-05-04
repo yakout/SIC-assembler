@@ -6,8 +6,11 @@
 #include "object_program_writter.h"
 
 
-object_program_writter::object_program_writter() {
-    file.open (path + file_name + FILE_EXTENSION);
+object_program_writter::object_program_writter(std::string path, std::string file_name) {
+    file.open(path + file_name + FILE_EXTENSION);
+    if (!file.is_open()) {
+        throw "failed to create file";
+    }
 }
 
 object_program_writter::~object_program_writter() {
@@ -39,19 +42,19 @@ void object_program_writter::write_text_record() {
     file << final_text_record << "\n";
 }
 
-void object_program_writter::add_to_text_record(const instruction* instruction) {
+void object_program_writter::add_to_text_record(instruction* _instruction) {
     if (current_column_counter == MAX_TEXT_RECORD_LENGTH) {
         // reset counter and initialize new text record;
         reset_text_record();
         write_text_record();
     }
     if (current_starting_address == "") {
-//        current_starting_address = instruction->get_address();
+        current_starting_address = _instruction->get_location();
         current_column_counter += 9; // 1 + 6 for starting address + 2 for the length
     }
-//    current_text_record_length += instruction->get_object_code().length() / 2;
-//    current_text_record += instruction->get_object_code();
-//    current_column_counter += instruction->get_object_code().length();
+    current_text_record_length += _instruction->get_opcode().length() / 2;
+    current_text_record += _instruction->get_opcode();
+    current_column_counter += _instruction->get_opcode().length();
 }
 
 void object_program_writter::write_end_record(int starting_address) {
