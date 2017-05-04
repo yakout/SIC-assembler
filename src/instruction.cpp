@@ -34,7 +34,7 @@ void instruction::set_label(std::string label) {
     if (regex_match(label, std::regex(EMPTY_STRING_PATTERN))) {
         instruction::label.clear();
     } else if (regex_match(label, std::regex(LABEL_PATTERN))) {
-        instruction::label = label;
+        instruction::label = sic_assembler::trim(label);
     } else {
         throw "Invalid LABEL field";
     }
