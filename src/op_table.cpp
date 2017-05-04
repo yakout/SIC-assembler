@@ -70,7 +70,7 @@ void op_table::init_table() {
     table.insert({"rsub", "4C"}); // nothing
     table.insert({"sta", "0C"}); // m
     table.insert({"stch", "54"}); // m
-    table.insert({"stl", "D4"}); // m
+    table.insert({"stl", "14"}); // m
     table.insert({"stx", "10"}); // m
     table.insert({"sub", "1C"}); // m
     table.insert({"td", "F8"}); // m
