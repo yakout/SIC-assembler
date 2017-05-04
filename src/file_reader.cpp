@@ -49,24 +49,24 @@ instruction *file_reader::get_next_instruction() {
     }
     std::cout << buffer << std::endl;
     std::smatch matches;
-    instruction *instruction = new class instruction();
+    instruction *_instruction = new instruction();
     try {
         if (regex_search(buffer, matches, std::regex(INSTRUCTION_WITH_COMMENT))) {
-            instruction->set_label(matches[1].str());
-            instruction->set_mnemonic(new mnemonic(matches[2].str()));
-            instruction->set_operand(new operand(matches[3].str()));
-            instruction->set_comment(matches[4]);
+            _instruction->set_label(matches[1].str());
+            _instruction->set_mnemonic(new mnemonic(matches[2].str()));
+            _instruction->set_operand(new operand(matches[3].str()));
+            _instruction->set_comment(matches[4]);
         } else if (regex_search(buffer, matches, std::regex(INSTRUCTION_WITHOUT_COMMENT))) {
-            instruction->set_label(matches[1].str());
-            instruction->set_mnemonic(new mnemonic(matches[2].str()));
-            instruction->set_operand(new operand(matches[3].str()));
+            _instruction->set_label(matches[1].str());
+            _instruction->set_mnemonic(new mnemonic(matches[2].str()));
+            _instruction->set_operand(new operand(matches[3].str()));
         } else if (regex_search(buffer, matches, std::regex(INSTRUCTION_WITHOUT_OPERAND_WITH_COMMENT))) {
-            instruction->set_label(matches[1].str());
-            instruction->set_mnemonic(new mnemonic(matches[2].str()));
-            instruction->set_comment(matches[3]);
+            _instruction->set_label(matches[1].str());
+            _instruction->set_mnemonic(new mnemonic(matches[2].str()));
+            _instruction->set_comment(matches[3]);
         } else if (regex_search(buffer, matches, std::regex(INSTRUCTION_WITHOUT_OPERAND_WITHOUT_COMMENT))) {
-            instruction->set_label(matches[1].str());
-            instruction->set_mnemonic(new mnemonic(matches[2].str()));
+            _instruction->set_label(matches[1].str());
+            _instruction->set_mnemonic(new mnemonic(matches[2].str()));
         } else {
             throw "Invalid instruction format";
         }
@@ -75,7 +75,7 @@ instruction *file_reader::get_next_instruction() {
         throw error_msg;
     }
     buffer.clear();
-    return instruction;
+    return _instruction;
 }
 
 
