@@ -30,3 +30,7 @@ bool mnemonic::operator==(std::string second_mnemonic_name) {
     return sic_assembler::trim(name) == second_mnemonic_name;
 }
 
+bool mnemonic::operator!=(std::string second_mnemonic_name) {
+    return !(*this == second_mnemonic_name);
+}
+

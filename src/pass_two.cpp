@@ -29,21 +29,23 @@ void pass_two::pass() {
             break;
         }
         if (op_table::get_instance()->lookup(next_instruction->get_mnemonic()->get_name())) {
-            // std::cout << std::to_string(flag) << std::endl;
-            if (next_instruction->get_operand()->get_type() == operand::operand_type::LABEL) {
+            if (next_instruction->has_operand()
+                && next_instruction->get_operand()->get_type() == operand::operand_type::LABEL) {
                 if (sym_table::get_instance()->lookup(next_instruction->get_operand()->get_name())) {
                     // we set the operand address as the symbol value from sym_table
-                    std::cout << next_instruction->get_opcode() << std::endl;
                 } else {
                     // we set the operand address = 0
                     // set error flag
                 }
             }
-            writer.add_to_text_record(next_instruction);
-        } else if (*next_instruction->get_mnemonic() == "word"
-                || *next_instruction->get_mnemonic() == "byte") {
-             std::cout << next_instruction->get_opcode() << std::endl;
+        } else { // directive
+            if (*next_instruction->get_mnemonic() != "byte"
+                    && *next_instruction->get_mnemonic() != "word") {
+                continue;
+            }
         }
+        std::cout << next_instruction->get_opcode() << std::endl;
+        writer.add_to_text_record(next_instruction);
     }
     writer.write_end_record(sic_assembler::starting_address);
 }

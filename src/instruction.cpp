@@ -22,7 +22,9 @@ bool instruction::has_label() {
 }
 
 std::string instruction::get_opcode() {
-    if (instruction::has_operand()) {
+    if (*get_mnemonic() == "word" && instruction::has_operand()) {
+        return sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH) + instruction::_operand->get_opcode();
+    } else if (instruction::has_operand()) {
         return instruction::_mnemonic->get_opcode() + instruction::_operand->get_opcode();
     }
     else {

@@ -31,6 +31,7 @@ private:
     std::string opcode;
 public:
     static const int OPERAND_WIDTH = 4;
+    static const int OPCODE_WIDTH = 2;
     static const int MAX_DECIMAL_ADDRESS = (1 << 16) - 1;
 
     operand(std::string);

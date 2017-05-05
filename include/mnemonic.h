@@ -21,6 +21,8 @@ public:
     bool is_directive();
 
     bool operator==(std::string);
+
+    bool operator!=(std::string);
 };
 
 #endif //SIC_XE_ASSEMBLER_MNEMONIC_H

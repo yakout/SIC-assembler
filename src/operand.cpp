@@ -52,7 +52,7 @@ operand::operand(std::string operand_field) {
         if (address > operand::MAX_DECIMAL_ADDRESS){
             throw "Out of range [0, 65535]";
         }
-        operand::opcode = sic_assembler::decimal_to_hex(address);
+        operand::opcode = sic_assembler::decimal_to_hex(address, operand_field.length() - 3); // -3 to remove X''
     }
     else if (regex_match(operand_field, std::regex(REGISTER_PATTERN))){
         operand::type = operand::operand_type::REGISTER;
