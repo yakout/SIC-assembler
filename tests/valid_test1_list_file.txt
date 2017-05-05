@@ -57,39 +57,39 @@ LC      Source Statement
 
         name         value     
         -----------------------
-        output         2079
+        output       2079
 
-        wloop         2064
+        wloop        2064
 
-        maxlen         205e
+        maxlen       205e
 
-        input         205d
+        input        205d
 
-        rloop         203f
+        rloop        203f
 
-        wrrec         2061
+        wrrec        2061
 
-        rdrec         2039
+        rdrec        2039
 
-        buffer         1039
+        buffer       1039
 
-        length         1036
+        length       1036
 
         zero         1030
 
         exit         2057
 
-        retadr         1033
+        retadr       1033
 
-        cloop         1003
+        cloop        1003
 
-        three         102d
+        three        102d
 
-        endfil         1015
+        endfil       1015
 
-        eof         102a
+        eof          102a
 
-        first         1000
+        first        1000
 
 >>   *****************************************************
 >>    S T A R T     O F     P A S S  II 
