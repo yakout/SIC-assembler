@@ -25,14 +25,15 @@ void object_program_writter::reset_text_record() {
     current_text_record_length = 0;
 }
 
-void object_program_writter::write_header_record(std::string program_name, std::string starting_address,
-                                                 std::string program_length) {
+void object_program_writter::write_header_record(std::string program_name) {
     if (program_name.length() < 7) {
         for (int i = (int) program_name.length(); i < 6; i++) {
             program_name += " ";
         }
     }
-    std::string final_header_record = HEADER_RECORD_SYMBOL + program_name + starting_address + program_length;
+    std::string final_header_record = HEADER_RECORD_SYMBOL + SEPERATOR + program_name + SEPERATOR 
+                                        + sic_assembler::decimal_to_hex(sic_assembler::starting_address, 6) 
+                                        + SEPERATOR + sic_assembler::decimal_to_hex(sic_assembler::program_length, 6);
     file << final_header_record << "\n";
 }
 
@@ -58,7 +59,7 @@ void object_program_writter::add_to_text_record(instruction* _instruction) {
 }
 
 void object_program_writter::write_end_record(int starting_address) {
-    std::string final_record = END_RECORD_SYMBOL + sic_assembler::decimal_to_hex(starting_address);
+    std::string final_record = END_RECORD_SYMBOL + SEPERATOR + sic_assembler::decimal_to_hex(starting_address, 6);
     file << final_record << "\n";
 }
 

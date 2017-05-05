@@ -83,6 +83,6 @@ void pass_one::pass() {
     if (!pass_one_ended) {
         throw "error: no END directive found";
     }
-
+    sic_assembler::program_length = sic_assembler::location_counter - sic_assembler::starting_address;
     sym_table::get_instance()->print_table();
 }

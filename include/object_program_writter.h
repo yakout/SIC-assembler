@@ -16,6 +16,7 @@ private:
     const std::string END_RECORD_SYMBOL = "E";
     const std::string FILE_EXTENSION = ".o";
     const int MAX_TEXT_RECORD_LENGTH = 69;
+    const std::string SEPERATOR = "^";
     std::ofstream file;
 
     // variables for text record
@@ -28,7 +29,7 @@ private:
 public:
     object_program_writter(std::string, std::string);
     ~object_program_writter();
-    void write_header_record(std::string program_name, std::string starting_address, std::string program_length);
+    void write_header_record(std::string program_name);
     void write_text_record();
     void write_end_record(int starting_address);
     void add_to_text_record(instruction*);

@@ -19,9 +19,7 @@ void pass_two::pass() {
 
     instruction* next_instruction = reader->get_next_instruction();
     if (*next_instruction->get_mnemonic() == "start") {
-        writer.write_header_record(next_instruction->get_label(),
-                                     std::to_string(sic_assembler::starting_address),
-                                     std::to_string(sic_assembler::program_length));
+        writer.write_header_record(next_instruction->get_label());
     }
     while(reader->has_next_instruction()) {
         next_instruction = reader->get_next_instruction();
