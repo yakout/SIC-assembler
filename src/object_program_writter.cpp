@@ -32,13 +32,13 @@ void object_program_writter::write_header_record(std::string program_name) {
 
 
 void object_program_writter::add_to_text_record(instruction* _instruction) {
-    if (current_column_counter >= MAX_TEXT_RECORD_LENGTH) {
+    if (current_column_counter + _instruction->get_opcode().length() > MAX_TEXT_RECORD_LENGTH) {
         // reset counter and initialize new text record;
-        reset_text_record();
         write_text_record();
+        reset_text_record();
     }
     if (current_starting_address == "") {
-        current_starting_address = _instruction->get_location();
+        current_starting_address = "001000"; //_instruction->get_location();
         // todo remove magic numbers
         current_column_counter += 9; // 1 + 6 for starting address + 2 for the length
     }
@@ -48,8 +48,8 @@ void object_program_writter::add_to_text_record(instruction* _instruction) {
 }
 
 void object_program_writter::write_text_record() {
-    std::string final_text_record = TEXT_RECORD_SYMBOL + current_starting_address
-                                    + std::to_string(current_text_record_length) + current_text_record;
+    std::string final_text_record = TEXT_RECORD_SYMBOL + SEPERATOR + current_starting_address + SEPERATOR 
+                                    + sic_assembler::decimal_to_hex(current_text_record_length) + current_text_record;
     file << final_text_record << "\n";
 }
 
@@ -61,6 +61,8 @@ void object_program_writter::reset_text_record() {
 }
 
 void object_program_writter::write_end_record(int starting_address) {
+    write_text_record();
+    reset_text_record();
     std::string final_record = END_RECORD_SYMBOL + SEPERATOR + sic_assembler::decimal_to_hex(starting_address, 6); // todo remove magic numbers
     file << final_record << "\n";
 }

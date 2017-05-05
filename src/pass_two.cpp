@@ -15,7 +15,7 @@ pass_two::pass_two(file_reader *_reader) {
 }
 
 void pass_two::pass() {
-    object_program_writter writer("./", "valid_test1");
+    object_program_writter writer("./", "tests/valid_test1");
 
     instruction* next_instruction = reader->get_next_instruction();
     if (*next_instruction->get_mnemonic() == "start") {

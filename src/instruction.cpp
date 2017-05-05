@@ -11,7 +11,7 @@ instruction::instruction() {
     instruction::_mnemonic = nullptr;
     instruction::_operand = nullptr;
     instruction::label.clear();
-    instruction::comment.clear();
+    instruction::_comment.clear();
 }
 
 instruction::~instruction() {
@@ -54,12 +54,12 @@ void instruction::set_operand(operand *_operand) {
     instruction::_operand = _operand;
 }
 
-void instruction::set_comment(std::string comment) {
-    instruction::comment = comment;
+void instruction::set_comment(std::string _comment) {
+    instruction::_comment = _comment;
 }
 
-void instruction::set_location(std::string location) {
-    instruction::location = location;
+void instruction::set_location(std::string _location) {
+    instruction::_location = _location;
 }
 
 std::string instruction::get_label() {
@@ -75,10 +75,10 @@ operand* instruction::get_operand() {
 }
 
 std::string instruction::get_comment() {
-    return instruction::comment;
+    return instruction::_comment;
 }
 
 std::string instruction::get_location() {
-    return instruction::location;
+    return instruction::_location;
 }
 

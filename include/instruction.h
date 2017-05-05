@@ -14,8 +14,8 @@ private:
     operand *_operand;
     mnemonic *_mnemonic;
     std::string label;
-    std::string comment;
-    std::string location;
+    std::string _comment;
+    std::string _location;
 //    std::string full_instr;
 
 public:
