@@ -1,25 +1,51 @@
 #include <iostream>
 #include <pass_one.h>
 #include <pass_two.h>
-#include "assembler.h"
+#include <assembler.h>
 
-int main() {
+
+
+void split_extension(const std::string& str,std::string& name, std::string& extension) {
+    std::size_t found = str.find_last_of(".");
+    name = str.substr(0, found);
+    extension = str.substr(found + 1);
+}
+
+// takes full file path and split it into path + name given as parameters.
+void split_file_name(const std::string& str, std::string& path, std::string& name, std::string& extension) {
+    std::size_t found = str.find_last_of("/\\");
+    path = str.substr(0, found + 1); // +1 to take the seperator with the path
+    split_extension(str.substr(found + 1), name, extension);
+}
+
+int main(int argc, char **argv) {
+    std::string file_name;
+    std::string path;
+    std::string extension;
+    split_file_name(std::string(argv[1]), path, file_name, extension);
+    if (extension != "asm") {
+        std::cout << "no file specified" << std::endl;
+        return 0;
+    }
+
     file_reader* fileReader;
     try {
-        fileReader = new file_reader("./tests/valid_test1.txt");
+        fileReader = new file_reader(path + file_name + "." + extension); //"./tests/valid_test1.asm"
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
+        return 0;
     }
 
     file_reader* fileReader2;
     try {
-        fileReader2 = new file_reader("./tests/valid_test1.txt");
+        fileReader2 = new file_reader(path + file_name + "." + extension);
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
+        return 0;
     }
 
-    pass_one passOne(fileReader);
-    pass_two passTwo(fileReader2);
+    pass_one passOne(fileReader, path, file_name);
+    pass_two passTwo(fileReader2, path, file_name);
 
     try {
         passOne.pass();
@@ -32,17 +58,5 @@ int main() {
         std::cout << e << std::endl;
     }
 
-//    std::ifstream file;
-//    file.open("../tests/valid_test1.txt");
-//    std::cout << file.is_open() << std::endl;
-//    std::string line;
-//    getline(file, line);
-//    std::cout << line << std::endl;
-
-    std::cout << "****************************" << std::endl;
-    std::cout << sic_assembler::decimal_to_hex(123) << std::endl;
-    std::cout << sic_assembler::hex_to_int("EF") << std::endl;
-    std::cout << "Loc" << std::setw(20) <<  "source statement"
-              << std::setw(30) << "object code" << std::setw(30) << "error indicator";
     return 0;
 }

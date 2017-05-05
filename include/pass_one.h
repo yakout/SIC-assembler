@@ -10,8 +10,10 @@
 class pass_one {
 private:
     file_reader *reader;
+    std::string path;
+    std::string file_name;
 public:
-    pass_one(file_reader*);
+    pass_one(file_reader*, std::string, std::string);
     void pass(); // this method to start the pass one of the compiler
 };
 

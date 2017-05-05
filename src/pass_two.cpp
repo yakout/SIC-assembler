@@ -10,15 +10,17 @@
 #include <object_program_writter.h>
 #include <assembler.h>
 
-pass_two::pass_two(file_reader *_reader) {
+pass_two::pass_two(file_reader *_reader, std::string _path, std::string _file_name) {
+    pass_two::path = _path;
+    pass_two::file_name = _file_name;
     reader = _reader;
 }
 
 void pass_two::pass() {
-    object_program_writter writer("./", "tests/valid_test1");
+    object_program_writter writer(path, file_name); //"./", "tests/valid_test1"
     std::ofstream listing_file;
-    std::string path = "./tests/valid_test1_list_file.txt";
-    listing_file.open(path, std::ios_base::app);
+    std::string listing_file_path = path + file_name + ".txt";
+    listing_file.open(listing_file_path, std::ios_base::app);
     if (!listing_file.is_open()) {
         throw "failed to open file";
     }

@@ -5,6 +5,10 @@
 /**
  *   A S S U M P T I O N S
  *   any hex value must be in the form 0x[hex value]
+ *   empty line are not allowed, all lines must be a valid statement or a comment.
+ *   
+ *
+ *
  *
  */
 
@@ -12,7 +16,7 @@
 /**
  *  TODO
  *  support tabs with spaces
- *
+ *  
  */
 
 #ifndef SIC_XE_ASSEMBLER_ASSEMBLER_H

@@ -4,8 +4,8 @@
 
 
 #include <assembler.h>
-#include "file_reader.h"
-#include "regex_patterns.h"
+#include <file_reader.h>
+#include <regex_patterns.h>
 
 file_reader::file_reader(std::string path) {
     source_file.open(path);
@@ -79,8 +79,7 @@ instruction *file_reader::get_next_instruction() {
         } else {
             throw "Invalid instruction format";
         }
-    }
-    catch (const char *error_msg) {
+    } catch (const char *error_msg) {
         throw error_msg;
     }
     buffer.clear();

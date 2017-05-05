@@ -10,19 +10,24 @@
 #include <intermediate_file_writer.h>
 
 
-pass_one::pass_one(file_reader *_reader) {
-    reader = _reader;
+pass_one::pass_one(file_reader *_reader, std::string _path, std::string _file_name) {
+    pass_one::path = _path;
+    pass_one::file_name = _file_name;
+    pass_one::reader = _reader;
 }
 
 void pass_one::pass() {
     bool pass_one_ended = false;
     instruction *next_instruction = nullptr;
     std::ofstream listing_file;
-    std::string path = "./tests/valid_test1_list_file.txt";
-    listing_file.open(path);
+    std::string listing_file_path = path + file_name + ".txt";
+    listing_file.open(listing_file_path);
+    if (!listing_file.is_open()) {
+        throw "failed to open file";
+    }
     listing_file << ">>    S T A R T     O F     P A S S  I \n";
     listing_file << ">>  Source Program statements with value of LC indicated\n\n";
-    listing_file << "LC      Source Statement\n"; 
+    listing_file << "LC      Source Statement\n";
     listing_file << "----------------------------------\n";
 
     try {
@@ -57,7 +62,8 @@ void pass_one::pass() {
         }
         if (next_instruction->has_label()) {
             if (sym_table::get_instance()->lookup(next_instruction->get_label())) {
-                throw "error: duplicate symbols";
+                std::string msg = "error: duplicate symbols at line number " + std::to_string(next_instruction->get_line_number());
+                throw msg;
             } else {
                 sym_table::get_instance()->insert(next_instruction->get_label(),
                                                   sic_assembler::location_counter);
@@ -67,6 +73,7 @@ void pass_one::pass() {
         if (op_table::get_instance()->lookup(next_instruction->get_mnemonic()->get_name())) {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         } else if (*next_instruction->get_mnemonic() == "word") {
+            // todo: WORD      1,3,4,5,7,8
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         } else if (*next_instruction->get_mnemonic() == "resw") {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH
@@ -86,7 +93,8 @@ void pass_one::pass() {
 //            } else if (*next_instruction->get_mnemonic() == "ltorg") {
 //                // handle LTORG todo: phase 2
         } else {
-            throw "error: invalid operation code";
+            std::string msg = "error: invalid operation code at line number " + std::to_string(next_instruction->get_line_number());
+            throw msg;
         }
     }
     if (!pass_one_ended) {
