@@ -22,6 +22,8 @@ void pass_one::pass() {
     listing_file.open(path);
     listing_file << ">>    S T A R T     O F     P A S S  I \n";
     listing_file << ">>  Source Program statements with value of LC indicated\n\n";
+    listing_file << "LC      Source Statement\n"; 
+    listing_file << "----------------------------------\n";
 
     try {
         next_instruction = reader->get_next_instruction();
@@ -33,10 +35,11 @@ void pass_one::pass() {
     if (*next_instruction->get_mnemonic() == "start") {
         sic_assembler::starting_address = sic_assembler::hex_to_int(next_instruction->get_operand()->get_name());
         sic_assembler::location_counter = sic_assembler::starting_address;
+        next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
+        listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
     } else {
         throw "error: no START directive found";
     }
-    listing_file << next_instruction->get_location() << next_instruction->get_full_instruction() << "\n";
 
     while(reader->has_next_instruction()) {
 //        std::cout << "location counter = " << sic_assembler::decimal_to_hex(sic_assembler::location_counter) << std::endl;
@@ -92,7 +95,7 @@ void pass_one::pass() {
 
     sic_assembler::program_length = sic_assembler::location_counter - sic_assembler::starting_address;
 
-    listing_file << ">>\n\n   *****************************************************\n";
+    listing_file << "\n\n>>   *****************************************************\n";
     listing_file << ">>    E N D     O F     P A S S  I \n";
     listing_file << ">>   *****************************************************\n";
 
