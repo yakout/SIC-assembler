@@ -61,9 +61,10 @@ void object_program_writter::reset_text_record() {
 }
 
 void object_program_writter::write_end_record(int starting_address) {
-    write_text_record();
+    if (current_text_record != "") {
+        write_text_record();
+    }
     reset_text_record();
     std::string final_record = END_RECORD_SYMBOL + SEPERATOR + sic_assembler::decimal_to_hex(starting_address, 6); // todo remove magic numbers
     file << final_record << "\n";
 }
-
