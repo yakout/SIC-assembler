@@ -16,10 +16,10 @@ private:
     std::string label;
     std::string _comment;
     std::string _location;
-//    std::string full_instr;
-
+    int _line_number;
+    std::string full_instruction;
 public:
-    instruction();
+    instruction(std::string);
     ~instruction();
 
     std::string get_opcode();
@@ -39,6 +39,8 @@ public:
 
     void set_location(std::string);
 
+    void set_line_number(int);
+
     // getters
     std::string get_label();
 
@@ -49,6 +51,10 @@ public:
     std::string get_comment();
 
     std::string get_location();
+
+    int get_line_number();
+
+    std::string get_full_instruction();
 };
 
 #endif //SIC_XE_ASSEMBLER_INSTRUCTION_H

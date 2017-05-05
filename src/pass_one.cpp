@@ -2,11 +2,12 @@
 // Created by Ahmed Yakout on 5/1/17.
 //
 
-#include "assembler.h"
-#include "file_reader.h"
-#include "pass_one.h"
-#include "sym_table.h"
-#include "op_table.h"
+#include <assembler.h>
+#include <file_reader.h>
+#include <pass_one.h>
+#include <sym_table.h>
+#include <op_table.h>
+#include <intermediate_file_writer.h>
 
 
 pass_one::pass_one(file_reader *_reader) {
@@ -14,14 +15,18 @@ pass_one::pass_one(file_reader *_reader) {
 }
 
 void pass_one::pass() {
-    int line_number = 0;
     bool pass_one_ended = false;
     instruction *next_instruction = nullptr;
+    std::ofstream listing_file;
+    std::string path = "./tests/valid_test1_list_file.txt";
+    listing_file.open(path);
+    listing_file << ">>    S T A R T     O F     P A S S  I \n";
+    listing_file << ">>  Source Program statements with value of LC indicated\n\n";
+
     try {
-        line_number++;
         next_instruction = reader->get_next_instruction();
     } catch (const char* e) {
-        std::string msg = std::string(e) + " at line number " + std::to_string(line_number);
+        std::string msg = std::string(e) + " at line number " + std::to_string(next_instruction->get_line_number());
         throw std::string(msg);
     }
 
@@ -31,15 +36,16 @@ void pass_one::pass() {
     } else {
         throw "error: no START directive found";
     }
+    listing_file << next_instruction->get_location() << next_instruction->get_full_instruction() << "\n";
 
     while(reader->has_next_instruction()) {
 //        std::cout << "location counter = " << sic_assembler::decimal_to_hex(sic_assembler::location_counter) << std::endl;
         try {
-            line_number++;
             next_instruction = reader->get_next_instruction();
             next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
+            listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
         } catch (const char* e) {
-            std::string msg = std::string(e) + " at line number " + std::to_string(line_number);
+            std::string msg = std::string(e) + " at line number " + std::to_string(next_instruction->get_line_number());
             throw std::string(msg);
         }
         if (*next_instruction->get_mnemonic() == "end") {
@@ -83,6 +89,16 @@ void pass_one::pass() {
     if (!pass_one_ended) {
         throw "error: no END directive found";
     }
+
     sic_assembler::program_length = sic_assembler::location_counter - sic_assembler::starting_address;
-    sym_table::get_instance()->print_table();
+
+    listing_file << ">>\n\n   *****************************************************\n";
+    listing_file << ">>    E N D     O F     P A S S  I \n";
+    listing_file << ">>   *****************************************************\n";
+
+    // sym_table::get_instance()->print_table();
+    sym_table::get_instance()->write_table(listing_file);
+
+    listing_file << ">>   *****************************************************\n";
+    listing_file.close();
 }

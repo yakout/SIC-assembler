@@ -31,6 +31,7 @@ bool file_reader::has_next_instruction() {
         return true;
     }
     if (getline(file_reader::source_file, file_reader::buffer)) {
+        current_line_number += 5;
         buffer = buffer.substr(0, buffer.length() - 1);
         buffer = sic_assembler::to_lower(buffer);
         buffer = sic_assembler::remove_tabs(buffer);
@@ -50,7 +51,8 @@ instruction *file_reader::get_next_instruction() {
     }
 //    std::cout << buffer << std::endl;
     std::smatch matches;
-    instruction *_instruction = new instruction();
+    instruction *_instruction = new instruction(buffer);
+    _instruction->set_line_number(current_line_number);
     try {
         if (regex_search(buffer, matches, std::regex(INSTRUCTION_WITH_COMMENT))) {
             _instruction->set_label(matches[1].str());
