@@ -37,7 +37,7 @@ void pass_one::pass() {
         try {
             line_number++;
             next_instruction = reader->get_next_instruction();
-            next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter));
+            next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter), 4); // todo remove magic numbers
         } catch (const char* e) {
             std::string msg = std::string(e) + " at line number " + std::to_string(line_number);
             throw std::string(msg);
