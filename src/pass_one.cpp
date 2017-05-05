@@ -33,7 +33,7 @@ void pass_one::pass() {
     try {
         next_instruction = reader->get_next_instruction();
     } catch (const char* e) {
-        std::string msg = std::string(e) + " at line number " + std::to_string(next_instruction->get_line_number());
+        std::string msg = std::string(e) + " at first instruction";
         throw std::string(msg);
     }
 

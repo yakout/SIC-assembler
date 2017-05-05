@@ -24,13 +24,13 @@ int main(int argc, char **argv) {
     std::string extension;
     split_file_name(std::string(argv[1]), path, file_name, extension);
     if (extension != "asm") {
-        std::cout << "no file specified" << std::endl;
+        std::cout << "no valid file specified, must be .asm file" << std::endl;
         return 0;
     }
 
     file_reader* fileReader;
     try {
-        fileReader = new file_reader(path + file_name + "." + extension); //"./tests/valid_test1.asm"
+        fileReader = new file_reader(path + file_name + "." + extension); // "./tests/valid_test1.asm"
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
         return 0;
