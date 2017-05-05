@@ -14,7 +14,7 @@ private:
     const std::string HEADER_RECORD_SYMBOL = "H";
     const std::string TEXT_RECORD_SYMBOL = "T";
     const std::string END_RECORD_SYMBOL = "E";
-    const std::string FILE_EXTENSION = ".o";
+    const std::string FILE_EXTENSION = ".obj";
     const int MAX_TEXT_RECORD_LENGTH = 69;
     const std::string SEPERATOR = "^";
     std::ofstream file;
