@@ -12,8 +12,8 @@ class operand {
 public:
     enum class operand_type {
         LOC_COUNTER, // ccc      equ     *
-        DECIMAL_ADDRESS, // aaa      resw    1
-        HEXA_ADDRESS, // START 0x1000
+        DECIMAL, // aaa      resw    1
+        HEXA, // START 0x1000
         LABEL, // LDA TEMP
         LABEL_INDEXED,
         STRING,
@@ -22,7 +22,8 @@ public:
         TWO_REGISTERS, // COMPR   A,T
         EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
         WORD_LITERAL, // LDA     =C'string' / LDA =C'F23'   / LDA   =1234
-        HEXA_LITERAL // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
+        HEXA_LITERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
+        DECIMAL_ARRAY
     };
 
 private:

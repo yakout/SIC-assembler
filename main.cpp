@@ -2,6 +2,7 @@
 #include <pass_one.h>
 #include <pass_two.h>
 #include <assembler.h>
+#include "elementary_file_reader.h"
 
 
 
@@ -41,7 +42,7 @@ int main(int argc, char **argv) {
 
     file_reader* fileReader;
     try {
-        fileReader = new file_reader(path + file_name + "." + extension); // "./tests/valid_test1.asm"
+        fileReader = new elementary_file_reader(path + file_name + "." + extension); // "./tests/valid_test1.asm"
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
         return 0;
@@ -49,7 +50,7 @@ int main(int argc, char **argv) {
 
     file_reader* fileReader2;
     try {
-        fileReader2 = new file_reader(path + file_name + "." + extension);
+        fileReader2 = new elementary_file_reader(path + file_name + "." + extension);
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
         return 0;

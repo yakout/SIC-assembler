@@ -2,6 +2,7 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
+#include <vector>
 #include "assembler.h"
 #include "operand.h"
 #include "regex_patterns.h"
@@ -17,7 +18,7 @@ operand::operand(std::string operand_field) {
         operand::opcode = sic_assembler::decimal_to_hex(sic_assembler::location_counter, operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(DECIMAL_PATTERN))){
-        operand::type = operand::operand_type::DECIMAL_ADDRESS;
+        operand::type = operand::operand_type::DECIMAL;
         int address = stoi(operand_field);
         if (address > operand::MAX_DECIMAL_ADDRESS){
             throw "Out of range [0, 65535]";
@@ -25,12 +26,28 @@ operand::operand(std::string operand_field) {
         operand::opcode = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(HEXA_PATTERN))){
-        operand::type = operand::operand_type::HEXA_ADDRESS;
+        operand::type = operand::operand_type::HEXA;
         int address = sic_assembler::hex_to_int(operand_field.substr(2, operand_field.length() - 2));
         if (address > operand::MAX_DECIMAL_ADDRESS){
             throw "Out of range [0, 65535]";
         }
         operand::opcode = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
+    }
+    else if (regex_match(operand_field, std::regex(DECIMAL_ARRAY_PATTERN))){
+        operand::type = operand::operand_type::DECIMAL_ARRAY;
+        std::string temp = "";
+        int prev = 0;
+        int num;
+        for (int i = 0; i < operand_field.length(); i++){
+            if (operand_field[i] == ','){
+                num = stoi(operand_field.substr(prev, i - prev));
+                temp += sic_assembler::decimal_to_hex(num) + ",";
+                prev = i+1;
+            }
+        }
+        num = stoi(operand_field.substr(prev, operand_field.length() - prev));
+        temp += sic_assembler::decimal_to_hex(num);
+        operand::opcode = temp;
     }
     else if (regex_match(operand_field, std::regex(LABEL_PATTERN))){
         operand::type = operand::operand_type::LABEL;
