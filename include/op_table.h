@@ -17,6 +17,9 @@ public:
     // singleton
     static op_table& get_instance();
 
+    op_table(op_table const&) = delete;
+    void operator=(op_table const&) = delete;
+
     std::string get(std::string);
     bool lookup(std::string);
 };
