@@ -8,7 +8,7 @@
 #include "op_table.h"
 
 mnemonic::mnemonic(std::string name) {
-    if (!op_table::get_instance()->lookup(name) && sic_assembler::is_directive(name)) {
+    if (!op_table::get_instance().lookup(name) && sic_assembler::is_directive(name)) {
         throw "Invalid Mnemonic";
     }
     mnemonic::name = sic_assembler::trim(name);
@@ -19,7 +19,7 @@ std::string mnemonic::get_name() {
 }
 
 std::string mnemonic::get_opcode() {
-    return op_table::get_instance()->get(mnemonic::name);
+    return op_table::get_instance().get(mnemonic::name);
 }
 
 bool mnemonic::is_directive() {

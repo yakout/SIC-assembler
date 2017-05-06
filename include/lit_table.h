@@ -13,11 +13,12 @@ class lit_table {
 private:
     std::unordered_map<std::string, std::string> table;
     std::vector<std::string> unassigned_literals;
-    static lit_table* instance;
     lit_table();
+    
 public:
-    ~lit_table();
-    static lit_table* get_instance();
+    // singleton
+    static lit_table& get_instance();
+
     void insert(std::string literal, std::string address);
     void insert(std::string literal);
     bool lookup(std::string);

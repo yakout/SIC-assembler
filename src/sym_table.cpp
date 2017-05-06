@@ -6,6 +6,15 @@
 #include "sym_table.h"
 #include "assembler.h"
 
+sym_table::sym_table() {
+
+}
+
+sym_table& sym_table::get_instance() {
+    static sym_table instance;
+    return instance;
+}
+
 bool sym_table::lookup(std::string label) {
     return table.find(label) != table.end();
 }
@@ -16,14 +25,6 @@ void sym_table::insert(std::string label, int loc_cntr) {
 
 int sym_table::get(std::string label) {
     return table[label];
-}
-
-sym_table::sym_table(): table() {
-
-}
-
-sym_table::~sym_table() {
-
 }
 
 void sym_table::print_table() {
@@ -38,6 +39,7 @@ void sym_table::write_table(std::ofstream& listing_file) {
     listing_file << "        name         value     \n";
     listing_file << "        -----------------------\n";
     for (auto it : table) {
-        listing_file << std::setw(8) << "" << std::left << std::setw(13) << it.first << sic_assembler::decimal_to_hex(it.second) << "\n\n"; // todo: adjust spaces
+        listing_file << std::setw(8) << "" << std::left << std::setw(13) << it.first 
+                     << sic_assembler::decimal_to_hex(it.second) << "\n\n"; // todo: adjust spaces
     }
 }

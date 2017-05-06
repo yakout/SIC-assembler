@@ -20,11 +20,13 @@ void pass_one::pass() {
     bool pass_one_ended = false;
     instruction *next_instruction = nullptr;
     std::ofstream listing_file;
-    std::string listing_file_path = path + file_name + ".txt";
+    std::string listing_file_path = path + file_name + "_listing.txt";
     listing_file.open(listing_file_path);
     if (!listing_file.is_open()) {
         throw "failed to open file";
     }
+
+
     listing_file << ">>    S T A R T     O F     P A S S  I \n";
     listing_file << ">>  Source Program statements with value of LC indicated\n\n";
     listing_file << "LC      Source Statement\n";
@@ -61,16 +63,16 @@ void pass_one::pass() {
             break;
         }
         if (next_instruction->has_label()) {
-            if (sym_table::get_instance()->lookup(next_instruction->get_label())) {
+            if (sym_table::get_instance().lookup(next_instruction->get_label())) {
                 std::string msg = "error: duplicate symbols at line number " + std::to_string(next_instruction->get_line_number());
                 throw msg;
             } else {
-                sym_table::get_instance()->insert(next_instruction->get_label(),
+                sym_table::get_instance().insert(next_instruction->get_label(),
                                                   sic_assembler::location_counter);
             }
         }
 //        std::cout << next_instruction->get_mnemonic()->get_name() << "\n";
-        if (op_table::get_instance()->lookup(next_instruction->get_mnemonic()->get_name())) {
+        if (op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name())) {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         } else if (*next_instruction->get_mnemonic() == "word") {
             // todo: WORD      1,3,4,5,7,8
@@ -107,8 +109,8 @@ void pass_one::pass() {
     listing_file << ">>    E N D     O F     P A S S  I \n";
     listing_file << ">>   *****************************************************\n";
 
-    // sym_table::get_instance()->print_table();
-    sym_table::get_instance()->write_table(listing_file);
+    // sym_table::get_instance().print_table();
+    sym_table::get_instance().write_table(listing_file);
 
     listing_file << ">>   *****************************************************\n";
     listing_file.close();

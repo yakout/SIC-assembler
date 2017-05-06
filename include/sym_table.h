@@ -14,15 +14,9 @@ private:
     std::unordered_map<std::string, int> table;
     sym_table();
 public:
-    ~sym_table();
-
     // singleton
-    static sym_table* get_instance() {
-        static sym_table *instance = new sym_table();
-        return instance;
-    }
+    static sym_table& get_instance();
 
-    // check if the symbol table contains some label
     bool lookup(std::string);
     void insert(std::string, int i);
     int get(std::string);

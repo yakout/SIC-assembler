@@ -5,20 +5,13 @@
 
 #include "lit_table.h"
 
-lit_table *lit_table::instance = nullptr;
-
-lit_table::lit_table(): table(), unassigned_literals() {
+lit_table::lit_table() {
+    
 }
 
-lit_table::~lit_table() {
-
-}
-
-lit_table* lit_table::get_instance() {
-    if (lit_table::instance == nullptr) {
-        lit_table::instance = new lit_table();
-    }
-    return lit_table::instance;
+lit_table& lit_table::get_instance() {
+    static lit_table instance;
+    return instance;
 }
 
 std::string lit_table::get(std::string literal) {

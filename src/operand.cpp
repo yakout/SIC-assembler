@@ -98,9 +98,9 @@ int operand::get_length() {
 
 std::string operand::get_opcode() {
     if (type == operand_type::LABEL) {
-        operand::opcode = sic_assembler::decimal_to_hex(sym_table::get_instance()->get(name), operand::OPERAND_WIDTH);
+        operand::opcode = sic_assembler::decimal_to_hex(sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
     } else if (type == operand_type::LABEL_INDEXED) {
-        operand::opcode = sic_assembler::decimal_to_hex((1 << 15) + sym_table::get_instance()->get(name), operand::OPERAND_WIDTH);
+        operand::opcode = sic_assembler::decimal_to_hex((1 << 15) + sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
     }
     return operand::opcode;
 }

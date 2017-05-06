@@ -1,5 +1,0 @@
->>    S T A R T     O F     P A S S  I 
->>  Source Program statements with value of LC indicated
-
-LC      Source Statement
-----------------------------------

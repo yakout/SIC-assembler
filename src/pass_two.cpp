@@ -19,7 +19,7 @@ pass_two::pass_two(file_reader *_reader, std::string _path, std::string _file_na
 void pass_two::pass() {
     object_program_writter writer(path, file_name); //"./", "tests/valid_test1"
     std::ofstream listing_file;
-    std::string listing_file_path = path + file_name + ".txt";
+    std::string listing_file_path = path + file_name + "_listing.txt";
     listing_file.open(listing_file_path, std::ios_base::app);
     if (!listing_file.is_open()) {
         throw "failed to open file";
@@ -42,10 +42,10 @@ void pass_two::pass() {
         if (*next_instruction->get_mnemonic() == "end") {
             break;
         }
-        if (op_table::get_instance()->lookup(next_instruction->get_mnemonic()->get_name())) {
+        if (op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name())) {
             if (next_instruction->has_operand()
                 && next_instruction->get_operand()->get_type() == operand::operand_type::LABEL) {
-                if (sym_table::get_instance()->lookup(next_instruction->get_operand()->get_name())) {
+                if (sym_table::get_instance().lookup(next_instruction->get_operand()->get_name())) {
                     // we set the operand address as the symbol value from sym_table
                 } else {
                     // we set the operand address = 0

@@ -13,17 +13,9 @@ private:
     std::unordered_map<std::string, std::string> table;
     op_table();
     void init_table();
-    static op_table *instance;
 public:
     // singleton
-    static op_table *get_instance();
-
-//    static op_table& getInstance()
-//    {
-//        static op_table instance; // Guaranteed to be destroyed.
-//         Instantiated on first use.
-//        return instance;
-//    }
+    static op_table& get_instance();
 
     std::string get(std::string);
     bool lookup(std::string);

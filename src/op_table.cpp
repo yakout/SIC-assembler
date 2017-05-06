@@ -4,17 +4,13 @@
 
 #include "op_table.h"
 
-op_table *op_table::instance = nullptr;
-
-op_table::op_table(): table() {
+op_table::op_table() {
     init_table();
 }
 
-op_table *op_table::get_instance() {
-    if (op_table::instance == nullptr) {
-        op_table::instance = new op_table();
-    }
-    return op_table::instance;
+op_table& op_table::get_instance() {
+    static op_table instance;
+    return instance;
 }
 
 std::string op_table::get(std::string key) {
