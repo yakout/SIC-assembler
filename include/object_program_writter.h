@@ -30,7 +30,7 @@ private:
 public:
     object_program_writter(std::string, std::string);
     ~object_program_writter();
-    void write_header_record(std::string program_name);
+    void write_header_record();
     void write_end_record(int starting_address);
     void add_to_text_record(instruction*);
 };

@@ -34,7 +34,7 @@ void pass_two::pass() {
     instruction* next_instruction = reader->get_next_instruction();
 
     if (*next_instruction->get_mnemonic() == "start") {
-        writer.write_header_record(next_instruction->get_label());
+        writer.write_header_record();
         listing_file << std::setw(21) << ""  << next_instruction->get_full_instruction() << "\n";
     }
     while(reader->has_next_instruction()) {

@@ -18,7 +18,8 @@ object_program_writter::~object_program_writter() {
     file.close();
 }
 
-void object_program_writter::write_header_record(std::string program_name) {
+void object_program_writter::write_header_record() {
+    std::string program_name = sic_assembler::program_name;
     if (program_name.length() < 7) { // todo remove magic numbers
         for (int i = (int) program_name.length(); i < 6; i++) { // todo remove magic numbers
             program_name += " ";

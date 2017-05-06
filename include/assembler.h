@@ -35,6 +35,7 @@ public:
     static int location_counter_old; // phase 2
     static int starting_address;
     static int program_length;
+    static std::string program_name;
     static const std::string directives[];
     static const int TAB_WIDTH = 8;
 
