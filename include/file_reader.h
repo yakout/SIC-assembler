@@ -11,7 +11,7 @@
 #include "instruction.h"
 
 class file_reader {
-private:
+protected:
     std::ifstream source_file;
     std::string buffer;
     int current_line_number = 0;
@@ -23,7 +23,7 @@ public:
 
     bool is_comment_line();
 
-    instruction *get_next_instruction();
+    virtual instruction *get_next_instruction();
 };
 
 #endif //SIC_XE_ASSEMBLER_FILE_READER_H
