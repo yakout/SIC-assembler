@@ -40,6 +40,7 @@ void pass_one::pass() {
     }
 
     if (*next_instruction->get_mnemonic() == "start") {
+        sic_assembler::program_name = next_instruction->get_label();
         sic_assembler::starting_address = sic_assembler::hex_to_int(next_instruction->get_operand()->get_name());
         sic_assembler::location_counter = sic_assembler::starting_address;
         next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
@@ -59,6 +60,12 @@ void pass_one::pass() {
             throw std::string(msg);
         }
         if (*next_instruction->get_mnemonic() == "end") {
+            // check if end statement has a valid label
+            if (next_instruction->has_operand()) {
+                if (next_instruction->get_operand()->get_name() != sic_assembler::program_name) {
+                    throw "undefined symbol in end Statement";
+                }
+            }
             pass_one_ended = true;
             break;
         }

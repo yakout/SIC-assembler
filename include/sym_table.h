@@ -18,7 +18,7 @@ public:
     static sym_table& get_instance();
 
     sym_table(sym_table const&) = delete;
-    void sym_table=(sym_table const&) = delete;
+    void operator=(sym_table const&) = delete;
 
     bool lookup(std::string);
     void insert(std::string, int i);

@@ -18,7 +18,18 @@ void split_file_name(const std::string& str, std::string& path, std::string& nam
     split_extension(str.substr(found + 1), name, extension);
 }
 
+void check_os() {
+    #if defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+        // UNIX STYLE OS
+        std::cout << "This is UNIX sytle OS" << std::endl;
+    #elif defined(__WIN32) 
+        // __WIN32 check for both 32 and 64 so no need to check for for __WIN64
+        std::cout << "This is Windows OS" << std::endl;
+    #endif
+}
+
 int main(int argc, char **argv) {
+    check_os();
     std::string file_name;
     std::string path;
     std::string extension;

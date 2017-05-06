@@ -20,7 +20,7 @@ public:
     static lit_table& get_instance();
 
     lit_table(lit_table const&) = delete;
-    void lit_table=(lit_table const&) = delete;
+    void operator=(lit_table const&) = delete;
 
     void insert(std::string literal, std::string address);
     void insert(std::string literal);

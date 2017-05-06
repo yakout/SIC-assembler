@@ -32,15 +32,9 @@ bool file_reader::has_next_instruction() {
     }
     if (getline(file_reader::source_file, file_reader::buffer)) {
         current_line_number++;
-        // #if defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
-        //     // UNIX STYLE OS
-        //     buffer = buffer.substr(0, buffer.length() - 1);
-        // #elif defined(__WIN32) 
-        //     // __WIN32 check for both 32 and 64 so no need to check for for __WIN64
-        //     buffer = buffer.substr(0, buffer.length() - 2);
-        // #endif
         
-        // remove '\r' '\n' chars from string
+        // since in unix systems the end of string is followed by \r wheres in windows it's \r\n
+        // we should remove them if they exist.
         while (buffer.back() == '\r' || buffer.back() == '\n') {
             buffer.pop_back();
         }
