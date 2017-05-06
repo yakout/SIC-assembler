@@ -26,11 +26,11 @@ private:
     int current_text_record_length = 0;
 
     void reset_text_record();
+    void write_text_record();
 public:
     object_program_writter(std::string, std::string);
     ~object_program_writter();
     void write_header_record(std::string program_name);
-    void write_text_record();
     void write_end_record(int starting_address);
     void add_to_text_record(instruction*);
 };
