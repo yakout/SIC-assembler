@@ -24,7 +24,17 @@ bool instruction::has_label() {
 }
 
 std::string instruction::get_opcode() {
-    if (*get_mnemonic() == "word" && instruction::has_operand()) {
+    if (*get_mnemonic() == "word" && instruction::has_operand() && instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY){
+        std::string temp = "";
+        for (int i = 0; i < instruction::_operand->get_opcode().length(); i++){
+            if (_operand->get_opcode()[i] == ','){
+                temp += sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH);
+            }
+            temp += instruction::_operand->get_opcode()[i];
+        }
+        return temp;
+    }
+    else if (*get_mnemonic() == "word" && instruction::has_operand()) {
         return sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH) + instruction::_operand->get_opcode();
     } else if (instruction::has_operand()) {
         return instruction::_mnemonic->get_opcode() + instruction::_operand->get_opcode();
