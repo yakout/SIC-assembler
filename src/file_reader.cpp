@@ -32,11 +32,9 @@ bool file_reader::has_next_instruction() {
     }
     if (getline(file_reader::source_file, file_reader::buffer)) {
         current_line_number++;
-
         while (buffer.back() == '\r' || buffer.back() == '\n') {
             buffer.pop_back();
         }
-
         buffer = sic_assembler::to_lower(buffer);
         buffer = sic_assembler::remove_tabs(buffer);
         return true;
@@ -46,7 +44,7 @@ bool file_reader::has_next_instruction() {
     }
 }
 
-instruction *file_reader::get_next_instruction() {}
+instruction *file_reader::get_next_instruction() { return nullptr; }
 
 
 
