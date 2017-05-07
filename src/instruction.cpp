@@ -36,6 +36,8 @@ std::string instruction::get_opcode() {
         return temp;
     } else if (*get_mnemonic() == "word" && instruction::has_operand()) {
         return sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH) + instruction::_operand->get_opcode();
+    } else if (*get_mnemonic() == "resw" || *get_mnemonic() == "resb") {
+        return "";
     } else if (instruction::has_operand()) {
         return instruction::_mnemonic->get_opcode() + instruction::_operand->get_opcode();
     } else {

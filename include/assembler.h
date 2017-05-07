@@ -12,7 +12,7 @@
  *   so if another end directive or any instruction is found later no error will be thrown.
  *   - there is no LC for invalid instructions
  *   - if there is errors in pass 1 there will be only intermediate file and the obj file will be incorrect.
- *
+ *   - the invalid instrution is not written in intermediate file
  */
 
 
