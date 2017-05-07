@@ -43,6 +43,7 @@ instruction *intermediate_file_reader::get_next_instruction() {
             _instruction->set_mnemonic(new mnemonic(matches[3].str()));
             _instruction->set_operand(new operand(""));
         } else {
+            buffer.clear();
             throw "Invalid instruction format";
         }
     } catch (const char *error_msg) {
