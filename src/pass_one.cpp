@@ -77,7 +77,13 @@ void pass_one::pass() {
         if (op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name())) {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         } else if (*next_instruction->get_mnemonic() == "word") {
-            sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
+            // handle array
+            if (next_instruction->get_operand()->get_type() == operand::operand_type::DECIMAL_ARRAY) {
+                std::string str = next_instruction->get_operand()->get_name();
+                sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH * (std::count(str.begin(), str.end(), ',') + 1);
+            } else {
+                sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
+            }
         } else if (*next_instruction->get_mnemonic() == "resw") {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH
                                                * std::stoi(next_instruction->get_operand()->get_name());

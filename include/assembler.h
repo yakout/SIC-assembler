@@ -14,9 +14,16 @@
 
 
 /**
- *  TODO
- *  support tabs with spaces
+ *  Features
+ *  we handled array    word 1,2,3
  *  
+ */
+
+/**
+ *  TODO
+ *  test * 
+ *  end operand is optional so we sould handle that
+ *  now we handling array of word in pass 1
  */
 
 #ifndef SIC_XE_ASSEMBLER_ASSEMBLER_H
