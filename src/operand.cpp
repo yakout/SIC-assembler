@@ -41,12 +41,12 @@ operand::operand(std::string operand_field) {
         for (int i = 0; i < operand_field.length(); i++) {
             if (operand_field[i] == ',') {
                 num = stoi(operand_field.substr(prev, i - prev));
-                temp += sic_assembler::decimal_to_hex(num) + ",";
+                temp += sic_assembler::decimal_to_hex(num, operand::OPERAND_WIDTH) + ",";
                 prev = i + 1;
             }
         }
         num = stoi(operand_field.substr(prev, operand_field.length() - prev));
-        temp += sic_assembler::decimal_to_hex(num);
+        temp += sic_assembler::decimal_to_hex(num, operand::OPERAND_WIDTH);
         operand::opcode = temp;
     }
     else if (regex_match(operand_field, std::regex(LABEL_PATTERN))){
