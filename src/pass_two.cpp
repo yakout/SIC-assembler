@@ -28,8 +28,8 @@ void pass_two::pass() {
     listing_file << ">>    S T A R T     O F     P A S S  II \n";
     listing_file << ">>   *****************************************************\n\n";
     listing_file << ">>   A s s e m b l e d    p r o g r a m     l i s t i n g\n\n";
-    listing_file << " Object Code         Source Statement\n";
-    listing_file << "---------------------------------------------\n";
+    listing_file << "LC      Source Statement                                                      Object Code         Error\n";
+    listing_file << "----------------------------------------------------------------------------------------------------------\n";
 
     instruction* next_instruction = nullptr;
     try {
@@ -41,7 +41,8 @@ void pass_two::pass() {
 
     if (*next_instruction->get_mnemonic() == "start") {
         writer.write_header_record();
-        listing_file << std::setw(21) << ""  << next_instruction->get_full_instruction() << "\n";
+        listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
+                     << std::setw(6) << next_instruction->get_opcode() << "\n";
     }
     while(reader->has_next_instruction()) {
         try {
@@ -72,8 +73,8 @@ void pass_two::pass() {
             throw std::string(e) + "at line " + std::to_string(next_instruction->get_line_number());
         }
 
-        listing_file << std::setw(6) << next_instruction->get_opcode() << std::setw(15) << "" 
-                                     << next_instruction->get_full_instruction() << "\n";
+        listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
+                     << std::setw(6) << next_instruction->get_opcode() << "\n";
         writer.add_to_text_record(next_instruction);
     }
     writer.write_end_record(sic_assembler::starting_address);

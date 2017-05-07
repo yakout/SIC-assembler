@@ -19,8 +19,6 @@
  *  
  */
 
-// N  O   W       ->>>>>>>      handle location counter in pass 2
-
 /**
  *  TODO
  *  test * 
