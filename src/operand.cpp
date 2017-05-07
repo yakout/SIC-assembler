@@ -163,7 +163,7 @@ std::string operand::get_opcode() {
             if (v->get_type() != operand_type::DECIMAL && v->get_type() != operand_type::LABEL){
                 throw "invalid expression";
             }
-            operand::opcode = sic_assembler::hex_to_int(u->get_opcode()) + f * sic_assembler::hex_to_int(v->get_opcode());
+            operand::opcode = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_opcode()) + f * sic_assembler::hex_to_int(v->get_opcode()), OPERAND_WIDTH);
         }
         else {
             throw "invalid expression";
