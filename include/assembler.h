@@ -7,7 +7,7 @@
  *   any hex value must be in the form 0x[hex value]
  *   empty line are not allowed, all lines must be a valid statement or a comment.
  *   we don't check for the undefined label   
- *
+ *   pass one and two stop reading after finding end directive if another end directive is found later no error will be thrown.
  *
  *
  */

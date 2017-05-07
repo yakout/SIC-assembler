@@ -1,4 +1,5 @@
 COPY     StArT   1000
+COPY     StArT   1000
 FIRST    STL     RETADR
 CLOOP    JSUB    RDREC
          LDA     LENGTH

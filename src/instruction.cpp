@@ -24,7 +24,8 @@ bool instruction::has_label() {
 }
 
 std::string instruction::get_opcode() {
-    if (*get_mnemonic() == "word" && instruction::has_operand() && instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY){
+    if (*get_mnemonic() == "word" && instruction::has_operand() 
+                        && instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY) {
         std::string temp = "";
         for (int i = 0; i < instruction::_operand->get_opcode().length(); i++){
             if (_operand->get_opcode()[i] == ','){

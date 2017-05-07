@@ -15,7 +15,7 @@ instruction *elementary_file_reader::get_next_instruction() {
     if (elementary_file_reader::is_comment_line()) {
         return elementary_file_reader::get_next_instruction();
     }
-//    std::cout << buffer << std::endl;
+   // std::cout << buffer << std::endl;
     std::smatch matches;
     instruction *_instruction = new instruction(buffer);
     _instruction->set_line_number(current_line_number);

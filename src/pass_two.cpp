@@ -62,14 +62,14 @@ void pass_two::pass() {
             }
             break;
         }
-        if (*next_instruction->get_mnemonic() == "resb"
-                    && *next_instruction->get_mnemonic() == "resw") {
-            std::string opcode_spaces = "      ";
-            listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
-                     << std::setw(6) << opcode_spaces << "\n";
-            writer.add_to_text_record(opcode_spaces);
-            continue;
-        }
+        // if (*next_instruction->get_mnemonic() == "resb"
+        //             && *next_instruction->get_mnemonic() == "resw") {
+        //     std::string opcode_spaces = "      ";
+        //     listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
+        //              << std::setw(6) << opcode_spaces << "\n";
+        //     writer.add_to_text_record(opcode_spaces);
+        //     continue;
+        // }
         try {
             std::cout << next_instruction->get_opcode() << std::endl;
         } catch (const char* e) {
@@ -80,7 +80,15 @@ void pass_two::pass() {
                      << std::setw(6) << next_instruction->get_opcode() << "\n";
         writer.add_to_text_record(next_instruction);
     }
-    writer.write_end_record(sic_assembler::starting_address);
+    
+    if (next_instruction->has_operand()) {
+        // use operand label address
+        writer.write_end_record(sym_table::get_instance().get(next_instruction->get_operand()->get_name()));
+    } else {
+        // use the default starting_address for the program
+        writer.write_end_record(sic_assembler::starting_address);
+    }
+
     listing_file << "\n>>    s u c c e s s f u l    a s s e m b l y\n";
     listing_file.close();
 }

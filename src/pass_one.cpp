@@ -18,6 +18,8 @@ pass_one::pass_one(file_reader *_reader, std::string _path, std::string _file_na
 void pass_one::pass() {
     bool pass_one_ended = false;
     instruction *next_instruction = nullptr;
+
+    // open listing file
     std::ofstream listing_file;
     std::string listing_file_path = path + file_name + "_listing.txt";
     listing_file.open(listing_file_path);
@@ -52,6 +54,9 @@ void pass_one::pass() {
 
     while(reader->has_next_instruction()) {
 //        std::cout << "location counter = " << sic_assembler::decimal_to_hex(sic_assembler::location_counter) << std::endl;
+        // if (pass_one_ended) {
+        //     throw "error: invalid statements after end directive statement";
+        // }
         try {
             next_instruction = reader->get_next_instruction();
             next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
@@ -63,6 +68,8 @@ void pass_one::pass() {
         if (*next_instruction->get_mnemonic() == "end") {
             pass_one_ended = true;
             break;
+        } else if (*next_instruction->get_mnemonic() == "start") {
+            throw "error: duplicate start directive statements";
         }
         if (next_instruction->has_label()) {
             if (sym_table::get_instance().lookup(next_instruction->get_label())) {
