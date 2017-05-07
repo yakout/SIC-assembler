@@ -28,9 +28,6 @@ std::string file_reader::get_buffer() {
 }
 
 bool file_reader::has_next_instruction() {
-    if (is_comment_line()) {
-        buffer.clear();
-    }
     if (buffer.length() > 0) {
         return true;
     }

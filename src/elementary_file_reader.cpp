@@ -42,6 +42,7 @@ instruction *elementary_file_reader::get_next_instruction() {
             throw "Invalid instruction format";
         }
     } catch (const char *error_msg) {
+        buffer.clear();
         throw error_msg;
     }
     buffer.clear();
