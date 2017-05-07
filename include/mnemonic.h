@@ -7,10 +7,14 @@
 
 
 #include <iostream>
+#include <unordered_map>
+#include <set>
+#include "operand.h"
 
 class mnemonic {
 private:
     std::string name;
+    std::unordered_map<std::string, std::set<operand::operand_type> > valid_operands;
 public:
     mnemonic(std::string);
 
@@ -23,6 +27,10 @@ public:
     bool operator==(std::string);
 
     bool operator!=(std::string);
+
+    void initialize_map();
+
+    bool is_valid_operand(operand *_operand);
 };
 
 #endif //SIC_XE_ASSEMBLER_MNEMONIC_H

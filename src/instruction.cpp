@@ -61,6 +61,9 @@ bool instruction::has_operand() {
 }
 
 void instruction::set_operand(operand *_operand) {
+    if (!instruction::_mnemonic->is_valid_operand(_operand)){
+        throw "Invalid operand type for mnemonic";
+    }
     instruction::_operand = _operand;
 }
 
