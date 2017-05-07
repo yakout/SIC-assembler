@@ -43,6 +43,7 @@ void pass_one::pass() {
         sic_assembler::program_name = next_instruction->get_label();
         sic_assembler::starting_address = sic_assembler::hex_to_int(next_instruction->get_operand()->get_name());
         sic_assembler::location_counter = sic_assembler::starting_address;
+        sym_table::get_instance().insert(next_instruction->get_label(), sic_assembler::location_counter);
         next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
         listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
     } else {
@@ -60,12 +61,6 @@ void pass_one::pass() {
             throw std::string(msg);
         }
         if (*next_instruction->get_mnemonic() == "end") {
-            // check if end statement has a valid label
-            if (next_instruction->has_operand()) {
-                if (next_instruction->get_operand()->get_name() != sic_assembler::program_name) {
-                    throw "undefined symbol in end Statement";
-                }
-            }
             pass_one_ended = true;
             break;
         }
@@ -82,7 +77,6 @@ void pass_one::pass() {
         if (op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name())) {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         } else if (*next_instruction->get_mnemonic() == "word") {
-            // todo: WORD      1,3,4,5,7,8
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         } else if (*next_instruction->get_mnemonic() == "resw") {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH
