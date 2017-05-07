@@ -48,6 +48,17 @@ void object_program_writter::add_to_text_record(instruction* _instruction) {
     current_column_counter += _instruction->get_opcode().length();
 }
 
+// void object_program_writter::add_to_text_record(std::string obcode) {
+//     if (current_column_counter + _instruction->get_opcode().length() > MAX_TEXT_RECORD_LENGTH) {
+//         // reset counter and initialize new text record;
+//         write_text_record();
+//         reset_text_record();
+//     }
+//     current_text_record_length += _instruction->get_opcode().length() / 2;
+//     current_text_record += SEPERATOR + _instruction->get_opcode();
+//     current_column_counter += _instruction->get_opcode().length();
+// }
+
 void object_program_writter::write_text_record() {
     std::string final_text_record = TEXT_RECORD_SYMBOL + SEPERATOR + current_starting_address + SEPERATOR 
                                     + sic_assembler::decimal_to_hex(current_text_record_length) + current_text_record;

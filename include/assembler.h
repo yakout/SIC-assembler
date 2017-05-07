@@ -19,11 +19,14 @@
  *  
  */
 
+// N  O   W       ->>>>>>>      handle location counter in pass 2
+
 /**
  *  TODO
  *  test * 
  *  end operand is optional so we sould handle that
- *  now we handling array of word in pass 1
+ *  should not allw using array in invalid mnemonic e.g  byte 1,2,3
+ * handling array of word in pass 2 and object writer
  */
 
 #ifndef SIC_XE_ASSEMBLER_ASSEMBLER_H

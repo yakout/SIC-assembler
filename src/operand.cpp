@@ -38,11 +38,11 @@ operand::operand(std::string operand_field) {
         std::string temp = "";
         int prev = 0;
         int num;
-        for (int i = 0; i < operand_field.length(); i++){
-            if (operand_field[i] == ','){
+        for (int i = 0; i < operand_field.length(); i++) {
+            if (operand_field[i] == ',') {
                 num = stoi(operand_field.substr(prev, i - prev));
                 temp += sic_assembler::decimal_to_hex(num) + ",";
-                prev = i+1;
+                prev = i + 1;
             }
         }
         num = stoi(operand_field.substr(prev, operand_field.length() - prev));

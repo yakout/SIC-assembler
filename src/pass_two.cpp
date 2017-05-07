@@ -41,35 +41,27 @@ void pass_two::pass() {
         next_instruction = reader->get_next_instruction();
         if (*next_instruction->get_mnemonic() == "end") {
             // check if end statement has a valid label
-            if (next_instruction->has_operand() && next_instruction->get_operand()->get_type() == operand::operand_type::LABEL) {
+            if (next_instruction->has_operand() && next_instruction->get_operand()->get_type() 
+                                                    == operand::operand_type::LABEL) {
                 if (!sym_table::get_instance().lookup(next_instruction->get_operand()->get_name())) {
                     throw "undefined symbol in end Statement";
                 }
             }
             break;
         }
-        if (op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name())) {
-            if (next_instruction->has_operand()
-                && next_instruction->get_operand()->get_type() == operand::operand_type::LABEL) {
-                if (sym_table::get_instance().lookup(next_instruction->get_operand()->get_name())) {
-                    // we set the operand address as the symbol value from sym_table
-                } else {
-                    // we set the operand address = 0
-                    // set error flag
-                }
-            }
-        } else { // directive
-            if (*next_instruction->get_mnemonic() != "byte"
+        if (!op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name()) 
+                    && *next_instruction->get_mnemonic() != "byte"
                     && *next_instruction->get_mnemonic() != "word") {
                 continue;
-            }
         }
         try {
             std::cout << next_instruction->get_opcode() << std::endl;
         } catch (const char* e) {
             throw std::string(e) + "at line " + std::to_string(next_instruction->get_line_number());
         }
-        listing_file << std::setw(6) << next_instruction->get_opcode() << std::setw(15) << "" << next_instruction->get_full_instruction() << "\n";
+
+        listing_file << std::setw(6) << next_instruction->get_opcode() << std::setw(15) << "" 
+                                     << next_instruction->get_full_instruction() << "\n";
         writer.add_to_text_record(next_instruction);
     }
     writer.write_end_record(sic_assembler::starting_address);
