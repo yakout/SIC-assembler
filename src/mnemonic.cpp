@@ -70,6 +70,12 @@ void mnemonic::initialize_map(){
 
     valid_operands["rsub"] = {operand::operand_type::NONE};
 
+    valid_operands["byte"] = {operand::operand_type::HEXA_STRING, operand::operand_type::STRING};
+
+    valid_operands["resb"] = valid_operands["resw"] = {operand::operand_type::DECIMAL};
+
+    valid_operands["word"] = {operand::operand_type::HEXA_STRING, operand::operand_type::DECIMAL, operand::operand_type::DECIMAL_ARRAY};
+
     // todo : verify start's operands
     valid_operands["start"] = {operand::operand_type::HEXA, operand::operand_type::NONE,
                                operand::operand_type::EXPRESSION};
