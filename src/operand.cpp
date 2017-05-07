@@ -17,6 +17,10 @@ operand::operand(std::string operand_field) {
         operand::type = operand::operand_type::LOC_COUNTER;
         operand::opcode = sic_assembler::decimal_to_hex(sic_assembler::location_counter, operand::OPERAND_WIDTH);
     }
+    else if (regex_match(operand_field, std::regex(EMPTY_STRING_PATTERN))){
+        operand::type = operand::operand_type::NONE;
+        operand::opcode = "";
+    }
     else if (regex_match(operand_field, std::regex(DECIMAL_PATTERN))){
         operand::type = operand::operand_type::DECIMAL;
         int address = stoi(operand_field);
@@ -41,12 +45,12 @@ operand::operand(std::string operand_field) {
         for (int i = 0; i < operand_field.length(); i++) {
             if (operand_field[i] == ',') {
                 num = stoi(operand_field.substr(prev, i - prev));
-                temp += sic_assembler::decimal_to_hex(num) + ",";
+                temp += sic_assembler::decimal_to_hex(num, operand::OPERAND_WIDTH) + ",";
                 prev = i + 1;
             }
         }
         num = stoi(operand_field.substr(prev, operand_field.length() - prev));
-        temp += sic_assembler::decimal_to_hex(num);
+        temp += sic_assembler::decimal_to_hex(num, operand::OPERAND_WIDTH);
         operand::opcode = temp;
     }
     else if (regex_match(operand_field, std::regex(LABEL_PATTERN))){
@@ -74,18 +78,19 @@ operand::operand(std::string operand_field) {
     else if (regex_match(operand_field, std::regex(REGISTER_PATTERN))){
         operand::type = operand::operand_type::REGISTER;
     }
-    else if (regex_match(operand_field, std::regex(TWO_REGISTERS_PATTERN))){
-        operand::type = operand::operand_type::TWO_REGISTERS;
-    }
+//    else if (regex_match(operand_field, std::regex(TWO_REGISTERS_PATTERN))){
+//        operand::type = operand::operand_type::TWO_REGISTERS;
+//    }
     else if (regex_match(operand_field, std::regex(EXPRESSION_PATTERN))){
-        operand::type = operand::operand_type::EXPRESION;
+        operand::type = operand::operand_type::EXPRESSION;
+//        for (int i = 0; i < )
     }
-    else if (regex_match(operand_field, std::regex(WORD_LITERAL_PATTERN))){
-        operand::type = operand::operand_type::WORD_LITERAL;
-    }
-    else if (regex_match(operand_field, std::regex(HEXA_LITERAL_PATTERN))){
-        operand::type = operand::operand_type::HEXA_LITERAL;
-    }
+//    else if (regex_match(operand_field, std::regex(WORD_LITERAL_PATTERN))){
+//        operand::type = operand::operand_type::WORD_LITERAL;
+//    }
+//    else if (regex_match(operand_field, std::regex(HEXA_LITERAL_PATTERN))){
+//        operand::type = operand::operand_type::HEXA_LITERAL;
+//    }
     else {
         throw "Invalid operand";
     }

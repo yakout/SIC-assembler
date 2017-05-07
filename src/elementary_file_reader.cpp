@@ -24,7 +24,7 @@ instruction *elementary_file_reader::get_next_instruction() {
             _instruction->set_label(matches[1].str());
             _instruction->set_mnemonic(new mnemonic(matches[2].str()));
             _instruction->set_operand(new operand(matches[3].str()));
-            _instruction->set_comment(matches[4]);
+            _instruction->set_comment(matches[4].str());
         } else if (regex_search(elementary_file_reader::buffer, matches, std::regex(INSTRUCTION_WITHOUT_COMMENT))) {
             _instruction->set_label(matches[1].str());
             _instruction->set_mnemonic(new mnemonic(matches[2].str()));
@@ -32,10 +32,12 @@ instruction *elementary_file_reader::get_next_instruction() {
         } else if (regex_search(elementary_file_reader::buffer, matches, std::regex(INSTRUCTION_WITHOUT_OPERAND_WITH_COMMENT))) {
             _instruction->set_label(matches[1].str());
             _instruction->set_mnemonic(new mnemonic(matches[2].str()));
-            _instruction->set_comment(matches[3]);
+            _instruction->set_comment(matches[3].str());
+            _instruction->set_operand(new operand(""));
         } else if (regex_search(elementary_file_reader::buffer, matches, std::regex(INSTRUCTION_WITHOUT_OPERAND_WITHOUT_COMMENT))) {
             _instruction->set_label(matches[1].str());
             _instruction->set_mnemonic(new mnemonic(matches[2].str()));
+            _instruction->set_operand(new operand(""));
         } else {
             throw "Invalid instruction format";
         }

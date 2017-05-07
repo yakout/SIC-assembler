@@ -28,10 +28,10 @@ std::string instruction::get_opcode() {
                         && instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY) {
         std::string temp = "";
         for (int i = 0; i < instruction::_operand->get_opcode().length(); i++){
+            temp += instruction::_operand->get_opcode()[i];
             if (_operand->get_opcode()[i] == ','){
                 temp += sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH);
             }
-            temp += instruction::_operand->get_opcode()[i];
         }
         return temp;
     } else if (*get_mnemonic() == "word" && instruction::has_operand()) {
@@ -62,6 +62,9 @@ bool instruction::has_operand() {
 }
 
 void instruction::set_operand(operand *_operand) {
+    if (!instruction::_mnemonic->is_valid_operand(_operand)){
+        throw "Invalid operand type for mnemonic";
+    }
     instruction::_operand = _operand;
 }
 

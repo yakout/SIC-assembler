@@ -11,6 +11,7 @@
 class operand {
 public:
     enum class operand_type {
+        NONE,
         LOC_COUNTER, // ccc      equ     *
         DECIMAL, // aaa      resw    1
         HEXA, // START 0x1000
@@ -19,10 +20,10 @@ public:
         STRING,
         HEXA_STRING,
         REGISTER, // CLEAR   A
-        TWO_REGISTERS, // COMPR   A,T
-        EXPRESION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
-        WORD_LITERAL, // LDA     =C'string' / LDA =C'F23'   / LDA   =1234
-        HEXA_LITERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
+//        TWO_REGISTERS, // COMPR   A,T
+        EXPRESSION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
+//        WORD_LITERAL, // LDA     =C'string' / LDA =C'F23'   / LDA   =1234
+//        HEXA_LITERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
         DECIMAL_ARRAY
     };
 
