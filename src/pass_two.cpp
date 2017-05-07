@@ -35,6 +35,7 @@ void pass_two::pass() {
     try {
         next_instruction = reader->get_next_instruction();
     } catch (const char* e) {
+        std::cout << reader->get_buffer() << std::endl;
         std::string msg = std::string(e) + " at first instruction";
         throw std::string(msg);
     }

@@ -19,6 +19,14 @@ void pass_one::pass() {
     bool pass_one_ended = false;
     instruction *next_instruction = nullptr;
 
+    // open intermediate file
+    std::ofstream intermediate_file;
+    std::string intermediate_file_path = path + file_name + "_intermediate.txt";
+    intermediate_file.open(intermediate_file_path);
+    if (!intermediate_file.is_open()) {
+        throw "failed to open file";
+    }
+
     // open listing file
     std::ofstream listing_file;
     std::string listing_file_path = path + file_name + "_listing.txt";
@@ -28,17 +36,20 @@ void pass_one::pass() {
     }
 
 
-    listing_file << ".>>    S T A R T     O F     P A S S  I \n";
-    listing_file << ".>>  Source Program statements with value of LC indicated\n";
-    listing_file << ".\n";
-    listing_file << ".LC      Source Statement\n";
-    listing_file << ".----------------------------------\n";
+    listing_file << ">>    S T A R T     O F     P A S S  I \n";
+    listing_file << ">>  Source Program statements with value of LC indicated\n\n";
+    listing_file << "LC      Source Statement                                                      Error\n";
+    listing_file << "--------------------------------------------------------------------------------------------------------------------\n";
 
-    try {
-        next_instruction = reader->get_next_instruction();
-    } catch (const char* e) {
-        std::string msg = std::string(e) + " at first instruction";
-        throw std::string(msg);
+    while (next_instruction == nullptr) {
+        try {
+            next_instruction = reader->get_next_instruction();
+        } catch (const char* e) {
+            // we use reader->get_buffer() not instruction->get_full_instruction() because this later method my return nullptr causing
+            // segmentation fault
+            std::string err_msg = std::string(e);
+            listing_file << std::setw(8) << "" << std::left << std::setw(70) << reader->get_buffer() << err_msg << "\n";
+        }
     }
 
     if (*next_instruction->get_mnemonic() == "start") {
@@ -48,46 +59,62 @@ void pass_one::pass() {
         sym_table::get_instance().insert(next_instruction->get_label(), sic_assembler::location_counter);
         next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
         listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
+        intermediate_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
     } else {
-        throw "error: no START directive found";
+        listing_file << std::setw(8) << "" << std::left << std::setw(70) << reader->get_buffer() << "error: no START directive found" << "\n";
     }
 
+
+    bool error_flag;
     while(reader->has_next_instruction()) {
+        error_flag = false;
 //        std::cout << "location counter = " << sic_assembler::decimal_to_hex(sic_assembler::location_counter) << std::endl;
         // if (pass_one_ended) {
         //     throw "error: invalid statements after end directive statement";
         // }
+        next_instruction = nullptr;
+        while (next_instruction == nullptr) {
         try {
             next_instruction = reader->get_next_instruction();
             next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
-            listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
+            intermediate_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
         } catch (const char* e) {
-            std::string msg = std::string(e) + " at line number " + std::to_string(next_instruction->get_line_number());
-            throw std::string(msg);
+            std::string err_msg = std::string(e);
+            listing_file << std::setw(8) << "" << std::left << std::setw(70)
+                         << reader->get_buffer() << err_msg << "\n";
+            // continue;
         }
+        }
+
         if (*next_instruction->get_mnemonic() == "end") {
             pass_one_ended = true;
             break;
         } else if (*next_instruction->get_mnemonic() == "start") {
-            throw "error: duplicate start directive statements";
+            listing_file << next_instruction->get_location() << std::setw(4) << "" << std::left << std::setw(70) 
+                         << next_instruction->get_full_instruction() 
+                         << "error: duplicate start directive statements" << "\n";
+            error_flag = true;
         }
+
         if (next_instruction->has_label()) {
             if (sym_table::get_instance().lookup(next_instruction->get_label())) {
-                std::string msg = "error: duplicate symbols at line number " + std::to_string(next_instruction->get_line_number());
-                throw msg;
+                listing_file << next_instruction->get_location() << std::setw(4) << "" << std::left << std::setw(70) << next_instruction->get_full_instruction()
+                             << "error: duplicate symbols" << "\n";
+                error_flag = true;
             } else {
                 sym_table::get_instance().insert(next_instruction->get_label(),
                                                   sic_assembler::location_counter);
             }
         }
-//        std::cout << next_instruction->get_mnemonic()->get_name() << "\n";
+
         if (op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name())) {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         } else if (*next_instruction->get_mnemonic() == "word") {
             // handle array
             if (next_instruction->get_operand()->get_type() == operand::operand_type::DECIMAL_ARRAY) {
                 std::string str = next_instruction->get_operand()->get_name();
-                sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH * (std::count(str.begin(), str.end(), ',') + 1);
+                sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH 
+                                                 * (std::count(str.begin(), str.end(), ',') + 1);
             } else {
                 sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
             }
@@ -109,12 +136,19 @@ void pass_one::pass() {
 //            } else if (*next_instruction->get_mnemonic() == "ltorg") {
 //                // handle LTORG todo: phase 2
         } else {
-            std::string msg = "error: invalid operation code at line number " + std::to_string(next_instruction->get_line_number());
-            throw msg;
+            std::string err_msg = "error: invalid operation code";
+            listing_file << next_instruction->get_location() << std::setw(4) << ""  << std::left << std::setw(70) 
+                         << next_instruction->get_full_instruction() << err_msg << "\n";
+            error_flag = true;
+        }
+        if (!error_flag) {
+            listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
         }
     }
+
     if (!pass_one_ended) {
-        throw "error: no END directive found";
+        std::string err_msg = "error: no END directive found";
+        listing_file << std::setw(8) << "" << std::left << std::setw(70) << reader->get_buffer() << err_msg << "\n";
     }
 
     sic_assembler::program_length = sic_assembler::location_counter - sic_assembler::starting_address;
@@ -128,4 +162,5 @@ void pass_one::pass() {
 
     listing_file << ">>   *****************************************************\n";
     listing_file.close();
+    intermediate_file.close();
 }

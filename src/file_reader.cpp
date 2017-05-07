@@ -23,6 +23,10 @@ bool file_reader::is_comment_line() {
     return file_reader::buffer[0] == '.';
 }
 
+std::string file_reader::get_buffer() {
+    return buffer;
+}
+
 bool file_reader::has_next_instruction() {
     if (is_comment_line()) {
         buffer.clear();

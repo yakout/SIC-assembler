@@ -15,15 +15,16 @@ protected:
     std::ifstream source_file;
     std::string buffer;
     int current_line_number = 0;
+
 public:
     file_reader(std::string);
     virtual ~file_reader();
 
     bool has_next_instruction();
-
     bool is_comment_line();
-
     virtual instruction *get_next_instruction();
+    std::string get_buffer();
+    
 };
 
 #endif //SIC_XE_ASSEMBLER_FILE_READER_H

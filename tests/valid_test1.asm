@@ -1,6 +1,5 @@
 COPY     StArT   1000
-COPY     StArT   1000
-FIRST    STL     RETADR
+FIRST     STL     RETADR
 CLOOP    JSUB    RDREC
          LDA     LENGTH
          COMP    ZERO
@@ -23,7 +22,7 @@ BUFFER   RESB    4096
 RDREC    LDx     ZERO
          LDA     ZERO
 RLOOP    TD      INPUT
-         JEQ     RLOOP
+RLOOP    JEQ     RLOOP
          RD      INPUT
          COMP    ZERO
          JEQ     EXIT

@@ -4,11 +4,14 @@
 
 /**
  *   A S S U M P T I O N S
- *   any hex value must be in the form 0x[hex value]
- *   empty line are not allowed, all lines must be a valid statement or a comment.
- *   we don't check for the undefined label   
- *   pass one and two stop reading after finding end directive if another end directive is found later no error will be thrown.
  *
+ *   - any hex value must be in the form 0x[hex value]
+ *   - empty line are not allowed, all lines must be a valid statement or a comment.
+ *   - we don't check for the undefined label   
+ *   - pass one and two stop reading after finding end directive and will ignore any following instructions.
+ *   so if another end directive or any instruction is found later no error will be thrown.
+ *   - there is no LC for invalid instructions
+ *   - if there is errors in pass 1 there will be only intermediate file and the obj file will be incorrect.
  *
  */
 

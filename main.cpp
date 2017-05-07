@@ -37,8 +37,8 @@ int main(int argc, char **argv) {
     std::string extension;
     split_file_name(std::string(argv[1]), path, file_name, extension);
     if (extension != "asm") {
-        std::cout << "no valid file specified, must be .asm file" << std::endl;
-        return 0;
+       std::cout << "no valid file specified, must be .asm file" << std::endl;
+       return 0;
     }
 
     file_reader* fileReader;
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 
     file_reader* fileReader2;
     try {
-        fileReader2 = new intermediate_file_reader(path + file_name + "_listing.txt");
+        fileReader2 = new intermediate_file_reader(path + file_name + "_intermediate.txt");
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
         return 0;
