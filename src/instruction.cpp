@@ -58,7 +58,7 @@ void instruction::set_mnemonic(mnemonic *_mnemonic) {
 }
 
 bool instruction::has_operand() {
-    return instruction::_operand != nullptr;
+    return instruction::_operand->get_type() != operand::operand_type::NONE;
 }
 
 void instruction::set_operand(operand *_operand) {
