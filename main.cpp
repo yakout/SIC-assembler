@@ -2,7 +2,8 @@
 #include <pass_one.h>
 #include <pass_two.h>
 #include <assembler.h>
-#include "elementary_file_reader.h"
+#include <elementary_file_reader.h>
+#include <intermediate_file_reader.h>
 
 
 
@@ -50,7 +51,7 @@ int main(int argc, char **argv) {
 
     file_reader* fileReader2;
     try {
-        fileReader2 = new elementary_file_reader(path + file_name + "." + extension);
+        fileReader2 = new intermediate_file_reader(path + file_name + "_listing.txt");
     } catch (const char *error_msg) {
         std::cout << error_msg << std::endl;
         return 0;

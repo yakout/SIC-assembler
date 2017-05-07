@@ -39,7 +39,7 @@ void object_program_writter::add_to_text_record(instruction* _instruction) {
         reset_text_record();
     }
     if (current_starting_address == "") {
-        current_starting_address = "001000"; //_instruction->get_location();
+        current_starting_address = _instruction->get_location();
         // todo remove magic numbers
         current_column_counter += 9; // 1 + 6 for starting address + 2 for the length
     }

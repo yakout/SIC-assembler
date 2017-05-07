@@ -31,14 +31,26 @@ void pass_two::pass() {
     listing_file << " Object Code         Source Statement\n";
     listing_file << "---------------------------------------------\n";
 
-    instruction* next_instruction = reader->get_next_instruction();
+    instruction* next_instruction = nullptr;
+    try {
+        next_instruction = reader->get_next_instruction();
+    } catch (const char* e) {
+        std::string msg = std::string(e) + " at first instruction";
+        throw std::string(msg);
+    }
 
     if (*next_instruction->get_mnemonic() == "start") {
         writer.write_header_record();
         listing_file << std::setw(21) << ""  << next_instruction->get_full_instruction() << "\n";
     }
     while(reader->has_next_instruction()) {
-        next_instruction = reader->get_next_instruction();
+        try {
+            next_instruction = reader->get_next_instruction();
+        } catch (const char* e) {
+            std::string msg = std::string(e) + " at line number " + std::to_string(next_instruction->get_line_number());
+            throw std::string(msg);
+        }
+
         if (*next_instruction->get_mnemonic() == "end") {
             // check if end statement has a valid label
             if (next_instruction->has_operand() && next_instruction->get_operand()->get_type() 

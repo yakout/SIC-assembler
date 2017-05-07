@@ -26,10 +26,11 @@ void pass_one::pass() {
     }
 
 
-    listing_file << ">>    S T A R T     O F     P A S S  I \n";
-    listing_file << ">>  Source Program statements with value of LC indicated\n\n";
-    listing_file << "LC      Source Statement\n";
-    listing_file << "----------------------------------\n";
+    listing_file << ".>>    S T A R T     O F     P A S S  I \n";
+    listing_file << ".>>  Source Program statements with value of LC indicated\n";
+    listing_file << ".\n";
+    listing_file << ".LC      Source Statement\n";
+    listing_file << ".----------------------------------\n";
 
     try {
         next_instruction = reader->get_next_instruction();
