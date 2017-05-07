@@ -62,10 +62,13 @@ void pass_two::pass() {
             }
             break;
         }
-        if (!op_table::get_instance().lookup(next_instruction->get_mnemonic()->get_name()) 
-                    && *next_instruction->get_mnemonic() != "byte"
-                    && *next_instruction->get_mnemonic() != "word") {
-                continue;
+        if (*next_instruction->get_mnemonic() == "resb"
+                    && *next_instruction->get_mnemonic() == "resw") {
+            std::string opcode_spaces = "      ";
+            listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
+                     << std::setw(6) << opcode_spaces << "\n";
+            writer.add_to_text_record(opcode_spaces);
+            continue;
         }
         try {
             std::cout << next_instruction->get_opcode() << std::endl;

@@ -26,11 +26,15 @@ void object_program_writter::write_header_record() {
         }
     }
     std::string final_header_record = HEADER_RECORD_SYMBOL + SEPERATOR + program_name + SEPERATOR 
-                                        + sic_assembler::decimal_to_hex(sic_assembler::starting_address, 6) 
-                                        + SEPERATOR + sic_assembler::decimal_to_hex(sic_assembler::program_length, 6); // todo remove magic numbers
+                                    + sic_assembler::decimal_to_hex(sic_assembler::starting_address, 6) 
+                                    + SEPERATOR + sic_assembler::decimal_to_hex(sic_assembler::program_length, 6); // todo remove magic numbers
     file << final_header_record << "\n";
 }
 
+
+void object_program_writter::add_to_text_record(std::string opcode) {
+    // todo 
+}
 
 void object_program_writter::add_to_text_record(instruction* _instruction) {
     if (current_column_counter + _instruction->get_opcode().length() > MAX_TEXT_RECORD_LENGTH) {
@@ -43,26 +47,20 @@ void object_program_writter::add_to_text_record(instruction* _instruction) {
         // todo remove magic numbers
         current_column_counter += 9; // 1 + 6 for starting address + 2 for the length
     }
-    current_text_record_length += _instruction->get_opcode().length() / 2;
-    current_text_record += SEPERATOR + _instruction->get_opcode();
-    current_column_counter += _instruction->get_opcode().length();
+    if (*_instruction->get_mnemonic() == "resw" || *_instruction->get_mnemonic() == "resb" ) {
+        current_text_record += "      ";
+        current_column_counter += 6;
+    } else {
+        current_text_record_length += _instruction->get_opcode().length() / 2;
+        current_text_record += SEPERATOR + _instruction->get_opcode();
+        current_column_counter += _instruction->get_opcode().length();
+    }
 }
 
-// void object_program_writter::add_to_text_record(std::string obcode) {
-//     if (current_column_counter + _instruction->get_opcode().length() > MAX_TEXT_RECORD_LENGTH) {
-//         // reset counter and initialize new text record;
-//         write_text_record();
-//         reset_text_record();
-//     }
-//     current_text_record_length += _instruction->get_opcode().length() / 2;
-//     current_text_record += SEPERATOR + _instruction->get_opcode();
-//     current_column_counter += _instruction->get_opcode().length();
-// }
-
 void object_program_writter::write_text_record() {
-    std::string final_text_record = TEXT_RECORD_SYMBOL + SEPERATOR + current_starting_address + SEPERATOR 
-                                    + sic_assembler::decimal_to_hex(current_text_record_length) + current_text_record;
-    file << final_text_record << "\n";
+    file << TEXT_RECORD_SYMBOL << SEPERATOR << std::setfill('0') << std::setw(6) << current_starting_address 
+         << SEPERATOR << std::setw(2) << sic_assembler::decimal_to_hex(current_text_record_length) 
+         << current_text_record << "\n";
 }
 
 void object_program_writter::reset_text_record() {

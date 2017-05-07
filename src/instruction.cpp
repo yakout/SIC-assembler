@@ -33,13 +33,11 @@ std::string instruction::get_opcode() {
             temp += instruction::_operand->get_opcode()[i];
         }
         return temp;
-    }
-    else if (*get_mnemonic() == "word" && instruction::has_operand()) {
+    } else if (*get_mnemonic() == "word" && instruction::has_operand()) {
         return sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH) + instruction::_operand->get_opcode();
     } else if (instruction::has_operand()) {
         return instruction::_mnemonic->get_opcode() + instruction::_operand->get_opcode();
-    }
-    else {
+    } else {
         return instruction::_mnemonic->get_opcode() + sic_assembler::decimal_to_hex(0, operand::OPERAND_WIDTH);
     }
 }

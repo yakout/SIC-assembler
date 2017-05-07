@@ -33,6 +33,7 @@ public:
     void write_header_record();
     void write_end_record(int starting_address);
     void add_to_text_record(instruction*);
+    void add_to_text_record(std::string);
 };
 
 #endif //SIC_ASSEMBLER_OBJECT_PROG_WRITER_H
