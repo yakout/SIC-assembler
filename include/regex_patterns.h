@@ -20,7 +20,7 @@
 #define HEXA_PATTERN "[0][x][0-9a-f]+"
 #define REGISTER_PATTERN "[astblx]"
 #define TWO_REGISTERS_PATTERN "[astblx][,][astblx]"
-#define EXPRESSION_PATTERN "\\d+([+-]\\d+)+"
+#define EXPRESSION_PATTERN "((\\d+)|([a-z]\\w*))[+-]((\\d+)|([a-z]\\w*))"
 #define WORD_LITERAL_PATTERN "[=][c]['][0-9a-z]+[']"
 #define HEXA_LITERAL_PATTERN "[=][x]['][0-9a-f]+[']"
 #define HEXA_STRING_PATTERN "[x]['][0-9a-f]+[']"
