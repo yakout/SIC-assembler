@@ -7,7 +7,6 @@
 #include <pass_one.h>
 #include <sym_table.h>
 #include <op_table.h>
-#include <intermediate_file_writer.h>
 
 
 pass_one::pass_one(file_reader *_reader, std::string _path, std::string _file_name) {

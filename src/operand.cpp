@@ -115,19 +115,19 @@ int operand::get_length() {
 
 std::string operand::get_opcode() {
     // calculate operand only once
-    if (opcode != "") {
-        return opcode;
+    if (operand::opcode != "") {
+        return operand::opcode;
     }
-    std::cout << "calc op code" << std::endl;
     if (type == operand_type::LABEL) {
         if (!sym_table::get_instance().lookup(name)) {
-            throw "undefined symbol";
+            throw "undefined symbol ";
         } else {
             operand::opcode = sic_assembler::decimal_to_hex(sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
         }
     } else if (type == operand_type::LABEL_INDEXED) {
-        if (!sym_table::get_instance().lookup(name)) {
-            throw "undefined symbol";
+        std::size_t found = name.find(",");
+        if (!sym_table::get_instance().lookup(name.substr(0, found))) {
+            throw "undefined symbol ";
         } else {
             operand::opcode = sic_assembler::decimal_to_hex((1 << 15) 
                             + sym_table::get_instance().get(name), operand::OPERAND_WIDTH);

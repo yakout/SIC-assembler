@@ -14,10 +14,10 @@ class file_reader {
 protected:
     std::ifstream source_file;
     std::string buffer;
-    int current_line_number = 1;
+    int current_line_number = 0;
 public:
     file_reader(std::string);
-    ~file_reader();
+    virtual ~file_reader();
 
     bool has_next_instruction();
 
