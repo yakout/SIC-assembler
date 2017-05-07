@@ -13,9 +13,9 @@ operand::operand(std::string operand_field) {
     operand_field = sic_assembler::trim(operand_field);
     name = operand_field;
 
-    if (operand_field == "*"){
+    if (operand_field == "*") {
         operand::type = operand::operand_type::LOC_COUNTER;
-        operand::opcode = sic_assembler::decimal_to_hex(sic_assembler::location_counter, operand::OPERAND_WIDTH);
+        operand::opcode = sic_assembler::decimal_to_hex(location, operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(DECIMAL_PATTERN))){
         operand::type = operand::operand_type::DECIMAL;
