@@ -19,7 +19,7 @@ public:
         LABEL_INDEXED,
         STRING,
         HEXA_STRING,
-        REGISTER, // CLEAR   A
+//        REGISTER, // CLEAR   A
 //        TWO_REGISTERS, // COMPR   A,T
         EXPRESSION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
 //        WORD_LITERAL, // LDA     =C'string' / LDA =C'F23'   / LDA   =1234

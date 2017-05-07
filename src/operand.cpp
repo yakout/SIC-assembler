@@ -75,15 +75,14 @@ operand::operand(std::string operand_field) {
         }
         operand::opcode = sic_assembler::decimal_to_hex(address, operand_field.length() - 3); // -3 to remove X''
     }
-    else if (regex_match(operand_field, std::regex(REGISTER_PATTERN))){
-        operand::type = operand::operand_type::REGISTER;
-    }
+//    else if (regex_match(operand_field, std::regex(REGISTER_PATTERN))){
+//        operand::type = operand::operand_type::REGISTER;
+//    }
 //    else if (regex_match(operand_field, std::regex(TWO_REGISTERS_PATTERN))){
 //        operand::type = operand::operand_type::TWO_REGISTERS;
 //    }
     else if (regex_match(operand_field, std::regex(EXPRESSION_PATTERN))){
         operand::type = operand::operand_type::EXPRESSION;
-//        for (int i = 0; i < )
     }
 //    else if (regex_match(operand_field, std::regex(WORD_LITERAL_PATTERN))){
 //        operand::type = operand::operand_type::WORD_LITERAL;
@@ -120,7 +119,7 @@ int operand::get_length() {
 
 std::string operand::get_opcode() {
     // calculate operand only once
-    if (operand::opcode != "") {
+    if (operand::opcode != "" || operand::get_type() == operand::operand_type::NONE) {
         return operand::opcode;
     }
     if (type == operand_type::LABEL) {
@@ -136,6 +135,38 @@ std::string operand::get_opcode() {
         } else {
             operand::opcode = sic_assembler::decimal_to_hex((1 << 15) 
                             + sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
+        }
+    }
+    else if (type == operand_type::EXPRESSION){
+        int f = 0;
+        std::string a;
+        std::string b;
+        for (int i = 0; i < name.length(); i++){
+            if (name[i] == '+'){
+                f = 1;
+            }
+            else if (name[i] == '-'){
+                f = -1;
+            }
+            if (f != 0){
+                a = name.substr(0, i);
+                b = name.substr(i+1, name.length() - i);
+                break;
+            }
+        }
+        if (f != 0){
+            operand *u = new operand(a);
+            operand *v = new operand(b);
+            if (u->get_type() != operand_type::DECIMAL && u->get_type() != operand_type::LABEL){
+                throw "invalid expression";
+            }
+            if (v->get_type() != operand_type::DECIMAL && v->get_type() != operand_type::LABEL){
+                throw "invalid expression";
+            }
+            operand::opcode = sic_assembler::hex_to_int(u->get_opcode()) + f * sic_assembler::hex_to_int(v->get_opcode());
+        }
+        else {
+            throw "invalid expression";
         }
     }
     return operand::opcode;
