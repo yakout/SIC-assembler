@@ -3,8 +3,8 @@
 //
 
 
-#include "sym_table.h"
-#include "assembler.h"
+#include <tables/sym_table.h>
+#include <assembler.h>
 
 sym_table::sym_table() {
 

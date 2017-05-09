@@ -4,8 +4,9 @@ project(SIC_assembler)
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories( "include" )
-set(SOURCE_FILES main.cpp include/instruction.h include/mnemonic.h src/mnemonic.cpp include/op_table.h
-        src/instruction.cpp src/op_table.cpp include/operand.h src/operand.cpp include/pass_one.h include/pass_two.h
-        include/sym_table.h src/pass_one.cpp include/assembler.h src/sym_table.cpp src/pass_two.cpp src/temp.cpp
-        include/file_reader.h src/file_reader.cpp include/regex_patterns.h include/object_program_writter.h src/object_program_writter.cpp src/assembler.cpp include/lit_table.h src/lit_table.cpp include/intermediate_file_reader.h include/elementary_file_reader.h src/elementary_file_reader.cpp src/intermediate_file_reader.cpp)
+set(SOURCE_FILES main.cpp src/mnemonic.cpp src/instruction.cpp src/tables/op_table.cpp src/operand.cpp 
+		 src/pass_one.cpp  src/tables/sym_table.cpp src/pass_two.cpp
+         src/file_handlers/file_reader.cpp src/file_handlers/object_program_writter.cpp src/assembler.cpp src/tables/lit_table.cpp src/file_handlers/elementary_file_reader.cpp src/file_handlers/intermediate_file_reader.cpp
+         src/errors/assembler_error.cpp src/errors/pass_one/pass_one_error.cpp src/errors/pass_one/duplicate_start_directive.cpp src/errors/pass_one/duplicate_symbol.cpp src/errors/pass_one/invalid_instruction_format.cpp src/errors/pass_one/missing_end_directive.cpp src/errors/pass_one/missing_start_directive.cpp src/errors/pass_two/pass_two_error.cpp src/errors/pass_two/undefined_symbol.cpp
+         src/assembler_driver.cpp)
 add_executable(SIC_assembler ${SOURCE_FILES})

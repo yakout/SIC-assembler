@@ -4,10 +4,11 @@
 
 
 #include <assembler.h>
-#include <file_reader.h>
+#include <file_handlers/file_reader.h>
 #include <regex_patterns.h>
 
 file_reader::file_reader(std::string path) {
+    std::cout << "file src: " << path << std::endl;
     source_file.open(path);
     if (!source_file.is_open()) {
         throw "error: file not found";
@@ -47,7 +48,7 @@ bool file_reader::has_next_instruction() {
     }
 }
 
-instruction *file_reader::get_next_instruction() { return nullptr; }
+instruction* file_reader::get_next_instruction() { return nullptr; }
 
 
 

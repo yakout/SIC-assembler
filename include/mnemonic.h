@@ -9,7 +9,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <set>
-#include "operand.h"
+#include <operand.h>
 
 class mnemonic {
 private:

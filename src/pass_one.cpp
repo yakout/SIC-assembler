@@ -3,16 +3,14 @@
 //
 
 #include <assembler.h>
-#include <file_reader.h>
+#include <file_handlers/file_reader.h>
 #include <pass_one.h>
-#include <sym_table.h>
-#include <op_table.h>
+#include <tables/sym_table.h>
+#include <tables/op_table.h>
 
-
-pass_one::pass_one(file_reader *_reader, std::string _path, std::string _file_name) {
-    pass_one::path = _path;
-    pass_one::file_name = _file_name;
-    pass_one::reader = _reader;
+pass_one::pass_one(std::unique_ptr<file_reader> _reader, std::string _path,
+                                        std::string _file_name): path(_path),
+                                        file_name(_file_name), reader(std::move(_reader)) {
 }
 
 void pass_one::pass() {
@@ -72,8 +70,6 @@ void pass_one::pass() {
         // if (pass_one_ended) {
         //     throw "error: invalid statements after end directive statement";
         // }
-        next_instruction = nullptr;
-        while (next_instruction == nullptr) {
         try {
             next_instruction = reader->get_next_instruction();
             next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter, 4)); // todo remove magic numbers
@@ -82,12 +78,12 @@ void pass_one::pass() {
             std::string err_msg = std::string(e);
             listing_file << std::setw(8) << "" << std::left << std::setw(70)
                          << reader->get_buffer() << err_msg << "\n";
-            // continue;
-        }
+            continue;
         }
 
         if (*next_instruction->get_mnemonic() == "end") {
             pass_one_ended = true;
+            listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
             break;
         } else if (*next_instruction->get_mnemonic() == "start") {
             listing_file << next_instruction->get_location() << std::setw(4) << "" << std::left << std::setw(70) 
@@ -144,6 +140,8 @@ void pass_one::pass() {
         if (!error_flag) {
             listing_file << next_instruction->get_location() << "    " << next_instruction->get_full_instruction() << "\n";
         }
+        
+        delete next_instruction;
     }
 
     if (!pass_one_ended) {

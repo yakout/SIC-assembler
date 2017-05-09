@@ -2,7 +2,7 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
-#include "op_table.h"
+#include <tables/op_table.h>
 
 op_table::op_table() {
     init_table();

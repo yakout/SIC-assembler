@@ -2,9 +2,9 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
-#include "assembler.h"
-#include "mnemonic.h"
-#include "op_table.h"
+#include <assembler.h>
+#include <mnemonic.h>
+#include <tables/op_table.h>
 
 mnemonic::mnemonic(std::string name) {
     mnemonic::initialize_map();

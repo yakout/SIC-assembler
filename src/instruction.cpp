@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
-#include "instruction.h"
-#include "regex_patterns.h"
+#include <instruction.h>
+#include <regex_patterns.h>
 #include <regex>
 #include <assembler.h>
 

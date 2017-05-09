@@ -2,22 +2,26 @@
 // Created by Marwan Tammam on 5/6/17.
 //
 
-#include "regex_patterns.h"
-#include "assembler.h"
-#include "intermediate_file_reader.h"
+#include <regex_patterns.h>
+#include <assembler.h>
+#include <file_handlers/intermediate_file_reader.h>
+#include <errors/pass_one/invalid_instruction_format.h>
 
-intermediate_file_reader::intermediate_file_reader(std::string path) : file_reader(path){}
+intermediate_file_reader::intermediate_file_reader(std::string path): file_reader(path) {
 
-instruction *intermediate_file_reader::get_next_instruction() {
+}
+
+instruction* intermediate_file_reader::get_next_instruction() {
     if (!intermediate_file_reader::has_next_instruction()) {
         return nullptr;
     }
     if (intermediate_file_reader::is_comment_line()) {
         return intermediate_file_reader::get_next_instruction();
     }
-//    std::cout << buffer << std::endl;
+
+    // std::cout << buffer << std::endl;
     std::smatch matches;
-    instruction *_instruction = new instruction(buffer);
+    instruction* _instruction = new instruction(buffer);
     _instruction->set_line_number(current_line_number);
     try {
         if (regex_search(intermediate_file_reader::buffer, matches, std::regex(LC_INSTRUCTION_WITH_COMMENT))) {
@@ -43,10 +47,10 @@ instruction *intermediate_file_reader::get_next_instruction() {
             _instruction->set_mnemonic(new mnemonic(matches[3].str()));
             _instruction->set_operand(new operand(""));
         } else {
-            buffer.clear();
             throw "Invalid instruction format";
         }
     } catch (const char *error_msg) {
+        buffer.clear();
         throw error_msg;
     }
     buffer.clear();

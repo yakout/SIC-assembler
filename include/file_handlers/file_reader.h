@@ -8,7 +8,7 @@
 #include <fstream>
 #include <string>
 #include <regex>
-#include "instruction.h"
+#include <instruction.h>
 
 class file_reader {
 protected:
@@ -22,7 +22,7 @@ public:
 
     bool has_next_instruction();
     bool is_comment_line();
-    virtual instruction *get_next_instruction();
+    virtual instruction* get_next_instruction();
     std::string get_buffer();
     
 };

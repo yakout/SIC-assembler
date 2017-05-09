@@ -6,8 +6,8 @@
 #define SIC_ASSEMBLER_OBJECT_PROG_WRITER_H
 
 #include <fstream>
-#include "iostream"
-#include "instruction.h"
+#include <iostream>
+#include <instruction.h>
 
 class object_program_writter {
 private:

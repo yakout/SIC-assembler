@@ -2,22 +2,23 @@
 // Created by Marwan Tammam on 5/6/17.
 //
 
-#include "regex_patterns.h"
-#include "assembler.h"
-#include "elementary_file_reader.h"
+#include <regex_patterns.h>
+#include <assembler.h>
+#include <file_handlers/elementary_file_reader.h>
 
-elementary_file_reader::elementary_file_reader(std::string path) : file_reader(path){}
+elementary_file_reader::elementary_file_reader(std::string path) : file_reader(path) {
 
-instruction *elementary_file_reader::get_next_instruction() {
+}
+
+instruction* elementary_file_reader::get_next_instruction() {
     if (!elementary_file_reader::has_next_instruction()) {
         return nullptr;
     }
     if (elementary_file_reader::is_comment_line()) {
         return elementary_file_reader::get_next_instruction();
     }
-   // std::cout << buffer << std::endl;
     std::smatch matches;
-    instruction *_instruction = new instruction(buffer);
+    instruction* _instruction = new instruction(buffer);
     _instruction->set_line_number(current_line_number);
     try {
         if (regex_search(elementary_file_reader::buffer, matches, std::regex(INSTRUCTION_WITH_COMMENT))) {

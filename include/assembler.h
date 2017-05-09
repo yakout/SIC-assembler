@@ -18,7 +18,7 @@
 
 /**
  *  Features
- *  we handled array    word 1,2,3
+ *  we handled array    word 1,2,3 
  *  
  */
 

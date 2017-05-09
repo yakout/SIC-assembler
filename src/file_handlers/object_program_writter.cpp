@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/1/17.
 //
 
-#include "assembler.h"
-#include "object_program_writter.h"
+#include <assembler.h>
+#include <file_handlers/object_program_writter.h>
 
 
 object_program_writter::object_program_writter(std::string path, std::string file_name) {

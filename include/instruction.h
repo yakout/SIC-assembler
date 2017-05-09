@@ -6,8 +6,8 @@
 #define SIC_XE_ASSEMBLER_INSTRUCTION_H
 
 #include <iostream>
-#include "operand.h"
-#include "mnemonic.h"
+#include <operand.h>
+#include <mnemonic.h>
 
 class instruction {
 private:

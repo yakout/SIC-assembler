@@ -6,7 +6,7 @@
 #define SIC_XE_ASSEMBLER_OPTABLE_H
 
 #include <unordered_map>
-#include "instruction.h"
+#include <instruction.h>
 
 class op_table {
 private:

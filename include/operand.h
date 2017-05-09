@@ -6,7 +6,7 @@
 #define SIC_XE_ASSEMBLER_OPERAND_H
 
 #include <string>
-#include "iostream"
+#include <iostream>
 
 class operand {
 public:

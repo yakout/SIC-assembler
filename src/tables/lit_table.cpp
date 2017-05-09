@@ -3,7 +3,7 @@
 //
 
 
-#include "lit_table.h"
+#include <tables/lit_table.h>
 
 lit_table::lit_table() {
     

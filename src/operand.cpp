@@ -3,10 +3,10 @@
 //
 
 #include <vector>
-#include "assembler.h"
-#include "operand.h"
-#include "regex_patterns.h"
-#include "sym_table.h"
+#include <assembler.h>
+#include <operand.h>
+#include <regex_patterns.h>
+#include <tables/sym_table.h>
 #include <regex>
 
 operand::operand(std::string operand_field) {

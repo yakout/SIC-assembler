@@ -2,18 +2,15 @@
 // Created by Ahmed Yakout on 5/1/17.
 //
 
-
-
-#include <sym_table.h>
-#include <op_table.h>
+#include <tables/sym_table.h>
+#include <tables/op_table.h>
 #include <pass_two.h>
-#include <object_program_writter.h>
+#include <file_handlers/object_program_writter.h>
 #include <assembler.h>
 
-pass_two::pass_two(file_reader *_reader, std::string _path, std::string _file_name) {
-    pass_two::path = _path;
-    pass_two::file_name = _file_name;
-    reader = _reader;
+pass_two::pass_two(std::unique_ptr<file_reader> _reader, std::string _path,
+                                        std::string _file_name): path(_path),
+                                        file_name(_file_name), reader(std::move(_reader)) {
 }
 
 void pass_two::pass() {
@@ -35,7 +32,7 @@ void pass_two::pass() {
     try {
         next_instruction = reader->get_next_instruction();
     } catch (const char* e) {
-        std::cout << reader->get_buffer() << std::endl;
+        // std::cout << "" << std::endl;
         std::string msg = std::string(e) + " at first instruction";
         throw std::string(msg);
     }
@@ -80,6 +77,7 @@ void pass_two::pass() {
         listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
                      << std::setw(6) << next_instruction->get_opcode() << "\n";
         writer.add_to_text_record(next_instruction);
+        delete next_instruction;
     }
     
     if (next_instruction->has_operand()) {
