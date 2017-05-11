@@ -20,6 +20,7 @@ instruction* elementary_file_reader::get_next_instruction() {
         return new null_instruction();
     }
     if (elementary_file_reader::is_comment_line()) {
+        buffer.clear();
         return elementary_file_reader::get_next_instruction();
     }
     std::smatch matches;

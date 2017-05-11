@@ -19,6 +19,7 @@ instruction* intermediate_file_reader::get_next_instruction() {
         return new null_instruction();
     }
     if (intermediate_file_reader::is_comment_line()) {
+        buffer.clear();
         return intermediate_file_reader::get_next_instruction();
     }
 
