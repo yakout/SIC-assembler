@@ -6,7 +6,7 @@
 #define SIC_ASSEMBLER_MISSING_START_DIRECTIVE__
 
 #include <errors/pass_one/pass_one_error.h>
-#include <iostream>
+#include <string>
 
 class missing_start_directive: public pass_one_error {
 private:

@@ -6,7 +6,7 @@
 #define SIC_ASSEMBLER_ASSEMBLER_ERROR__
 
 #include <exception>
-#include <iostream>
+#include <string>
 
 class assembler_error: public std::exception {
 public:

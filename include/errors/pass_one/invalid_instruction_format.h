@@ -6,7 +6,7 @@
 #define SIC_ASSEMBLER_INVALID_INSTRUCTION_FORMAT__
 
 #include <errors/pass_one/pass_one_error.h>
-#include <iostream>
+#include <string>
 
 class invalid_instruction_format: public pass_one_error {
 private:

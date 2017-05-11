@@ -6,7 +6,7 @@
 #define SIC_ASSEMBLER_DUPLICATE_SYMBOL__
 
 #include <errors/pass_one/pass_one_error.h>
-#include <iostream>
+#include <string>
 
 class duplicate_symbol: public pass_one_error {
 private:

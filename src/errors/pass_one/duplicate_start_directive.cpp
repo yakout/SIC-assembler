@@ -4,7 +4,7 @@
 
 #include <errors/pass_one/duplicate_start_directive.h>
 
-const std::string duplicate_start_directive::ERR_MSG = "Duplicate start directive";
+const std::string duplicate_start_directive::ERR_MSG = "Duplicate START directive";
 
 duplicate_start_directive::duplicate_start_directive(): pass_one_error() {
 	

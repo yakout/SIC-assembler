@@ -8,6 +8,9 @@
 #include <regex_patterns.h>
 #include <tables/sym_table.h>
 #include <regex>
+#include <errors/pass_one/invalid_operand.h>
+#include <errors/pass_one/operand_out_of_range.h>
+#include <errors/pass_two/undefined_symbol.h>
 
 operand::operand(std::string operand_field) {
     operand_field = sic_assembler::trim(operand_field);
@@ -25,7 +28,7 @@ operand::operand(std::string operand_field) {
         operand::type = operand::operand_type::DECIMAL;
         int address = stoi(operand_field);
         if (address > operand::MAX_DECIMAL_ADDRESS){
-            throw "Out of range [0, 65535]";
+            throw operand_out_of_range();
         }
         operand::opcode = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
     }
@@ -33,7 +36,7 @@ operand::operand(std::string operand_field) {
         operand::type = operand::operand_type::HEXA;
         int address = sic_assembler::hex_to_int(operand_field.substr(2, operand_field.length() - 2));
         if (address > operand::MAX_DECIMAL_ADDRESS){
-            throw "Out of range [0, 65535]";
+            throw operand_out_of_range();
         }
         operand::opcode = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
     }
@@ -67,31 +70,28 @@ operand::operand(std::string operand_field) {
             operand::opcode += sic_assembler::decimal_to_hex((int) operand_field[i], 2);
         }
     }
-    else if (regex_match(operand_field, std::regex(HEXA_STRING_PATTERN))){
+    else if (regex_match(operand_field, std::regex(HEXA_STRING_PATTERN))) {
         operand::type = operand::operand_type::HEXA_STRING;
         int address = sic_assembler::hex_to_int(operand_field.substr(2, operand_field.length() - 3));
-        if (address > operand::MAX_DECIMAL_ADDRESS){
-            throw "Out of range [0, 65535]";
+        if (address > operand::MAX_DECIMAL_ADDRESS) {
+            throw operand_out_of_range();
         }
         operand::opcode = sic_assembler::decimal_to_hex(address, operand_field.length() - 3); // -3 to remove X''
     }
-//    else if (regex_match(operand_field, std::regex(REGISTER_PATTERN))){
-//        operand::type = operand::operand_type::REGISTER;
-//    }
-//    else if (regex_match(operand_field, std::regex(TWO_REGISTERS_PATTERN))){
-//        operand::type = operand::operand_type::TWO_REGISTERS;
-//    }
     else if (regex_match(operand_field, std::regex(EXPRESSION_PATTERN))){
         operand::type = operand::operand_type::EXPRESSION;
     }
-//    else if (regex_match(operand_field, std::regex(WORD_LITERAL_PATTERN))){
-//        operand::type = operand::operand_type::WORD_LITERAL;
-//    }
-//    else if (regex_match(operand_field, std::regex(HEXA_LITERAL_PATTERN))){
-//        operand::type = operand::operand_type::HEXA_LITERAL;
-//    }
+    else if (regex_match(operand_field, std::regex(WORD_LITERAL_PATTERN))){
+        operand::type = operand::operand_type::WORD_LITERAL;
+    }
+    else if (regex_match(operand_field, std::regex(CHAR_LITERAL_PATTERN))){
+        operand::type = operand::operand_type::CHAR_LITERAL;
+    }
+    else if (regex_match(operand_field, std::regex(HEXA_LITERAL_PATTERN))){
+        operand::type = operand::operand_type::HEXA_LITERAL;
+    }
     else {
-        throw "Invalid operand";
+        throw invalid_operand();
     }
 }
 
@@ -106,6 +106,11 @@ std::string operand::get_name() {
 
 operand::operand_type operand::get_type() {
     return operand::type;
+}
+
+bool operand::is_literal() {
+    return (type == operand::operand_type::CHAR_LITERAL || type == operand::operand_type::HEXA_LITERAL
+                        || type == operand::operand_type::WORD_LITERAL);
 }
 
 int operand::get_length() {
@@ -124,14 +129,14 @@ std::string operand::get_opcode() {
     }
     if (type == operand_type::LABEL) {
         if (!sym_table::get_instance().lookup(name)) {
-            throw "undefined symbol ";
+            throw undefined_symbol();
         } else {
             operand::opcode = sic_assembler::decimal_to_hex(sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
         }
     } else if (type == operand_type::LABEL_INDEXED) {
         std::size_t found = name.find(",");
         if (!sym_table::get_instance().lookup(name.substr(0, found))) {
-            throw "undefined symbol ";
+            throw undefined_symbol();
         } else {
             operand::opcode = sic_assembler::decimal_to_hex((1 << 15) 
                             + sym_table::get_instance().get(name), operand::OPERAND_WIDTH);

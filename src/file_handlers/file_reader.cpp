@@ -33,7 +33,6 @@ bool file_reader::has_next_instruction() {
         return true;
     }
     if (getline(file_reader::source_file, file_reader::buffer)) {
-        current_line_number++;        
         // since in unix systems the end of string is followed by \r wheres in windows it's \r\n
         // we should remove them if they exist.
         while (buffer.back() == '\r' || buffer.back() == '\n') {

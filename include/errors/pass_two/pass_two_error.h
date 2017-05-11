@@ -6,7 +6,7 @@
 #define SIC_ASSEMBLER_PASS_TWO_ERROR__
 
 #include <errors/assembler_error.h>
-#include <iostream>
+#include <string>
 
 class pass_two_error: public assembler_error {
 public:

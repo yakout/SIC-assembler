@@ -1,7 +1,7 @@
 COPY     StArT   0x1000
 FIRST    STL     RETADR
 CLOOP    JSUB    RDREC
-         LDA     LENGTH+3
+         LDA     LENGTH
          COMP    ZERO
          JEQ     ENDFIL
          JSuB    WRREC

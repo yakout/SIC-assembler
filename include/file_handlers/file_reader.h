@@ -14,7 +14,6 @@ class file_reader {
 protected:
     std::ifstream source_file;
     std::string buffer;
-    int current_line_number = 0;
 
 public:
     file_reader(std::string);

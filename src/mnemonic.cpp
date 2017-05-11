@@ -5,11 +5,12 @@
 #include <assembler.h>
 #include <mnemonic.h>
 #include <tables/op_table.h>
+#include <errors/pass_one/invalid_mnemonic.h>
 
 mnemonic::mnemonic(std::string name) {
     mnemonic::initialize_map();
     if (!op_table::get_instance().lookup(name) && sic_assembler::is_directive(name)) {
-        throw "Invalid Mnemonic";
+        throw invalid_mnemonic();
     }
     mnemonic::name = sic_assembler::trim(name);
 }
@@ -38,10 +39,11 @@ bool mnemonic::is_valid_operand(operand *_operand) {
     return mnemonic::valid_operands[mnemonic::get_name()].count(_operand->get_type()) != 0;
 }
 
-void mnemonic::initialize_map(){
+void mnemonic::initialize_map() {
     valid_operands["add"] = {operand::operand_type::HEXA, operand::operand_type::LOC_COUNTER,
-                             operand::operand_type::LABEL, operand::operand_type::LABEL_INDEXED,
-                             operand::operand_type::EXPRESSION};
+                            operand::operand_type::LABEL, operand::operand_type::LABEL_INDEXED,
+                            operand::operand_type::EXPRESSION, operand::operand_type::CHAR_LITERAL,
+                            operand::operand_type::HEXA_LITERAL, operand::operand_type::WORD_LITERAL};
     valid_operands["sub"] = valid_operands["add"];
     valid_operands["mul"] = valid_operands["add"];
     valid_operands["div"] = valid_operands["add"];
@@ -59,7 +61,9 @@ void mnemonic::initialize_map(){
     valid_operands["stch"] = valid_operands["add"];
 
     valid_operands["j"] = {operand::operand_type::HEXA, operand::operand_type::LOC_COUNTER,
-                           operand::operand_type::LABEL, operand::operand_type::EXPRESSION};
+                            operand::operand_type::LABEL, operand::operand_type::EXPRESSION,  
+                            operand::operand_type::CHAR_LITERAL, operand::operand_type::HEXA_LITERAL,
+                            operand::operand_type::WORD_LITERAL};
     valid_operands["jgt"] = valid_operands["j"];
     valid_operands["jeq"] = valid_operands["j"];
     valid_operands["jlt"] = valid_operands["j"];
@@ -74,11 +78,17 @@ void mnemonic::initialize_map(){
 
     valid_operands["resb"] = valid_operands["resw"] = {operand::operand_type::DECIMAL};
 
-    valid_operands["word"] = {operand::operand_type::HEXA_STRING, operand::operand_type::DECIMAL, operand::operand_type::DECIMAL_ARRAY};
+    valid_operands["word"] = {operand::operand_type::HEXA_STRING, operand::operand_type::DECIMAL,
+                             operand::operand_type::DECIMAL_ARRAY};
 
     valid_operands["start"] = {operand::operand_type::HEXA, operand::operand_type::NONE};
     valid_operands["end"] = {operand::operand_type::HEXA, operand::operand_type::NONE,
                              operand::operand_type::LABEL, operand::operand_type::EXPRESSION};
 
+    valid_operands["equ"] = {operand::operand_type::HEXA, operand::operand_type::HEXA_LITERAL,
+                             operand::operand_type::LABEL};
+    valid_operands["org"] = {operand::operand_type::HEXA, operand::operand_type::HEXA_LITERAL,
+                             operand::operand_type::LABEL, operand::operand_type::NONE};
+    valid_operands["ltorg"] = {operand::operand_type::NONE};
 }
 

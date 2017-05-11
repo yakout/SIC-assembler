@@ -6,7 +6,7 @@
 #define SIC_ASSEMBLER_PASS_ONE_ERROR__
 
 #include <errors/assembler_error.h>
-#include <iostream>
+#include <string>
 
 class pass_one_error: public assembler_error {
 public:

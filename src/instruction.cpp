@@ -6,6 +6,8 @@
 #include <regex_patterns.h>
 #include <regex>
 #include <assembler.h>
+#include <errors/pass_one/invalid_label.h>
+#include <errors/pass_one/invalid_combination.h>
 
 instruction::instruction(std::string buffer): full_instruction(buffer) {
     instruction::_mnemonic = nullptr;
@@ -51,7 +53,7 @@ void instruction::set_label(std::string label) {
     } else if (regex_match(label, std::regex(LABEL_PATTERN))) {
         instruction::label = sic_assembler::trim(label);
     } else {
-        throw "Invalid LABEL field";
+        throw invalid_label();
     }
 }
 
@@ -65,7 +67,7 @@ bool instruction::has_operand() {
 
 void instruction::set_operand(operand *_operand) {
     if (!instruction::_mnemonic->is_valid_operand(_operand)){
-        throw "Invalid operand type for mnemonic";
+        throw invalid_combination();
     }
     instruction::_operand = _operand;
 }
@@ -76,10 +78,6 @@ void instruction::set_comment(std::string _comment) {
 
 void instruction::set_location(std::string _location) {
     instruction::_location = _location;
-}
-
-void instruction::set_line_number(int _line_number) {
-    instruction::_line_number = _line_number;
 }
 
 std::string instruction::get_label() {
@@ -100,10 +98,6 @@ std::string instruction::get_comment() {
 
 std::string instruction::get_location() {
     return instruction::_location;
-}
-
-int instruction::get_line_number() {
-    return instruction::_line_number;
 }
 
 std::string instruction::get_full_instruction() {

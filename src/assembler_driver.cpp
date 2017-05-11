@@ -24,16 +24,18 @@ assembler_driver::~assembler_driver() {
 }
 
 void assembler_driver::assemble() {
+    bool pass_one_faild = true;
 	try {
         std::unique_ptr<file_reader> reader1(new elementary_file_reader(file_path + file_name + SOURCE_FILE_EXTENSION));
         pass_one passOne(std::move(reader1), file_path, file_name);
         passOne.pass();
-    } catch (const pass_one_error& e) {
-    	std::cout << e.what() << std::endl;
-    } catch (const char *e) {
+        pass_one_faild = false;
+    } catch (const char* e) {
     	std::cout << e << std::endl;
-    } catch (const std::string e) {
-    	std::cout << e << std::endl;
+    }
+
+    if (pass_one_faild) {
+        return;
     }
 
 	try {

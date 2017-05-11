@@ -7,6 +7,7 @@
 #include <pass_two.h>
 #include <file_handlers/object_program_writter.h>
 #include <assembler.h>
+#include <errors/pass_two/pass_two_error.h>
 
 pass_two::pass_two(std::unique_ptr<file_reader> _reader, std::string _path,
                                         std::string _file_name): path(_path),
@@ -26,7 +27,8 @@ void pass_two::pass() {
     listing_file << ">>   *****************************************************\n\n";
     listing_file << ">>   A s s e m b l e d    p r o g r a m     l i s t i n g\n\n";
     listing_file << "LC      Source Statement                                                      Object Code         Error\n";
-    listing_file << "----------------------------------------------------------------------------------------------------------\n";
+    listing_file << std::setfill('-') << std::setw(110) << "" << "\n";
+    listing_file << std::setfill(' ');
 
     instruction* next_instruction = nullptr;
     try {
@@ -46,8 +48,7 @@ void pass_two::pass() {
         try {
             next_instruction = reader->get_next_instruction();
         } catch (const char* e) {
-            std::string msg = std::string(e) + " at line number " + std::to_string(next_instruction->get_line_number());
-            throw std::string(msg);
+            throw std::string(e); // temp
         }
 
         if (*next_instruction->get_mnemonic() == "end") {
@@ -60,18 +61,13 @@ void pass_two::pass() {
             }
             break;
         }
-        // if (*next_instruction->get_mnemonic() == "resb"
-        //             && *next_instruction->get_mnemonic() == "resw") {
-        //     std::string opcode_spaces = "      ";
-        //     listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
-        //              << std::setw(6) << opcode_spaces << "\n";
-        //     writer.add_to_text_record(opcode_spaces);
-        //     continue;
-        // }
+
         try {
             std::cout << next_instruction->get_opcode() << std::endl;
         } catch (const char* e) {
-            throw std::string(e) + "at line " + std::to_string(next_instruction->get_line_number());
+            throw e; // temp
+        } catch (const pass_two_error& e) {
+            throw e.what(); // temp
         }
 
         listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 

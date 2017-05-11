@@ -6,7 +6,6 @@
 #define SIC_XE_ASSEMBLER_OPERAND_H
 
 #include <string>
-#include <iostream>
 
 class operand {
 public:
@@ -19,11 +18,10 @@ public:
         LABEL_INDEXED,
         STRING,
         HEXA_STRING,
-//        REGISTER, // CLEAR   A
-//        TWO_REGISTERS, // COMPR   A,T
         EXPRESSION, //VALUE EQU SYMTAB+6   // blah equ bla1-bla2
-//        WORD_LITERAL, // LDA     =C'string' / LDA =C'F23'   / LDA   =1234
-//        HEXA_LITERAL, // LDA     =C'string' / LDA =X'F23'   / LDA   =1234
+        WORD_LITERAL, // LDA     =3
+        CHAR_LITERAL, // LDA     =C'string'
+        HEXA_LITERAL, // LDA     =X'F23'
         DECIMAL_ARRAY
     };
 
@@ -39,13 +37,12 @@ public:
     operand(std::string);
     ~operand();
 
-    std::string get_name();
-
     operand::operand_type get_type();
-
+    std::string get_name();
+    std::string get_opcode();
+    bool is_literal();
     int get_length();
 
-    std::string get_opcode();
 };
 
 

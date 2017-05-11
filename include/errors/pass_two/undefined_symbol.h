@@ -6,7 +6,7 @@
 #define SIC_ASSEMBLER_UNDEFINED_SYMBOL__
 
 #include <errors/pass_two/pass_two_error.h>
-#include <iostream>
+#include <string>
 
 class undefined_symbol: public pass_two_error {
 private:
