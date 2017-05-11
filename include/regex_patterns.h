@@ -27,5 +27,6 @@
 #define HEXA_STRING_PATTERN "[x]['][0-9a-f]+[']"
 #define STRING_PATTERN "[c]['].+[']"
 #define DECIMAL_ARRAY_PATTERN "\\d+([,]\\d+)*"
+#define LITERAL_FORMAT "^[0-9a-f]{4}\\s{4}\\*\\s{8}[=]([0-9]+|[c]['][a-zA-Z]+[']|[x]['][0-9a-fA-F]+['])$"
 
 #endif //SIC_XE_ASSEMBLER_REGEX_PATTERNS_H

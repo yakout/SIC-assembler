@@ -16,8 +16,9 @@ void end_directive::handle() {
 	if (end_directive::count > 1) {
 		throw duplicate_end_directive();
 	}
+    
     if (!lit_table::get_instance().get_unassigned_literals().empty()) {
-        // handle unassigned addresses
+        lit_table::get_instance().append_unassgined_literals();
     }
 
     // // check if end statement has a valid label

@@ -27,13 +27,6 @@ int sym_table::get(std::string label) {
     return table[label];
 }
 
-void sym_table::print_table() {
-    std::cout << std::endl << "   S Y M B O L     T A B L E" << std::endl;
-    for (auto it : table) {
-        std::cout << it.first << "      "  << sic_assembler::decimal_to_hex(it.second) << std::endl;
-    }
-}
-
 void sym_table::write_table(std::ofstream& listing_file) {
     listing_file << ">>    S Y M B O L     T A B L E   (values in hexadecimal)\n\n";
     listing_file << "        name         value     \n";

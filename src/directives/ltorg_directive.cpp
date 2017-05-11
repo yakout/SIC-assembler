@@ -11,6 +11,6 @@ ltorg_directive::ltorg_directive(std::string inst_str): directive(inst_str) {
 
 void ltorg_directive::handle() {
     if (!lit_table::get_instance().get_unassigned_literals().empty()) {
-        // append literals to intermediate file.
+        lit_table::get_instance().append_unassgined_literals();
     }
 }

@@ -8,6 +8,7 @@
 #include <file_handlers/object_program_writter.h>
 #include <assembler.h>
 #include <errors/pass_two/pass_two_error.h>
+#include <null_instruction.h>
 
 pass_two::pass_two(std::unique_ptr<file_reader> _reader, std::string _path,
                                         std::string _file_name): path(_path),
@@ -49,7 +50,7 @@ void pass_two::pass() {
             next_instruction = reader->get_next_instruction();
         } catch (const char* e) {
             throw std::string(e); // temp
-        }
+        } 
 
         if (*next_instruction->get_mnemonic() == "end") {
             // check if end statement has a valid label

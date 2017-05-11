@@ -36,6 +36,9 @@ instruction* intermediate_file_reader::get_next_instruction() {
             _mnemonic = new mnemonic(matches[3].str());
             _operand = new operand(matches[4].str());
             _comment = matches[5].str();
+        } else if (regex_search(intermediate_file_reader::buffer, matches, std::regex(LITERAL_FORMAT))) {
+            buffer.clear();
+            return intermediate_file_reader::get_next_instruction();
         } else if (regex_search(intermediate_file_reader::buffer, matches, std::regex(LC_INSTRUCTION_WITHOUT_COMMENT))) {
             _location = matches[1].str();
             _label = matches[2].str();

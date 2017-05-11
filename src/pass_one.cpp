@@ -7,6 +7,7 @@
 #include <pass_one.h>
 #include <tables/sym_table.h>
 #include <tables/op_table.h>
+#include <tables/lit_table.h>
 #include <errors/pass_one/pass_one_error.h>
 #include <null_instruction.h>
 #include <directives/start_directive.h>
@@ -37,6 +38,11 @@ void pass_one::pass() {
         throw "failed to open file";
     }
 
+    std::ofstream* listing_file_ptr = &listing_file;
+    std::ofstream* intermediate_file_ptr = &intermediate_file;
+
+    lit_table::get_instance().set_ofstreams(listing_file_ptr, intermediate_file_ptr);
+
 
     listing_file << ">>    S T A R T     O F     P A S S  I \n";
     listing_file << ">>  Source Program statements with value of LC indicated\n\n";
@@ -50,7 +56,8 @@ void pass_one::pass() {
         listing_file << std::setw(8) << "" << std::left << std::setw(70) 
                      << reader->get_line() << e.what() << "\n";
         listing_file << std::setw(8) << "" << std::left << std::setw(70) 
-                     << reader->get_line() << "error: no START directive found  in the begining" << "\n";
+                     << "error: no START directive found in the begining, it's may be an error "
+                     << "in the statement or it's missing" << "\n";
         incomplete_assembly = true;
     } 
 
@@ -98,11 +105,12 @@ void pass_one::pass() {
             pass_one_ended = true;
             listing_file << next_instruction->get_location() << "    " 
                          << next_instruction->get_full_instruction() << "\n";
+            next_instruction->handle();
             break;
         }
 
         try {
-            next_instruction->handle();   
+            next_instruction->handle();
             // success
             listing_file << next_instruction->get_location() << "    " 
                          << next_instruction->get_full_instruction() << "\n";

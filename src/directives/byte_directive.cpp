@@ -13,7 +13,7 @@ byte_directive::byte_directive(std::string inst_str): directive(inst_str) {
 }
 
 void byte_directive::handle() {
-    std::string operand_field = directive::get_operand()->get_name();
+    std::string operand_field = get_operand()->get_name();
 
     if (get_operand()->is_literal()) {
     	lit_table::get_instance().insert(operand_field);

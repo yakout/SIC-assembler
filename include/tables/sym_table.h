@@ -6,7 +6,6 @@
 #define SIC_XE_ASSEMBLER_SYM_TABLE_H
 
 #include <unordered_map>
-#include <iostream>
 #include <fstream>
 
 class sym_table {
@@ -24,7 +23,6 @@ public:
     void insert(std::string, int i);
     int get(std::string);
 
-    void print_table();
     void write_table(std::ofstream&);
 };
 

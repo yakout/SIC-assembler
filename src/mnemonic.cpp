@@ -86,7 +86,7 @@ void mnemonic::initialize_map() {
                              operand::operand_type::LABEL, operand::operand_type::EXPRESSION};
 
     valid_operands["equ"] = {operand::operand_type::HEXA, operand::operand_type::HEXA_LITERAL,
-                             operand::operand_type::LABEL};
+                             operand::operand_type::LABEL, operand::operand_type::LOC_COUNTER};
     valid_operands["org"] = {operand::operand_type::HEXA, operand::operand_type::HEXA_LITERAL,
                              operand::operand_type::LABEL, operand::operand_type::NONE};
     valid_operands["ltorg"] = {operand::operand_type::NONE};

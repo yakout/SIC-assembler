@@ -7,11 +7,16 @@
 #include <errors/pass_one/invalid_mnemonic.h>
 #include <errors/pass_one/duplicate_symbol.h>
 #include <tables/sym_table.h>
+#include <tables/lit_table.h>
 
 operation::operation(std::string instr_str): instruction(instr_str) {
 }
 
 void operation::handle() {
+	if (get_operand()->is_literal()) {
+        lit_table::get_instance().insert(get_operand()->get_name());
+    }
+
 	if (has_label()) {
         if (sym_table::get_instance().lookup(get_label())) {
             throw duplicate_symbol();
