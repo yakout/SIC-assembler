@@ -20,18 +20,17 @@ int lit_table::get(std::string literal) {
     return table[literal];
 }
 
-void lit_table::insert(std::string literal, int address) {
-    table.insert({literal, address});
-}
-
 bool lit_table::lookup(std::string literal) {
     return table.find(literal) != table.end();
 }
 
+void lit_table::insert(std::string literal, int address) {
+    table.insert({literal, address});
+}
+
 void lit_table::insert(std::string literal) {
-    if (!lookup(literal)) {
+    if (!lookup(literal) && std::find(unassigned_literals.begin(), unassigned_literals.end(), literal) == unassigned_literals.end()) {
         unassigned_literals.push_back(literal);
-        insert(literal, 0);
     }
 }
 
@@ -49,6 +48,7 @@ void lit_table::append_unassgined_literals() {
         std::string loc = sic_assembler::decimal_to_hex(sic_assembler::location_counter);
         *listing_file << loc << "    *        " << unassigned_literal << "\n";
         *intermediate_file << loc << "    *        " << unassigned_literal << "\n";
+        insert(unassigned_literal, sic_assembler::location_counter);
         sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
     }
 }
