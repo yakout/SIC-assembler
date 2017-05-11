@@ -14,6 +14,7 @@ class file_reader {
 protected:
     std::ifstream source_file;
     std::string buffer;
+    std::string line;
 
 public:
     file_reader(std::string);
@@ -22,7 +23,7 @@ public:
     bool has_next_instruction();
     bool is_comment_line();
     virtual instruction* get_next_instruction();
-    std::string get_buffer();
+    std::string get_line();
     
 };
 

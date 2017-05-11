@@ -24,8 +24,8 @@ bool file_reader::is_comment_line() {
     return file_reader::buffer[0] == '.';
 }
 
-std::string file_reader::get_buffer() {
-    return buffer;
+std::string file_reader::get_line() {
+    return line;
 }
 
 bool file_reader::has_next_instruction() {
@@ -40,6 +40,7 @@ bool file_reader::has_next_instruction() {
         }
         buffer = sic_assembler::to_lower(buffer);
         buffer = sic_assembler::remove_tabs(buffer);
+        line = buffer;
         return true;
     } else {
         buffer.clear();

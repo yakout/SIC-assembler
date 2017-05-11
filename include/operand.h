@@ -42,7 +42,6 @@ public:
     std::string get_opcode();
     bool is_literal();
     int get_length();
-
 };
 
 

@@ -48,9 +48,9 @@ void pass_one::pass() {
         next_instruction = reader->get_next_instruction();
     } catch (const pass_one_error& e) {
         listing_file << std::setw(8) << "" << std::left << std::setw(70) 
-                     << reader->get_buffer() << e.what() << "\n";
+                     << reader->get_line() << e.what() << "\n";
         listing_file << std::setw(8) << "" << std::left << std::setw(70) 
-                     << reader->get_buffer() << "error: no START directive found  in the begining" << "\n";
+                     << reader->get_line() << "error: no START directive found  in the begining" << "\n";
         incomplete_assembly = true;
     } 
 
@@ -65,7 +65,7 @@ void pass_one::pass() {
         next_instruction->handle();
         if (dynamic_cast<start_directive*>(next_instruction) == nullptr) {
             listing_file << std::setw(8) << "" << std::left << std::setw(70) 
-                                         << reader->get_buffer() 
+                                         << reader->get_line() 
                                          << "error: no START directive found in the begining" << "\n";
         } else {
             next_instruction->set_location(sic_assembler::decimal_to_hex(sic_assembler::location_counter,
@@ -84,7 +84,7 @@ void pass_one::pass() {
             next_instruction = reader->get_next_instruction();
         } catch (const pass_one_error& e) {
             listing_file << std::setw(8) << "" << std::left << std::setw(70)
-                         << reader->get_buffer() << e.what() << "\n";
+                         << reader->get_line() << e.what() << "\n";
             incomplete_assembly = true;
             continue;
         }
@@ -119,7 +119,7 @@ void pass_one::pass() {
 
     if (!pass_one_ended) {
         std::string err_msg = "error: no END directive found";
-        listing_file << std::setw(8) << "" << std::left << std::setw(70) << reader->get_buffer() 
+        listing_file << std::setw(8) << "" << std::left << std::setw(70) << reader->get_line() 
                                      << err_msg << "\n";
     }
 
