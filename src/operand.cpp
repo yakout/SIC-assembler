@@ -7,6 +7,7 @@
 #include <operand.h>
 #include <regex_patterns.h>
 #include <tables/sym_table.h>
+#include <tables/lit_table.h>
 #include <regex>
 #include <errors/pass_one/invalid_operand.h>
 #include <errors/pass_one/operand_out_of_range.h>
@@ -127,6 +128,7 @@ std::string operand::get_opcode() {
     if (operand::opcode != "" || operand::get_type() == operand::operand_type::NONE) {
         return operand::opcode;
     }
+
     if (type == operand_type::LABEL) {
         if (!sym_table::get_instance().lookup(name)) {
             throw undefined_symbol();
@@ -141,8 +143,7 @@ std::string operand::get_opcode() {
             operand::opcode = sic_assembler::decimal_to_hex((1 << 15) 
                             + sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
         }
-    }
-    else if (type == operand_type::EXPRESSION){
+    } else if (type == operand_type::EXPRESSION){
         int f = 0;
         std::string a;
         std::string b;
@@ -173,6 +174,9 @@ std::string operand::get_opcode() {
         else {
             throw "invalid expression";
         }
+    } else if(type = operand::operand_type::HEXA_LITERAL || type = operand::operand_type::CHAR_LITERAL
+                                        || type = operand::operand_type::WORD_LITERAL) {
+        operand::opcode = sic_assembler::decimal_to_hex(lit_table::get_instance().get(name), operand::OPERAND_WIDTH);
     }
     return operand::opcode;
 }
