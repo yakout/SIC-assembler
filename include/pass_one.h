@@ -9,6 +9,11 @@
 
 /**
  * Takes elementary_file_reader and generates intermediate file to be used in pass two.
+ * main work of pass one: 
+ * - Define symbols.
+ * - Assign addresses to all statements.
+ * - save the values (addresses) assigned to all labels in sym_table.
+ * - perform some processing of assembler directives which is done by handle() method in every directive class.
  */
 class pass_one {
 private:

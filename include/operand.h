@@ -46,9 +46,12 @@ public:
      */
     std::string get_name();
     /**
+     * Converts symbolic operands to their equivalent machine addresses.
+     * Converts data constants specified in the source program into their internal machine representation.
+     * 
      * @return 4 digits hexadecimal address of the operand.
-     * If the operand is constant (e.g C'EOF') it will return it's value in hexadecimal (e.g 454F46)
-     * If the operand type is NONE it will return 0000.
+     *         If the operand is constant (e.g C'EOF') it will return it's value in hexadecimal (e.g 454F46)
+     *         If the operand type is NONE it will return 0000.
      */
     std::string get_address();
     /**
@@ -64,6 +67,5 @@ public:
      */
     int get_length();
 };
-
 
 #endif // SIC_XE_ASSEMBLER_OPERAND_H__

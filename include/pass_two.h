@@ -9,6 +9,8 @@
 
 /**
  * pass two class takes intermediate_file_reader and generates object program for given assembly code.
+ * main work of pass two:
+ * -  
  */
 class pass_two {
 private:

@@ -29,7 +29,7 @@ std::string instruction::get_opcode() {
     if (*get_mnemonic() == "word" && instruction::has_operand()) {
         if (instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY) {
             // handle array: WORD   1,2,3
-            std::string temp = "";
+            std::string temp = "00";
             for (int i = 0; i < instruction::_operand->get_address().length(); i++){
                 temp += instruction::_operand->get_address()[i];
                 if (_operand->get_address()[i] == ','){
