@@ -30,9 +30,11 @@ void check_os() {
     #if defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
         // UNIX STYLE OS
         std::cout << "This is UNIX sytle OS" << std::endl;
+        // do something
     #elif defined(__WIN32) 
         // __WIN32 check for both 32 and 64 so no need to check for for __WIN64
         std::cout << "This is Windows OS" << std::endl;
+        // do something
     #endif
 }
 
@@ -41,6 +43,12 @@ int main(int argc, char **argv) {
     std::string file_name;
     std::string path;
     std::string extension;
+
+    // if no argument is passed
+    if (argc <= 1) {
+       std::cout << "please spicify file as argument" << std::endl; 
+       return 0;
+    }
 
     split_file_name(std::string(argv[1]), path, file_name, extension);
     if (extension != "asm") {

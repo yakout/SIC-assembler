@@ -27,7 +27,7 @@ void pass_two::pass() {
     listing_file << ">>    S T A R T     O F     P A S S  II \n";
     listing_file << ">>   *****************************************************\n\n";
     listing_file << ">>   A s s e m b l e d    p r o g r a m     l i s t i n g\n\n";
-    listing_file << "LC      Source Statement                                                      Object Code         Error\n";
+    listing_file << "LC      " << std::left << std::setw(70) << Source Statement << "Object Code         Error\n";
     listing_file << std::setfill('-') << std::setw(110) << "" << "\n";
     listing_file << std::setfill(' ');
 
