@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/10/17.
 //
 
-#ifndef SIC_ASSEMBLER_START_DIRECTIVE_H
-#define SIC_ASSEMBLER_START_DIRECTIVE_H
+#ifndef SIC_ASSEMBLER_START_DIRECTIVE_H__
+#define SIC_ASSEMBLER_START_DIRECTIVE_H__
 
 
 #include <string>
@@ -16,6 +16,5 @@ public:
     start_directive(std::string);
     virtual void handle();
 };
-
-
-#endif
+ 
+#endif // SIC_ASSEMBLER_START_DIRECTIVE_H__

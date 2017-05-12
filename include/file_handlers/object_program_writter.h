@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/1/17.
 //
 
-#ifndef SIC_ASSEMBLER_OBJECT_PROG_WRITER_H
-#define SIC_ASSEMBLER_OBJECT_PROG_WRITER_H
+#ifndef SIC_ASSEMBLER_OBJECT_PROG_WRITER_H__
+#define SIC_ASSEMBLER_OBJECT_PROG_WRITER_H__
 
 #include <fstream>
 #include <iostream>
@@ -36,4 +36,4 @@ public:
     void add_to_text_record(std::string);
 };
 
-#endif //SIC_ASSEMBLER_OBJECT_PROG_WRITER_H
+#endif //SIC_ASSEMBLER_OBJECT_PROG_WRITER_H__

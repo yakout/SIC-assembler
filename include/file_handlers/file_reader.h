@@ -2,8 +2,8 @@
 // Created by Marwan Tammam on 4/30/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_FILE_READER_H
-#define SIC_XE_ASSEMBLER_FILE_READER_H
+#ifndef SIC_XE_ASSEMBLER_FILE_READER_H__
+#define SIC_XE_ASSEMBLER_FILE_READER_H__
 
 #include <fstream>
 #include <string>
@@ -27,4 +27,4 @@ public:
     
 };
 
-#endif //SIC_XE_ASSEMBLER_FILE_READER_H
+#endif //SIC_XE_ASSEMBLER_FILE_READER_H__

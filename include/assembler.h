@@ -82,8 +82,8 @@
     // 
 
 
-#ifndef SIC_XE_ASSEMBLER_ASSEMBLER_H
-#define SIC_XE_ASSEMBLER_ASSEMBLER_H
+#ifndef SIC_XE_ASSEMBLER_ASSEMBLER_H__
+#define SIC_XE_ASSEMBLER_ASSEMBLER_H__
 
 
 
@@ -112,4 +112,4 @@ public:
     static std::string remove_tabs(std::string str);
 };
 
-#endif //SIC_XE_ASSEMBLER_ASSEMBLER_H
+#endif // SIC_XE_ASSEMBLER_ASSEMBLER_H__

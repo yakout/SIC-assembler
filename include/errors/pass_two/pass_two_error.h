@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/9/17.
 //
 
-#ifndef SIC_ASSEMBLER_PASS_TWO_ERROR__
-#define SIC_ASSEMBLER_PASS_TWO_ERROR__
+#ifndef SIC_ASSEMBLER_PASS_TWO_ERROR_H__
+#define SIC_ASSEMBLER_PASS_TWO_ERROR_H__
 
 #include <errors/assembler_error.h>
 #include <string>

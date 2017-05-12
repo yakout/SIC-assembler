@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/9/17.
 //
 
-#ifndef SIC_ASSEMBLER_UNDEFINED_SYMBOL__
-#define SIC_ASSEMBLER_UNDEFINED_SYMBOL__
+#ifndef SIC_ASSEMBLER_UNDEFINED_SYMBOL_H__
+#define SIC_ASSEMBLER_UNDEFINED_SYMBOL_H__
 
 #include <errors/pass_two/pass_two_error.h>
 #include <string>
@@ -16,4 +16,4 @@ public:
 	virtual const char* what() const throw();
 };
 
-#endif
+#endif // SIC_ASSEMBLER_UNDEFINED_SYMBOL_H__

@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/11/17.
 //
 
-#ifndef SIC_ASSEMBLER_DUPLICATE_END_DIRECTIVE__
-#define SIC_ASSEMBLER_DUPLICATE_END_DIRECTIVE__
+#ifndef SIC_ASSEMBLER_DUPLICATE_END_DIRECTIVE_H__
+#define SIC_ASSEMBLER_DUPLICATE_END_DIRECTIVE_H__
 
 #include <errors/pass_one/pass_one_error.h>
 #include <string>
@@ -16,4 +16,4 @@ public:
 	virtual const char* what() const throw();
 };
 
-#endif
+#endif // SIC_ASSEMBLER_DUPLICATE_END_DIRECTIVE_H__

@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/24/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_PASS_TWO_H
-#define SIC_XE_ASSEMBLER_PASS_TWO_H
+#ifndef SIC_XE_ASSEMBLER_PASS_TWO_H__
+#define SIC_XE_ASSEMBLER_PASS_TWO_H__
 
 #include <file_handlers/file_reader.h>
 
@@ -17,4 +17,4 @@ public:
     void pass(); // this method to start the pass one of the compiler
 };
 
-#endif //SIC_XE_ASSEMBLER_PASS_TWO_H
+#endif // SIC_XE_ASSEMBLER_PASS_TWO_H__

@@ -10,6 +10,7 @@
 #include <file_handlers/intermediate_file_reader.h>
 #include <errors/pass_one/pass_one_error.h>
 #include <errors/pass_two/pass_two_error.h>
+#include <utils.h>
 
 const std::string assembler_driver::SOURCE_FILE_EXTENSION = ".asm";
 const std::string assembler_driver::LISTING_FILE_EXTENSION = "_listing.txt";
@@ -26,6 +27,7 @@ assembler_driver::~assembler_driver() {
 void assembler_driver::assemble() {
     bool pass_one_faild = true;
 	try {
+        // utils::make_unique<file_reader>();
         std::unique_ptr<file_reader> reader1(new elementary_file_reader(file_path + file_name + SOURCE_FILE_EXTENSION));
         pass_one passOne(std::move(reader1), file_path, file_name);
         passOne.pass();

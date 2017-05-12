@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/2/17.
 //
 
-#ifndef SIC_ASSEMBLER_LIT_TABLE_H
-#define SIC_ASSEMBLER_LIT_TABLE_H
+#ifndef SIC_ASSEMBLER_LIT_TABLE_H__
+#define SIC_ASSEMBLER_LIT_TABLE_H__
 
 #include <unordered_map>
 #include <string>
@@ -36,4 +36,4 @@ public:
     void write_table(std::ofstream&);
 };
 
-#endif //SIC_ASSEMBLER_LIT_TABLE_H
+#endif // SIC_ASSEMBLER_LIT_TABLE_H__

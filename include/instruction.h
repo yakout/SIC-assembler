@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
-#ifndef SIC_ASSEMBLER_INSTRUCTION_H
-#define SIC_ASSEMBLER_INSTRUCTION_H
+#ifndef SIC_ASSEMBLER_INSTRUCTION_H__
+#define SIC_ASSEMBLER_INSTRUCTION_H__
 
 #include <string>
 #include <operand.h>
@@ -42,4 +42,4 @@ public:
     bool has_operand();
 };
 
-#endif //SIC_ASSEMBLER_INSTRUCTION_H
+#endif // SIC_ASSEMBLER_INSTRUCTION_H__

@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/11/17.
 //
 
-#ifndef SIC_ASSEMBLER_NULL_INSTRUCTION_H
-#define SIC_ASSEMBLER_NULL_INSTRUCTION_H
+#ifndef SIC_ASSEMBLER_NULL_INSTRUCTION_H__
+#define SIC_ASSEMBLER_NULL_INSTRUCTION_H__
 
 #include <string>
 #include <instruction.h>
@@ -17,4 +17,4 @@ public:
 };
 
 
-#endif //SIC_XE_ASSEMBLER_INSTRUCTION_H
+#endif // SIC_ASSEMBLER_NULL_INSTRUCTION_H__

@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/10/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_OPERATION_H
-#define SIC_XE_ASSEMBLER_OPERATION_H
+#ifndef SIC_XE_ASSEMBLER_OPERATION_H__
+#define SIC_XE_ASSEMBLER_OPERATION_H__
 
 #include <string>
 #include <instruction.h>
@@ -14,4 +14,4 @@ public:
     virtual void handle();
 };
 
-#endif //SIC_XE_ASSEMBLER_INSTRUCTION_H
+#endif // SIC_XE_ASSEMBLER_INSTRUCTION_H__

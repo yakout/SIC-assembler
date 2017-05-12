@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/8/17.
 //
 
-#ifndef SIC_ASSEMBLER_ASSEMBLER_ERROR__
-#define SIC_ASSEMBLER_ASSEMBLER_ERROR__
+#ifndef SIC_ASSEMBLER_ASSEMBLER_ERROR_H__
+#define SIC_ASSEMBLER_ASSEMBLER_ERROR_H__
 
 #include <exception>
 #include <string>
@@ -14,4 +14,4 @@ public:
 	virtual const char* what() const throw() = 0;
 };
 
-#endif
+#endif // SIC_ASSEMBLER_ASSEMBLER_ERROR_H__

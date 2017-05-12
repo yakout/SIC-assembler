@@ -3,8 +3,8 @@
 //
 
 
-#ifndef SIC_ASSEMBLER_INVALID_COMBINATION__
-#define SIC_ASSEMBLER_INVALID_COMBINATION__
+#ifndef SIC_ASSEMBLER_INVALID_COMBINATION_H__
+#define SIC_ASSEMBLER_INVALID_COMBINATION_H__
 
 #include <errors/pass_one/pass_one_error.h>
 #include <string>
@@ -17,4 +17,4 @@ public:
 	virtual const char* what() const throw();
 };
 
-#endif
+#endif // SIC_ASSEMBLER_INVALID_COMBINATION_H__

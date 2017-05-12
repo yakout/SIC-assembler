@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/10/17.
 //
 
-#ifndef SIC_ASSEMBLER_WORD_DRIVER_H
-#define SIC_ASSEMBLER_WORD_DRIVER_H
+#ifndef SIC_ASSEMBLER_WORD_DRIVER_H__
+#define SIC_ASSEMBLER_WORD_DRIVER_H__
 
 #include <string>
 #include <directives/directive.h>
@@ -14,4 +14,4 @@ public:
     virtual void handle();
 };
 
-#endif
+#endif // SIC_ASSEMBLER_WORD_DRIVER_H__

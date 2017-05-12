@@ -174,8 +174,8 @@ std::string operand::get_opcode() {
         else {
             throw "invalid expression";
         }
-    } else if(type = operand::operand_type::HEXA_LITERAL || type = operand::operand_type::CHAR_LITERAL
-                                        || type = operand::operand_type::WORD_LITERAL) {
+    } else if(type == operand::operand_type::HEXA_LITERAL || type == operand::operand_type::CHAR_LITERAL
+                                        || type == operand::operand_type::WORD_LITERAL) {
         operand::opcode = sic_assembler::decimal_to_hex(lit_table::get_instance().get(name), operand::OPERAND_WIDTH);
     }
     return operand::opcode;

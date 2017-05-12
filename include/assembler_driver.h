@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/9/17.
 //
 
-#ifndef SIC_ASSEMBLER_ASSEMBLER_DRIVER_H
-#define SIC_ASSEMBLER_ASSEMBLER_DRIVER_H
+#ifndef SIC_ASSEMBLER_ASSEMBLER_DRIVER_H__
+#define SIC_ASSEMBLER_ASSEMBLER_DRIVER_H__
 
 #include <string>
 
@@ -23,4 +23,4 @@ public:
 };
 
 
-#endif
+#endif // SIC_ASSEMBLER_ASSEMBLER_DRIVER_H__

@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/11/17.
 //
 
-#ifndef SIC_ASSEMBLER_INVALID_MNEMONIC__
-#define SIC_ASSEMBLER_INVALID_MNEMONIC__
+#ifndef SIC_ASSEMBLER_INVALID_MNEMONIC_H__
+#define SIC_ASSEMBLER_INVALID_MNEMONIC_H__
 
 #include <errors/pass_one/pass_one_error.h>
 #include <string>
@@ -16,4 +16,4 @@ public:
 	virtual const char* what() const throw();
 };
 
-#endif
+#endif // SIC_ASSEMBLER_INVALID_MNEMONIC_H__

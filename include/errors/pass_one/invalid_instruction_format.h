@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 5/8/17.
 //
 
-#ifndef SIC_ASSEMBLER_INVALID_INSTRUCTION_FORMAT__
-#define SIC_ASSEMBLER_INVALID_INSTRUCTION_FORMAT__
+#ifndef SIC_ASSEMBLER_INVALID_INSTRUCTION_FORMAT_H__
+#define SIC_ASSEMBLER_INVALID_INSTRUCTION_FORMAT_H__
 
 #include <errors/pass_one/pass_one_error.h>
 #include <string>
@@ -16,4 +16,4 @@ public:
 	virtual const char* what() const throw();
 };
 
-#endif
+#endif // SIC_ASSEMBLER_INVALID_INSTRUCTION_FORMAT_H__

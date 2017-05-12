@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_MNEMONIC_H
-#define SIC_XE_ASSEMBLER_MNEMONIC_H
+#ifndef SIC_XE_ASSEMBLER_MNEMONIC_H__
+#define SIC_XE_ASSEMBLER_MNEMONIC_H__
 
 
 #include <iostream>
@@ -33,4 +33,4 @@ public:
     bool is_valid_operand(operand *_operand);
 };
 
-#endif //SIC_XE_ASSEMBLER_MNEMONIC_H
+#endif // SIC_XE_ASSEMBLER_MNEMONIC_H__

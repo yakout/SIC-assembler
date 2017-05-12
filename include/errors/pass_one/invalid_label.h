@@ -3,8 +3,8 @@
 //
 
 
-#ifndef SIC_ASSEMBLER_INVALID_LABEL__
-#define SIC_ASSEMBLER_INVALID_LABEL__
+#ifndef SIC_ASSEMBLER_INVALID_LABEL_H__
+#define SIC_ASSEMBLER_INVALID_LABEL_H__
 
 #include <errors/pass_one/pass_one_error.h>
 #include <string>
@@ -17,4 +17,4 @@ public:
 	virtual const char* what() const throw();
 };
 
-#endif
+#endif // SIC_ASSEMBLER_INVALID_LABEL_H__
