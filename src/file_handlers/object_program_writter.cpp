@@ -37,6 +37,11 @@ void object_program_writter::add_to_text_record(std::string opcode) {
 }
 
 void object_program_writter::add_to_text_record(instruction* _instruction) {
+    if (*_instruction->get_mnemonic() == "equ" || *_instruction->get_mnemonic() == "org" 
+                            || *_instruction->get_mnemonic() == "ltorg") {
+        return;
+    }
+
     if (current_column_counter + _instruction->get_opcode().length() > MAX_TEXT_RECORD_LENGTH) {
         // reset counter and initialize new text record;
         write_text_record();

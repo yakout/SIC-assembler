@@ -19,11 +19,12 @@ operand::operand(std::string operand_field) {
 
     if (operand_field == "*") {
         operand::type = operand::operand_type::LOC_COUNTER;
-        operand::opcode = sic_assembler::decimal_to_hex(sic_assembler::location_counter, operand::OPERAND_WIDTH);
+        operand::address = sic_assembler::decimal_to_hex(sic_assembler::location_counter,
+                                                             operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(EMPTY_STRING_PATTERN))){
         operand::type = operand::operand_type::NONE;
-        operand::opcode = "";
+        operand::address = "0000";
     }
     else if (regex_match(operand_field, std::regex(DECIMAL_PATTERN))){
         operand::type = operand::operand_type::DECIMAL;
@@ -31,7 +32,7 @@ operand::operand(std::string operand_field) {
         if (address > operand::MAX_DECIMAL_ADDRESS){
             throw operand_out_of_range();
         }
-        operand::opcode = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
+        operand::address = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(HEXA_PATTERN))){
         operand::type = operand::operand_type::HEXA;
@@ -39,7 +40,7 @@ operand::operand(std::string operand_field) {
         if (address > operand::MAX_DECIMAL_ADDRESS){
             throw operand_out_of_range();
         }
-        operand::opcode = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
+        operand::address = sic_assembler::decimal_to_hex(address, operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(DECIMAL_ARRAY_PATTERN))){
         operand::type = operand::operand_type::DECIMAL_ARRAY;
@@ -55,7 +56,7 @@ operand::operand(std::string operand_field) {
         }
         num = stoi(operand_field.substr(prev, operand_field.length() - prev));
         temp += sic_assembler::decimal_to_hex(num, operand::OPERAND_WIDTH);
-        operand::opcode = temp;
+        operand::address = temp;
     }
     else if (regex_match(operand_field, std::regex(LABEL_PATTERN))){
         operand::type = operand::operand_type::LABEL;
@@ -66,9 +67,9 @@ operand::operand(std::string operand_field) {
     }
     else if (regex_match(operand_field, std::regex(STRING_PATTERN))){
         operand::type = operand::operand_type::STRING;
-        operand::opcode = "";
+        operand::address = "";
         for (int i = 2; i < operand_field.length() - 1; i++){
-            operand::opcode += sic_assembler::decimal_to_hex((int) operand_field[i], 2);
+            operand::address += sic_assembler::decimal_to_hex((int) operand_field[i], 2);
         }
     }
     else if (regex_match(operand_field, std::regex(HEXA_STRING_PATTERN))) {
@@ -77,7 +78,7 @@ operand::operand(std::string operand_field) {
         if (address > operand::MAX_DECIMAL_ADDRESS) {
             throw operand_out_of_range();
         }
-        operand::opcode = sic_assembler::decimal_to_hex(address, operand_field.length() - 3); // -3 to remove X''
+        operand::address = sic_assembler::decimal_to_hex(address, operand_field.length() - 3); // -3 to remove X''
     }
     else if (regex_match(operand_field, std::regex(EXPRESSION_PATTERN))){
         operand::type = operand::operand_type::EXPRESSION;
@@ -123,24 +124,25 @@ int operand::get_length() {
     return (int) name.length();
 }
 
-std::string operand::get_opcode() {
+std::string operand::get_address() {
     // calculate operand only once
-    if (operand::opcode != "" || operand::get_type() == operand::operand_type::NONE) {
-        return operand::opcode;
+    if (operand::address != "" || operand::get_type() == operand::operand_type::NONE) {
+        return operand::address;
     }
 
     if (type == operand_type::LABEL) {
         if (!sym_table::get_instance().lookup(name)) {
             throw undefined_symbol();
         } else {
-            operand::opcode = sic_assembler::decimal_to_hex(sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
+            operand::address = sic_assembler::decimal_to_hex(sym_table::get_instance().get(name),
+                                                                 operand::OPERAND_WIDTH);
         }
     } else if (type == operand_type::LABEL_INDEXED) {
         std::size_t found = name.find(",");
         if (!sym_table::get_instance().lookup(name.substr(0, found))) {
             throw undefined_symbol();
         } else {
-            operand::opcode = sic_assembler::decimal_to_hex((1 << 15) 
+            operand::address = sic_assembler::decimal_to_hex((1 << 15) 
                             + sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
         }
     } else if (type == operand_type::EXPRESSION){
@@ -169,14 +171,15 @@ std::string operand::get_opcode() {
             if (v->get_type() != operand_type::DECIMAL && v->get_type() != operand_type::LABEL){
                 throw "invalid expression";
             }
-            operand::opcode = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_opcode()) + f * sic_assembler::hex_to_int(v->get_opcode()), OPERAND_WIDTH);
+            operand::address = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_address()) 
+                + f * sic_assembler::hex_to_int(v->get_address()), OPERAND_WIDTH);
         }
         else {
             throw "invalid expression";
         }
     } else if(type == operand::operand_type::HEXA_LITERAL || type == operand::operand_type::CHAR_LITERAL
                                         || type == operand::operand_type::WORD_LITERAL) {
-        operand::opcode = sic_assembler::decimal_to_hex(lit_table::get_instance().get(name), operand::OPERAND_WIDTH);
+        operand::address = sic_assembler::decimal_to_hex(lit_table::get_instance().get(name), operand::OPERAND_WIDTH);
     }
-    return operand::opcode;
+    return operand::address;
 }

@@ -27,9 +27,9 @@ assembler_driver::~assembler_driver() {
 void assembler_driver::assemble() {
     bool pass_one_faild = true;
 	try {
-        // utils::make_unique<file_reader>();
-        std::unique_ptr<file_reader> reader1(new elementary_file_reader(file_path + file_name + SOURCE_FILE_EXTENSION));
-        pass_one passOne(std::move(reader1), file_path, file_name);
+        auto reader = utils::make_unique<elementary_file_reader>(file_path + file_name 
+                                                                    + SOURCE_FILE_EXTENSION);
+        pass_one passOne(std::move(reader), file_path, file_name);
         passOne.pass();
         pass_one_faild = false;
     } catch (const char* e) {
@@ -41,9 +41,9 @@ void assembler_driver::assemble() {
     }
 
 	try {
-        std::unique_ptr<file_reader> reader2(new intermediate_file_reader(file_path + file_name 
-        	+ ITERMEDIATE_FILE_EXTENSION));
-        pass_two passTwo(std::move(reader2), file_path, file_name);    
+        auto reader = utils::make_unique<intermediate_file_reader>(file_path + file_name 
+                                                                    + ITERMEDIATE_FILE_EXTENSION);
+        pass_two passTwo(std::move(reader), file_path, file_name);    
         passTwo.pass();
     } catch(const pass_two_error& e) {
 		std::cout << e.what() << std::endl;

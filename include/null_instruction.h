@@ -8,12 +8,14 @@
 #include <string>
 #include <instruction.h>
 
+/**
+ * Null object desgin pattern.
+ * Represents null instruction which indicates there is no more instructions are found in file.
+ */
 class null_instruction: public instruction {
 public:
     null_instruction();
-
     virtual void handle();
-    virtual std::string get_opcode();
 };
 
 

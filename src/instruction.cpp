@@ -26,22 +26,28 @@ bool instruction::has_label() {
 }
 
 std::string instruction::get_opcode() {
-    if (*get_mnemonic() == "word" && instruction::has_operand() 
-                        && instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY) {
-        std::string temp = "";
-        for (int i = 0; i < instruction::_operand->get_opcode().length(); i++){
-            temp += instruction::_operand->get_opcode()[i];
-            if (_operand->get_opcode()[i] == ','){
-                temp += sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH);
+    if (*get_mnemonic() == "word" && instruction::has_operand()) {
+        if (instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY) {
+            // handle array: WORD   1,2,3
+            std::string temp = "";
+            for (int i = 0; i < instruction::_operand->get_address().length(); i++){
+                temp += instruction::_operand->get_address()[i];
+                if (_operand->get_address()[i] == ','){
+                    temp += sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH);
+                }
             }
+            return temp;
+        } else {
+            return sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH) + instruction::_operand->get_address();
         }
-        return temp;
-    } else if (*get_mnemonic() == "word" && instruction::has_operand()) {
-        return sic_assembler::decimal_to_hex(0, operand::OPCODE_WIDTH) + instruction::_operand->get_opcode();
-    } else if (*get_mnemonic() == "resw" || *get_mnemonic() == "resb") {
+    } else if (*get_mnemonic() == "resw" || *get_mnemonic() == "resb" || *get_mnemonic() == "start" 
+                        || *get_mnemonic() == "end" || *get_mnemonic() == "equ"
+                        || *get_mnemonic() == "ltorg" || *get_mnemonic() == "org") {
         return "";
+    } else if (*get_mnemonic() == "byte") {
+        return instruction::_operand->get_address();
     } else if (instruction::has_operand()) {
-        return instruction::_mnemonic->get_opcode() + instruction::_operand->get_opcode();
+        return instruction::_mnemonic->get_opcode() + instruction::_operand->get_address();
     } else {
         return instruction::_mnemonic->get_opcode() + sic_assembler::decimal_to_hex(0, operand::OPERAND_WIDTH);
     }

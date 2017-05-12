@@ -5,16 +5,23 @@
 #ifndef SIC_XE_ASSEMBLER_PASS_TWO_H__
 #define SIC_XE_ASSEMBLER_PASS_TWO_H__
 
-#include <file_handlers/file_reader.h>
+#include <file_handlers/intermediate_file_reader.h>
 
+/**
+ * pass two class takes intermediate_file_reader and generates object program for given assembly code.
+ */
 class pass_two {
 private:
-    std::unique_ptr<file_reader> reader;
+    std::unique_ptr<intermediate_file_reader> reader;
     std::string path;
     std::string file_name;
 public:
-    pass_two(std::unique_ptr<file_reader>, std::string, std::string);
-    void pass(); // this method to start the pass one of the compiler
+
+    pass_two(std::unique_ptr<intermediate_file_reader>, std::string _file_path, std::string _file_name);
+    /**
+     * Starts pass two of the assembler.
+     */
+    void pass();
 };
 
 #endif // SIC_XE_ASSEMBLER_PASS_TWO_H__

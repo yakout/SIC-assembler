@@ -3,7 +3,6 @@
 //
 
 #include <assembler.h>
-#include <file_handlers/file_reader.h>
 #include <pass_one.h>
 #include <tables/sym_table.h>
 #include <tables/op_table.h>
@@ -12,7 +11,7 @@
 #include <null_instruction.h>
 #include <directives/start_directive.h>
 
-pass_one::pass_one(std::unique_ptr<file_reader> _reader, std::string _path,
+pass_one::pass_one(std::unique_ptr<elementary_file_reader> _reader, std::string _path,
                                         std::string _file_name): path(_path),
                                         file_name(_file_name), reader(std::move(_reader)) {
 }
@@ -61,12 +60,11 @@ void pass_one::pass() {
         incomplete_assembly = true;
     } 
 
-    if (next_instruction == nullptr) {
-
-    } else if (dynamic_cast<null_instruction*>(next_instruction) != nullptr) {
+    if (dynamic_cast<null_instruction*>(next_instruction) != nullptr) {
         // file is empty.
         listing_file.close();
         intermediate_file.close();
+        delete next_instruction;
         return;
     } else if (next_instruction != nullptr) {
         next_instruction->handle();
@@ -83,6 +81,7 @@ void pass_one::pass() {
                              << std::left << std::setw(70) 
                              << next_instruction->get_full_instruction() << "" << "\n";
         }
+        delete next_instruction;
     }
 
 
@@ -106,6 +105,7 @@ void pass_one::pass() {
             listing_file << next_instruction->get_location() << "    " 
                          << next_instruction->get_full_instruction() << "\n";
             next_instruction->handle();
+            delete next_instruction;
             break;
         }
 

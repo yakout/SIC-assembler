@@ -13,7 +13,3 @@ void null_instruction::handle() {
 	// do nothing;
 	return;
 }
-
-std::string null_instruction::get_opcode() {
-	return "";
-}

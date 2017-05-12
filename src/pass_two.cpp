@@ -10,7 +10,7 @@
 #include <errors/pass_two/pass_two_error.h>
 #include <null_instruction.h>
 
-pass_two::pass_two(std::unique_ptr<file_reader> _reader, std::string _path,
+pass_two::pass_two(std::unique_ptr<intermediate_file_reader> _reader, std::string _path,
                                         std::string _file_name): path(_path),
                                         file_name(_file_name), reader(std::move(_reader)) {
 }
@@ -60,6 +60,8 @@ void pass_two::pass() {
                     throw "undefined symbol in end Statement";
                 }
             }
+            listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
+                     << std::setw(6) << next_instruction->get_opcode() << "\n";
             break;
         }
 
