@@ -9,6 +9,9 @@
 #include <operand.h>
 #include <mnemonic.h>
 
+/**
+ * SIC machine instruction representation.
+ */
 class instruction {
 private:
     operand *_operand;
@@ -37,7 +40,7 @@ public:
     std::string get_full_instruction();
 
     virtual void handle() = 0;
-    virtual std::string get_opcode();
+    virtual std::string get_object_code();
     bool has_label();
     bool has_operand();
 };

@@ -43,7 +43,7 @@ void pass_two::pass() {
     if (*next_instruction->get_mnemonic() == "start") {
         writer.write_header_record();
         listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
-                     << std::setw(6) << next_instruction->get_opcode() << "\n";
+                     << std::setw(6) << next_instruction->get_object_code() << "\n";
     }
     while(reader->has_next_instruction()) {
         try {
@@ -61,12 +61,12 @@ void pass_two::pass() {
                 }
             }
             listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
-                     << std::setw(6) << next_instruction->get_opcode() << "\n";
+                     << std::setw(6) << next_instruction->get_object_code() << "\n";
             break;
         }
 
         try {
-            std::cout << next_instruction->get_opcode() << std::endl;
+            std::cout << next_instruction->get_object_code() << std::endl;
         } catch (const char* e) {
             throw e; // temp
         } catch (const pass_two_error& e) {
@@ -74,7 +74,7 @@ void pass_two::pass() {
         }
 
         listing_file << std::left << std::setw(78) << next_instruction->get_full_instruction() 
-                     << std::setw(6) << next_instruction->get_opcode() << "\n";
+                     << std::setw(6) << next_instruction->get_object_code() << "\n";
         writer.add_to_text_record(next_instruction);
         delete next_instruction;
     }

@@ -25,7 +25,7 @@ bool instruction::has_label() {
     return instruction::label.length() != 0;
 }
 
-std::string instruction::get_opcode() {
+std::string instruction::get_object_code() {
     if (*get_mnemonic() == "word" && instruction::has_operand()) {
         if (instruction::_operand->get_type() == operand::operand_type::DECIMAL_ARRAY) {
             // handle array: WORD   1,2,3
