@@ -64,6 +64,7 @@ void mnemonic::initialize_map() {
                             operand::operand_type::LABEL, operand::operand_type::EXPRESSION,  
                             operand::operand_type::CHAR_LITERAL, operand::operand_type::HEXA_LITERAL,
                             operand::operand_type::WORD_LITERAL};
+
     valid_operands["jgt"] = valid_operands["j"];
     valid_operands["jeq"] = valid_operands["j"];
     valid_operands["jlt"] = valid_operands["j"];
@@ -82,13 +83,18 @@ void mnemonic::initialize_map() {
                              operand::operand_type::DECIMAL_ARRAY};
 
     valid_operands["start"] = {operand::operand_type::HEXA, operand::operand_type::NONE};
+
     valid_operands["end"] = {operand::operand_type::HEXA, operand::operand_type::NONE,
                              operand::operand_type::LABEL, operand::operand_type::EXPRESSION};
 
     valid_operands["equ"] = {operand::operand_type::HEXA, operand::operand_type::HEXA_LITERAL,
-                             operand::operand_type::LABEL, operand::operand_type::LOC_COUNTER};
+                             operand::operand_type::LABEL, operand::operand_type::LOC_COUNTER,
+                             operand::operand_type::EXPRESSION};
+
     valid_operands["org"] = {operand::operand_type::HEXA, operand::operand_type::HEXA_LITERAL,
-                             operand::operand_type::LABEL, operand::operand_type::NONE};
+                             operand::operand_type::LABEL, operand::operand_type::NONE, 
+                             operand::operand_type::EXPRESSION};
+
     valid_operands["ltorg"] = {operand::operand_type::NONE};
 }
 

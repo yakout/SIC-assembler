@@ -51,6 +51,7 @@ void lit_table::append_unassgined_literals() {
         insert(unassigned_literal, sic_assembler::location_counter);
         sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
     }
+    unassigned_literals.clear();
 }
 
 void lit_table::write_table(std::ofstream& listing_file) {

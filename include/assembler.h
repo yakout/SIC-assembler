@@ -29,6 +29,11 @@
  *  end operand is optional so we sould handle that
  *  should not allw using array in invalid mnemonic e.g  byte 1,2,3
  *  handling array of word in pass 2 and object writer
+ *
+ *
+ *
+ *
+ *  HANDLE exrepssion in equ and org
  */ 
 
 
