@@ -57,6 +57,8 @@ instruction* intermediate_file_reader::get_next_instruction() {
             _mnemonic = new mnemonic(matches[3].str());
             _operand = new operand("");
         } else {
+            // this should never happen, since the intermediate file only contains the valid instructions from pass one.
+            // but just in case something unexpected happened :D.
             throw invalid_instruction_format();
         }
 

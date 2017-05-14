@@ -33,6 +33,7 @@ void assembler_driver::assemble() {
         passOne.pass();
         pass_one_faild = false;
     } catch (const char* e) {
+        // may be caused when trying to open files.
     	std::cout << e << std::endl;
     }
 
@@ -46,10 +47,10 @@ void assembler_driver::assemble() {
         pass_two passTwo(std::move(reader), file_path, file_name);    
         passTwo.pass();
     } catch(const pass_two_error& e) {
+        // may be caused by undefined errors.
 		std::cout << e.what() << std::endl;
-    } catch (const std::string e) {
-        std::cout << e << std::endl;
     } catch (const char* e) {
+        // may be caused when trying to open files.
         std::cout << e << std::endl;
     }
 }

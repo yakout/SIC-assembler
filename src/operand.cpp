@@ -12,6 +12,7 @@
 #include <errors/pass_one/invalid_operand.h>
 #include <errors/pass_one/operand_out_of_range.h>
 #include <errors/pass_two/undefined_symbol.h>
+#include <errors/pass_two/invalid_expression.h>
 
 operand::operand(std::string operand_field) {
     operand_field = sic_assembler::trim(operand_field);
@@ -166,16 +167,16 @@ std::string operand::get_address() {
             operand *u = new operand(a);
             operand *v = new operand(b);
             if (u->get_type() != operand_type::DECIMAL && u->get_type() != operand_type::LABEL){
-                throw "invalid expression";
+                throw invalid_expression();
             }
             if (v->get_type() != operand_type::DECIMAL && v->get_type() != operand_type::LABEL){
-                throw "invalid expression";
+                throw invalid_expression();
             }
             operand::address = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_address()) 
                 + f * sic_assembler::hex_to_int(v->get_address()), OPERAND_WIDTH);
         }
         else {
-            throw "invalid expression";
+            throw invalid_expression();
         }
     } else if(type == operand::operand_type::HEXA_LITERAL || type == operand::operand_type::CHAR_LITERAL
                                         || type == operand::operand_type::WORD_LITERAL) {

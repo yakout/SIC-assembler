@@ -15,7 +15,7 @@ ENDFIL   LDA     =C'EOF'
          RSUB
          LTORG
 RETADR   RESW    1
-FUCK     EQU     *
+FUCK     EQU     *+6
 FUCK1    EQU     FUCK
 LENGTH   RESW    1
 BUFFER   RESB    4096
