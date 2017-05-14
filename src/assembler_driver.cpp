@@ -33,7 +33,7 @@ void assembler_driver::assemble() {
         passOne.pass();
         pass_one_faild = false;
     } catch (const char* e) {
-        // may be caused when trying to open files.
+        // may be caused when trying to open files or "incomplete assembly" from pass one.
     	std::cout << e << std::endl;
     }
 

@@ -12,7 +12,7 @@
 #include <errors/pass_one/invalid_operand.h>
 #include <errors/pass_one/operand_out_of_range.h>
 #include <errors/pass_two/undefined_symbol.h>
-#include <errors/pass_two/invalid_expression.h>
+#include <expression_evaluator.h>
 
 operand::operand(std::string operand_field) {
     operand_field = sic_assembler::trim(operand_field);
@@ -147,37 +147,8 @@ std::string operand::get_address() {
                             + sym_table::get_instance().get(name), operand::OPERAND_WIDTH);
         }
     } else if (type == operand_type::EXPRESSION){
-        int f = 0;
-        std::string a;
-        std::string b;
-        for (int i = 0; i < name.length(); i++){
-            if (name[i] == '+'){
-                f = 1;
-            }
-            else if (name[i] == '-'){
-                f = -1;
-            }
-            if (f != 0){
-                a = name.substr(0, i);
-                b = name.substr(i+1, name.length() - i);
-                break;
-            }
-        }
-        if (f != 0){
-            operand *u = new operand(a);
-            operand *v = new operand(b);
-            if (u->get_type() != operand_type::DECIMAL && u->get_type() != operand_type::LABEL){
-                throw invalid_expression();
-            }
-            if (v->get_type() != operand_type::DECIMAL && v->get_type() != operand_type::LABEL){
-                throw invalid_expression();
-            }
-            operand::address = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_address()) 
-                + f * sic_assembler::hex_to_int(v->get_address()), OPERAND_WIDTH);
-        }
-        else {
-            throw invalid_expression();
-        }
+        expression_evaluator evalutor(name);
+        operand::address = evalutor.evaluate();
     } else if(type == operand::operand_type::HEXA_LITERAL || type == operand::operand_type::CHAR_LITERAL
                                         || type == operand::operand_type::WORD_LITERAL) {
         operand::address = sic_assembler::decimal_to_hex(lit_table::get_instance().get(name), operand::OPERAND_WIDTH);

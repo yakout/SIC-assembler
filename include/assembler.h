@@ -14,6 +14,8 @@
  *   - if there is errors in pass 1 there will be only intermediate file and the obj file will be incorrect.
  *   - the invalid instrution is not written in intermediate file
  *   - no space in expression is allowed
+ *   - if there is any error in pass one pass two will not work.
+ *   - epression *-* or *+* is not valid.
  */
 
 
@@ -29,11 +31,12 @@
  *  end operand is optional so we sould handle that
  *  should not allw using array in invalid mnemonic e.g  byte 1,2,3
  *  handling array of word in pass 2 and object writer
+ *  there is bug when saying    comp   *     the lcoation counter will be the last one from pass one.
  *
  *
  *
- *
- *  HANDLE exrepssion in equ and org
+ *  HANDLE exrepssion in equ and org make expression evaluter class
+ *  show the literals in phase  two listing file not only in intermeidate file (*    =4)
  */ 
 
 

@@ -139,6 +139,7 @@ void pass_one::pass() {
 
     // sym_table::get_instance().print_table();
     sym_table::get_instance().write_table(listing_file);
+    lit_table::get_instance().write_table(listing_file);
 
     listing_file << ">>   *****************************************************\n";
     intermediate_file.close();
