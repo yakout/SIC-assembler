@@ -47,6 +47,9 @@ std::string instruction::get_object_code() {
     } else if (*get_mnemonic() == "byte") {
         return instruction::_operand->get_address();
     } else if (instruction::has_operand()) {
+        if (_operand->get_type() == operand::operand_type::LOC_COUNTER) {
+            return instruction::_mnemonic->get_opcode() + instruction::get_location();
+        }
         return instruction::_mnemonic->get_opcode() + instruction::_operand->get_address();
     } else {
         return instruction::_mnemonic->get_opcode() + sic_assembler::decimal_to_hex(0, operand::OPERAND_WIDTH);

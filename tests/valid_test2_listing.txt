@@ -1,0 +1,186 @@
+>>    S T A R T     O F     P A S S  I 
+>>  Source Program statements with value of LC indicated
+
+LC      Source Statement                                                      Error
+------------------------------------------------------------------------------------------------------------------------
+1000    copy     start   0x1000             this is just a comment            
+1000    first    stl     retadr
+1003    cloop    jsub    rdrec
+1006             lda     length
+1009             comp    =0
+100c             jeq     endfil
+100f             jsub    wrrec
+1012             j       cloop
+1015    endfil   lda     =c'EOF'
+1018             sta     buffer
+101b             lda     =3
+101e             lda     =x'f1'
+1021             sta     length
+1024             jsub    wrrec
+1027             ldl     retadr
+102a             org     =x'1000'
+1000             org     *
+1000             org     endfil-6
+100f             org     *
+100f             rsub
+1012    *        =0
+1015    *        =c'EOF'
+1018    *        =3
+101b    *        =x'f1'
+1012             ltorg
+101c    retadr   resw    1
+101f    blah     equ     retadr-1
+101f    blah1    equ     *
+101f    blah2    equ     0x1000
+101f    blah3    equ     blah2
+101f    blah4    equ     blah3
+101f    length   resw    1
+1022    buffer   resb    4096
+2022    rdrec    ldx     =0
+2025             lda     =0
+2028    rloop    td      =x'f1'
+202b             jeq     rloop
+202e             rd      =x'f1'
+2031             comp    *
+2034             jeq     exit
+2037             stch    buffer,x
+203a             tix     =4096
+203d             jlt     rloop
+2040    exit     stx     length
+2043             rsub
+2046    wrrec    ldx     =0
+2049    wloop    td      output
+204c             jeq     wloop
+204f             ldch    buffer,x
+2052             wd      output
+2055             tix     length
+2058             jlt     wloop
+205b             rsub     
+205e    output   byte    x'05'
+205f             end     cloop               
+205f    *        =4096
+
+
+>>   *****************************************************
+>>    E N D     O F     P A S S  I 
+>>   *****************************************************
+>>    S Y M B O L     T A B L E   (values in hexadecimal)
+
+        name         value     
+        -----------------------
+        output       205e
+
+        rloop        2028
+
+        wrrec        2046
+
+        rdrec        2022
+
+        buffer       1022
+
+        length       101f
+
+        blah1        101f
+
+        wloop        2049
+
+        blah4        1000
+
+        blah3        1000
+
+        blah         101b
+
+        copy         1000
+
+        cloop        1003
+
+        exit         2040
+
+        retadr       101c
+
+        endfil       1015
+
+        first        1000
+
+        blah2        1000
+
+>>    L I T E R A L     T A B L E   (values in hexadecimal)
+
+        name         value     
+        -----------------------
+        =4096        205f
+
+        =3           1018
+
+        =c'EOF'      1015
+
+        =x'f1'       101b
+
+        =0           1012
+
+>>   *****************************************************
+>>    S T A R T     O F     P A S S  II 
+>>   *****************************************************
+
+>>   A s s e m b l e d    p r o g r a m     l i s t i n g
+
+LC      Source Statement                                                      Object Code         Error
+--------------------------------------------------------------------------------------------------------------
+1000    copy     start   0x1000             this is just a comment                  
+1000    first    stl     retadr                                               14101c
+1003    cloop    jsub    rdrec                                                482022
+1006             lda     length                                               00101f
+1009             comp    =0                                                   281012
+100c             jeq     endfil                                               301015
+100f             jsub    wrrec                                                482046
+1012             j       cloop                                                3C1003
+1015    endfil   lda     =c'EOF'                                              001015
+1018             sta     buffer                                               0C1022
+101b             lda     =3                                                   001018
+101e             lda     =x'f1'                                               00101b
+1021             sta     length                                               0C101f
+1024             jsub    wrrec                                                482046
+1027             ldl     retadr                                               08101c
+102a             org     =x'1000'                                                   
+1000             org     *                                                          
+1000             org     endfil-6                                                   
+100f             org     *                                                          
+100f             rsub                                                         4C0000
+1012             ltorg                                                              
+1012    *        =0                                                           000000
+1015    *        =c'EOF'                                                      454f46
+1018    *        =3                                                           000003
+101b    *        =x'f1'                                                       f1    
+101c    retadr   resw    1                                                          
+101f    blah     equ     retadr-1                                                   
+101f    blah1    equ     *                                                          
+101f    blah2    equ     0x1000                                                     
+101f    blah3    equ     blah2                                                      
+101f    blah4    equ     blah3                                                      
+101f    length   resw    1                                                          
+1022    buffer   resb    4096                                                       
+2022    rdrec    ldx     =0                                                   041012
+2025             lda     =0                                                   001012
+2028    rloop    td      =x'f1'                                               E0101b
+202b             jeq     rloop                                                302028
+202e             rd      =x'f1'                                               D8101b
+2031             comp    *                                                    282031
+2034             jeq     exit                                                 302040
+2037             stch    buffer,x                                             548000
+203a             tix     =4096                                                2C205f
+203d             jlt     rloop                                                382028
+2040    exit     stx     length                                               10101f
+2043             rsub                                                         4C0000
+2046    wrrec    ldx     =0                                                   041012
+2049    wloop    td      output                                               E0205e
+204c             jeq     wloop                                                302049
+204f             ldch    buffer,x                                             508000
+2052             wd      output                                               DC205e
+2055             tix     length                                               2C101f
+2058             jlt     wloop                                                382049
+205b             rsub                                                         4C0000
+205e    output   byte    x'05'                                                05    
+205f             end     cloop                                                      
+205f    *        =4096                                                        001000
+
+>>    s u c c e s s f u l    a s s e m b l y

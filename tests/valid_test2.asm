@@ -9,6 +9,7 @@ CLOOP    JSUB    RDREC
 ENDFIL   LDA     =C'EOF'
          STA     BUFFER
          LDA     =3
+         LDA     =X'F1'
          sta     LENGTH
          JSuB    WRREC
          LDL     RETADR
@@ -48,4 +49,5 @@ WLOOP    TD      OUTPUT
          JLT     WLOOP
          RSUB     
 OUTPUT   BYTE    X'05'
-         END     CLOOP               this will start execution from second statment
+.this will start execution from second statment
+         END     CLOOP               

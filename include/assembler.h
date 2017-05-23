@@ -30,8 +30,7 @@
 /**
  *  TODO
  *  
- *  bug in literals: sould increament the LC depending on the size of the value
- *  there is bug when saying    comp   *     the lcoation counter will be the last one from pass one.
+ * 
  */ 
 
 

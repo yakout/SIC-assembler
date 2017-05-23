@@ -51,7 +51,17 @@ void lit_table::append_unassgined_literals() {
         *intermediate_file << std::setfill('0') << std::setw(4) << loc << "    *        "
                            << unassigned_literal << "\n";
         insert(unassigned_literal, sic_assembler::location_counter);
-        sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
+
+        if (unassigned_literal[1] == 'x') {
+            // byte: hex
+            sic_assembler::location_counter += unassigned_literal.substr(3, unassigned_literal.length() - 4).length() / 2;
+        } else if (unassigned_literal[1] == 'c'){
+            // byte: string
+            sic_assembler::location_counter += unassigned_literal.substr(3, unassigned_literal.length() - 4).length();
+        } else {
+            // word: decimal
+            sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
+        }
     }
     *listing_file << std::setfill(' ');
     *intermediate_file << std::setfill(' ');

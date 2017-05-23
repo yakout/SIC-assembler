@@ -1,0 +1,56 @@
+1000    copy     start   0x1000             this is just a comment
+1000    first    stl     retadr
+1003    cloop    jsub    rdrec
+1006             lda     length
+1009             comp    =0
+100c             jeq     endfil
+100f             jsub    wrrec
+1012             j       cloop
+1015    endfil   lda     =c'EOF'
+1018             sta     buffer
+101b             lda     =3
+101e             lda     =x'f1'
+1021             sta     length
+1024             jsub    wrrec
+1027             ldl     retadr
+102a             org     =x'1000'
+1000             org     *
+1000             org     endfil-6
+100f             org     *
+100f             rsub
+1012             ltorg
+1012    *        =0
+1015    *        =c'EOF'
+1018    *        =3
+101b    *        =x'f1'
+101c    retadr   resw    1
+101f    blah     equ     retadr-1
+101f    blah1    equ     *
+101f    blah2    equ     0x1000
+101f    blah3    equ     blah2
+101f    blah4    equ     blah3
+101f    length   resw    1
+1022    buffer   resb    4096
+2022    rdrec    ldx     =0
+2025             lda     =0
+2028    rloop    td      =x'f1'
+202b             jeq     rloop
+202e             rd      =x'f1'
+2031             comp    *
+2034             jeq     exit
+2037             stch    buffer,x
+203a             tix     =4096
+203d             jlt     rloop
+2040    exit     stx     length
+2043             rsub
+2046    wrrec    ldx     =0
+2049    wloop    td      output
+204c             jeq     wloop
+204f             ldch    buffer,x
+2052             wd      output
+2055             tix     length
+2058             jlt     wloop
+205b             rsub     
+205e    output   byte    x'05'
+205f             end     cloop               
+205f    *        =4096

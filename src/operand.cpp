@@ -20,8 +20,6 @@ operand::operand(std::string operand_field) {
 
     if (operand_field == "*") {
         operand::type = operand::operand_type::LOC_COUNTER;
-        operand::address = sic_assembler::decimal_to_hex(sic_assembler::location_counter,
-                                                             operand::OPERAND_WIDTH);
     }
     else if (regex_match(operand_field, std::regex(EMPTY_STRING_PATTERN))){
         operand::type = operand::operand_type::NONE;
