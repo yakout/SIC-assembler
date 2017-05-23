@@ -20,7 +20,8 @@ public:
 	/**
 	 * Creates the suitable instruction subclass given some params.
 	 */
-	instruction* make_instruction(std::string _location, std::string _label, mnemonic*, operand*, std::string _comment);
+	instruction* make_instruction(std::string _location, std::string _label, mnemonic*, operand*,
+									 std::string _comment);
 };
 
 #endif // SIC_ASSEMBLER_INSTRUCTION_FACTORY_H__

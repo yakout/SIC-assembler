@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_OPTABLE_H__
-#define SIC_XE_ASSEMBLER_OPTABLE_H__
+#ifndef SIC_ASSEMBLER_OPTABLE_H__
+#define SIC_ASSEMBLER_OPTABLE_H__
 
 #include <unordered_map>
 #include <instruction.h>
@@ -23,4 +23,4 @@ public:
     std::string get(std::string);
     bool lookup(std::string);
 };
-#endif // SIC_XE_ASSEMBLER_OPTABLE_H__
+#endif // SIC_ASSEMBLER_OPTABLE_H__

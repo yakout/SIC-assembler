@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/23/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_OPERAND_H__
-#define SIC_XE_ASSEMBLER_OPERAND_H__
+#ifndef SIC_ASSEMBLER_OPERAND_H__
+#define SIC_ASSEMBLER_OPERAND_H__
 
 #include <string>
 
@@ -68,4 +68,4 @@ public:
     int get_length();
 };
 
-#endif // SIC_XE_ASSEMBLER_OPERAND_H__
+#endif // SIC_ASSEMBLER_OPERAND_H__

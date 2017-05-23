@@ -12,10 +12,19 @@ ENDFIL   LDA     =C'EOF'
          sta     LENGTH
          JSuB    WRREC
          LDL     RETADR
+         ORG     =x'1000'
+         ORG     *
+         ORG     endfil-6
+         org     *
          RSUB
          LTORG
+. THIS IS FUCNKING COMMENT IGNORE IT.
 RETADR   RESW    1
-FUCK     EQU     *
+BLAH     EQU     RETADR-1
+BLAH1    EQU     *
+BLAH2    EQU     0x1000
+BLAH3    EQU     blah2
+BLAH4    EQU     blah3
 LENGTH   RESW    1
 BUFFER   RESB    4096
 RDREC    LDx     =0
@@ -23,7 +32,7 @@ RDREC    LDx     =0
 RLOOP    TD      =X'F1'
          JEQ     RLOOP
          RD      =X'F1'
-         COMP    =0
+         COMP    *
          JEQ     EXIT
          STCH    BUFFER,X
          TIX     =4096
@@ -37,7 +46,6 @@ WLOOP    TD      OUTPUT
          WD      OUTPUT
          TIX     LENGTH
          JLT     WLOOP
-         RSUB
+         RSUB     
 OUTPUT   BYTE    X'05'
-         END     COPY
-         END     COPY
+         END     CLOOP               this will start execution from second statment

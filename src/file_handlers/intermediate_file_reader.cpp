@@ -38,8 +38,8 @@ instruction* intermediate_file_reader::get_next_instruction() {
             _operand = new operand(matches[4].str());
             _comment = matches[5].str();
         } else if (regex_search(intermediate_file_reader::buffer, matches, std::regex(LITERAL_FORMAT))) {
-            buffer.clear();
-            return intermediate_file_reader::get_next_instruction();
+            _location = matches[1].str();
+            _mnemonic = new mnemonic(matches[2].str(), true); // used the second constructor for literals
         } else if (regex_search(intermediate_file_reader::buffer, matches, std::regex(LC_INSTRUCTION_WITHOUT_COMMENT))) {
             _location = matches[1].str();
             _label = matches[2].str();
@@ -58,7 +58,7 @@ instruction* intermediate_file_reader::get_next_instruction() {
             _operand = new operand("");
         } else {
             // this should never happen, since the intermediate file only contains the valid instructions from pass one.
-            // but just in case something unexpected happened :D.
+            // but just in case something unexpected happened, you know ;D
             throw invalid_instruction_format();
         }
 

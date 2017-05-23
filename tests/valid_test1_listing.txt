@@ -1,0 +1,150 @@
+>>    S T A R T     O F     P A S S  I 
+>>  Source Program statements with value of LC indicated
+
+LC      Source Statement                                                      Error
+------------------------------------------------------------------------------------------------------------------------
+1000    copy     start   0x1000                                               
+1000    first    stl     retadr
+1003    cloop    jsub    rdrec
+1006             lda     length
+1009             comp    zero
+100c             jeq     endfil
+100f             jsub    wrrec
+1012             j       cloop
+1015    endfil   lda     eof
+1018             sta     buffer
+101b             lda     three
+101e             sta     length
+1021             jsub    wrrec
+1024             ldl     retadr
+1027             rsub
+102a    eof      byte    c'EOF'
+102d    three    word    1,2,3
+1036    zero     word    0
+1039    retadr   resw    1
+103c    length   resw    1
+103f    buffer   resb    4096
+203f    rdrec    ldx     zero
+2042             lda     zero
+2045    rloop    td      input
+2048             jeq     rloop
+204b             rd      input
+204e             comp    zero
+2051             jeq     exit
+2054             stch    buffer,x
+2057             tix     maxlen
+205a             jlt     rloop
+205d    exit     stx     length
+2060             rsub
+2063    input    byte    x'f1'
+2064    maxlen   word    4096
+2067    wrrec    ldx     zero
+206a    wloop    td      output
+206d             jeq     wloop
+2070             ldch    buffer,x
+2073             wd      output
+2076             tix     length
+2079             jlt     wloop
+207c             rsub
+207f    output   byte    x'05'
+2080             end     copy
+
+
+>>   *****************************************************
+>>    E N D     O F     P A S S  I 
+>>   *****************************************************
+>>    S Y M B O L     T A B L E   (values in hexadecimal)
+
+        name         value     
+        -----------------------
+        output       207f
+
+        wloop        206a
+
+        maxlen       2064
+
+        input        2063
+
+        rloop        2045
+
+        wrrec        2067
+
+        rdrec        203f
+
+        buffer       103f
+
+        length       103c
+
+        zero         1036
+
+        endfil       1015
+
+        eof          102a
+
+        exit         205d
+
+        retadr       1039
+
+        three        102d
+
+        copy         1000
+
+        cloop        1003
+
+        first        1000
+
+>>   *****************************************************
+>>    S T A R T     O F     P A S S  II 
+>>   *****************************************************
+
+>>   A s s e m b l e d    p r o g r a m     l i s t i n g
+
+LC      Source Statement                                                      Object Code         Error
+--------------------------------------------------------------------------------------------------------------
+1000    copy     start   0x1000                                                     
+1000    first    stl     retadr                                               141039
+1003    cloop    jsub    rdrec                                                48203f
+1006             lda     length                                               00103c
+1009             comp    zero                                                 281036
+100c             jeq     endfil                                               301015
+100f             jsub    wrrec                                                482067
+1012             j       cloop                                                3C1003
+1015    endfil   lda     eof                                                  00102a
+1018             sta     buffer                                               0C103f
+101b             lda     three                                                00102d
+101e             sta     length                                               0C103c
+1021             jsub    wrrec                                                482067
+1024             ldl     retadr                                               081039
+1027             rsub                                                         4C0000
+102a    eof      byte    c'EOF'                                               454f46
+102d    three    word    1,2,3                                                000001,000002,000003
+1036    zero     word    0                                                    000000
+1039    retadr   resw    1                                                          
+103c    length   resw    1                                                          
+103f    buffer   resb    4096                                                       
+203f    rdrec    ldx     zero                                                 041036
+2042             lda     zero                                                 001036
+2045    rloop    td      input                                                E02063
+2048             jeq     rloop                                                302045
+204b             rd      input                                                D82063
+204e             comp    zero                                                 281036
+2051             jeq     exit                                                 30205d
+2054             stch    buffer,x                                             548000
+2057             tix     maxlen                                               2C2064
+205a             jlt     rloop                                                382045
+205d    exit     stx     length                                               10103c
+2060             rsub                                                         4C0000
+2063    input    byte    x'f1'                                                f1    
+2064    maxlen   word    4096                                                 001000
+2067    wrrec    ldx     zero                                                 041036
+206a    wloop    td      output                                               E0207f
+206d             jeq     wloop                                                30206a
+2070             ldch    buffer,x                                             508000
+2073             wd      output                                               DC207f
+2076             tix     length                                               2C103c
+2079             jlt     wloop                                                38206a
+207c             rsub                                                         4C0000
+207f    output   byte    x'05'                                                05    
+2080             end     copy                                                       
+
+>>    s u c c e s s f u l    a s s e m b l y

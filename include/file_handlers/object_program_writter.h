@@ -24,6 +24,13 @@ private:
     std::string current_text_record;
     std::string current_starting_address;
     int current_text_record_length = 0;
+    /**
+     * this flag is set to true when there is resb, resw directives.
+     * this indicates that a space in text record has been allocated
+     * and next time if there new object code for other instruction 
+     * other than resb, resw just start a new text record.
+     */
+    bool res_memory_flag = false;
 
     void reset_text_record();
     void write_text_record();

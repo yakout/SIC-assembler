@@ -10,7 +10,9 @@ int sic_assembler::location_counter_old = 0;
 int sic_assembler::starting_address = 0;
 int sic_assembler::program_length = 0;
 std::string sic_assembler::program_name = "";
-const std::string sic_assembler::directives[] { "start", "end", "resw", "resb", "word", "byte"};
+const std::string sic_assembler::directives[] { "start", "end" , "resw" , 
+                                                "resb" , "word", "byte" , 
+                                                "org"  , "equ" , "ltorg"};
 
 int sic_assembler::hex_to_int(std::string hex) {
     unsigned int i;

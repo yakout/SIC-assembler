@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/24/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_PASS_TWO_H__
-#define SIC_XE_ASSEMBLER_PASS_TWO_H__
+#ifndef SIC_ASSEMBLER_PASS_TWO_H__
+#define SIC_ASSEMBLER_PASS_TWO_H__
 
 #include <file_handlers/intermediate_file_reader.h>
 
@@ -26,4 +26,4 @@ public:
     void pass();
 };
 
-#endif // SIC_XE_ASSEMBLER_PASS_TWO_H__
+#endif // SIC_ASSEMBLER_PASS_TWO_H__

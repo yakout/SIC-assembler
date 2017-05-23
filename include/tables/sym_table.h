@@ -2,8 +2,8 @@
 // Created by Ahmed Yakout on 4/24/17.
 //
 
-#ifndef SIC_XE_ASSEMBLER_SYM_TABLE_H__
-#define SIC_XE_ASSEMBLER_SYM_TABLE_H__
+#ifndef SIC_ASSEMBLER_SYM_TABLE_H__
+#define SIC_ASSEMBLER_SYM_TABLE_H__
 
 #include <unordered_map>
 #include <fstream>
@@ -26,4 +26,4 @@ public:
     void write_table(std::ofstream&);
 };
 
-#endif // SIC_XE_ASSEMBLER_SYM_TABLE_H__
+#endif // SIC_ASSEMBLER_SYM_TABLE_H__

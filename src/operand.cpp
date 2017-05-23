@@ -79,18 +79,31 @@ operand::operand(std::string operand_field) {
         if (address > operand::MAX_DECIMAL_ADDRESS) {
             throw operand_out_of_range();
         }
-        operand::address = sic_assembler::decimal_to_hex(address, operand_field.length() - 3); // -3 to remove X''
+        operand::address = sic_assembler::decimal_to_hex(address, operand_field.length() - 3); // -3 to exclude length of X''
     }
     else if (regex_match(operand_field, std::regex(EXPRESSION_PATTERN))){
         operand::type = operand::operand_type::EXPRESSION;
     }
+
+
+    // CHECK LITERALS
     else if (regex_match(operand_field, std::regex(WORD_LITERAL_PATTERN))){
+        // remove the '='
+        int address = stoi(operand_field.substr(1));
+        // check value for out of range error.
+        if (address > operand::MAX_DECIMAL_ADDRESS){
+            throw operand_out_of_range();
+        }
         operand::type = operand::operand_type::WORD_LITERAL;
     }
-    else if (regex_match(operand_field, std::regex(CHAR_LITERAL_PATTERN))){
+    else if (regex_match(operand_field, std::regex(CHAR_LITERAL_PATTERN))) {
         operand::type = operand::operand_type::CHAR_LITERAL;
     }
     else if (regex_match(operand_field, std::regex(HEXA_LITERAL_PATTERN))){
+        int address = sic_assembler::hex_to_int(operand_field.substr(3, operand_field.length() - 4));
+        if (address > operand::MAX_DECIMAL_ADDRESS){
+            throw operand_out_of_range();
+        }
         operand::type = operand::operand_type::HEXA_LITERAL;
     }
     else {

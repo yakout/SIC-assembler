@@ -8,11 +8,18 @@
 #include <errors/pass_one/invalid_mnemonic.h>
 
 mnemonic::mnemonic(std::string name) {
-    mnemonic::initialize_map();
-    if (!op_table::get_instance().lookup(name) && sic_assembler::is_directive(name)) {
+    mnemonic::initialize_map(); // todo: this is bad, we should not initilize the map every time!
+    name = sic_assembler::trim(name);
+    if (!op_table::get_instance().lookup(name) && !sic_assembler::is_directive(name)) {
         throw invalid_mnemonic();
     }
-    mnemonic::name = sic_assembler::trim(name);
+    mnemonic::name = name;
+}
+
+mnemonic::mnemonic(std::string name, bool literal_flag) {
+    if (literal_flag) {
+        mnemonic::name = sic_assembler::trim(name);;
+    }
 }
 
 std::string mnemonic::get_name() {
@@ -93,7 +100,7 @@ void mnemonic::initialize_map() {
 
     valid_operands["org"] = {operand::operand_type::HEXA, operand::operand_type::HEXA_LITERAL,
                              operand::operand_type::LABEL, operand::operand_type::NONE, 
-                             operand::operand_type::EXPRESSION};
+                             operand::operand_type::EXPRESSION, operand::operand_type::LOC_COUNTER};
 
     valid_operands["ltorg"] = {operand::operand_type::NONE};
 }

@@ -20,11 +20,13 @@ void equ_directive::handle() {
     	throw duplicate_symbol();
     }
 
-    if (operand_field == "*") {
+    if (get_operand()->get_type() == operand::operand_type::LOC_COUNTER) {
 		sym_table::get_instance().insert(directive::get_label(), sic_assembler::location_counter);
     } else if (get_operand()->get_type() == operand::operand_type::EXPRESSION) {
         expression_evaluator evalutor(operand_field);
         sym_table::get_instance().insert(directive::get_label(), sic_assembler::hex_to_int(evalutor.evaluate()));
+    } else if (get_operand()->get_type() == operand::operand_type::HEXA) {
+        sym_table::get_instance().insert(directive::get_label(), sic_assembler::hex_to_int(operand_field));
     } else if (sym_table::get_instance().lookup(operand_field)) {
     	sym_table::get_instance().insert(directive::get_label(), sym_table::get_instance().get(operand_field));
     } else {
