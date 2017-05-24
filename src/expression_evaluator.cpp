@@ -7,6 +7,7 @@
 #include <errors/invalid_expression.h>
 #include <operand.h>
 #include <assembler.h>
+#include <errors/pass_two/undefined_symbol.h>
 
 expression_evaluator::expression_evaluator(std::string exp): expression(exp) {
 
@@ -51,26 +52,40 @@ std::string expression_evaluator::evaluate() {
         }
 
         // evaluating
-        if (u->get_type() == operand::operand_type::LOC_COUNTER) {
-            if (v->get_type() != operand::operand_type::LOC_COUNTER) {
+        try {
+
+            if (u->get_type() == operand::operand_type::LOC_COUNTER) {
+                if (v->get_type() != operand::operand_type::LOC_COUNTER) {
                 address = sic_assembler::decimal_to_hex(sic_assembler::location_counter
-                                + f * sic_assembler::hex_to_int(v->get_address()), operand::OPERAND_WIDTH);
-            } else {
-                delete u;
-                delete v;
-                throw invalid_expression();   
-            }
-        } else if (v->get_type() == operand::operand_type::LOC_COUNTER) {
+                                    + f * sic_assembler::hex_to_int(v->get_address()), operand::OPERAND_WIDTH);
+                } else {
+                    delete u;
+                    delete v;
+                    // *+*, *-* not allowed
+                    throw invalid_expression();   
+                }
+            } else if (v->get_type() == operand::operand_type::LOC_COUNTER) {
                 address = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_address()) 
-                                + f * sic_assembler::location_counter, operand::OPERAND_WIDTH);
-        } else {
-            address = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_address()) 
-                                + f * sic_assembler::hex_to_int(v->get_address()), operand::OPERAND_WIDTH);
+                                    + f * sic_assembler::location_counter, operand::OPERAND_WIDTH);
+            } else {
+                address = sic_assembler::decimal_to_hex(sic_assembler::hex_to_int(u->get_address()) 
+                                    + f * sic_assembler::hex_to_int(v->get_address()), operand::OPERAND_WIDTH);
+            }
+        } catch (const undefined_symbol& e) {
+            delete u;
+            delete v;
+            throw invalid_expression();    
         }
         delete u;
         delete v;
     } else {
         throw invalid_expression();
     }
+
+    // address is negative value (out of program scope)
+    if (sic_assembler::hex_to_int(address) < 0) {
+        throw invalid_expression();
+    }
+
     return address;
 }

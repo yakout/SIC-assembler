@@ -46,8 +46,8 @@ void lit_table::set_ofstreams(std::ofstream* _listing_file, std::ofstream* _inte
 void lit_table::append_unassgined_literals() {
     for (std::string unassigned_literal : unassigned_literals) {
         std::string loc = sic_assembler::decimal_to_hex(sic_assembler::location_counter);
-        *listing_file << std::right << std::setfill('0') << std::setw(4) << loc << "    *        "
-                      << unassigned_literal << "\n";
+        // *listing_file << std::right << std::setfill('0') << std::setw(4) << loc << "    *        "
+        //               << unassigned_literal << "\n";
         *intermediate_file << std::setfill('0') << std::setw(4) << loc << "    *        "
                            << unassigned_literal << "\n";
         insert(unassigned_literal, sic_assembler::location_counter);
@@ -63,7 +63,7 @@ void lit_table::append_unassgined_literals() {
             sic_assembler::location_counter += sic_assembler::INSTRUCTION_LENGTH;
         }
     }
-    *listing_file << std::setfill(' ');
+    // *listing_file << std::setfill(' ');
     *intermediate_file << std::setfill(' ');
     unassigned_literals.clear();
 }

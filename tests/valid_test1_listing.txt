@@ -93,6 +93,10 @@ LC      Source Statement                                                      Er
 
         first        1000
 
+>>    L I T E R A L     T A B L E   (values in hexadecimal)
+
+        name         value     
+        -----------------------
 >>   *****************************************************
 >>    S T A R T     O F     P A S S  II 
 >>   *****************************************************

@@ -13,6 +13,7 @@ object_program_writter::object_program_writter(std::string path, std::string fil
     }
 }
 
+
 object_program_writter::~object_program_writter() {
     // RAII
     file.close();
@@ -70,18 +71,27 @@ void object_program_writter::add_to_text_record(instruction* _instruction) {
         handle_decimal_array(_instruction->get_object_code());
         return;
     }
-    if (*_instruction->get_mnemonic() == "equ" || *_instruction->get_mnemonic() == "org" 
-                            || *_instruction->get_mnemonic() == "ltorg") {
+    if (*_instruction->get_mnemonic() == "equ" || *_instruction->get_mnemonic() == "ltorg") {
         return;
     }
 
     // length of current object code.
     int length = _instruction->get_object_code().length();
-    if (*_instruction->get_mnemonic() == "resw" || *_instruction->get_mnemonic() == "resb" ) {
-        // since the returned object code by 'resb' and 'resw' is "" the length will be 0
-        // so we need to make 6 to make sure there is a enough space in text record to make space 
-        // for the reserved memory by 'resw' and 'resb', and start new text record.
-        length = 6;
+    if (*_instruction->get_mnemonic() == "resw" || *_instruction->get_mnemonic() == "resb" 
+                                                || *_instruction->get_mnemonic() == "org" ) {
+        // since resw, resb and org changes the location counter value they break the current text record
+        // if there is one and start a new text record.
+        // if there is no current text record just ignore them.
+        // 
+        // todo: note that if org doesn't change the location counter you dont break the text record.
+        // 
+        
+        if (current_text_record_length > 0) {
+            write_text_record();
+            reset_text_record();
+        } else {
+            return;
+        }
     }
 
     if (current_column_counter + length > MAX_TEXT_RECORD_LENGTH) {
@@ -89,24 +99,16 @@ void object_program_writter::add_to_text_record(instruction* _instruction) {
         write_text_record();
         reset_text_record();
     }
+
     if (current_starting_address == "") {
         current_starting_address = _instruction->get_location();
         // todo remove magic numbers
         current_column_counter += 9; // 1 + 6 for starting address + 2 for the length
     }
-    if (*_instruction->get_mnemonic() == "resw" || *_instruction->get_mnemonic() == "resb" ) {
-        current_text_record += "      "; // make space for reserved memory
-        current_column_counter += 6;
-        res_memory_flag = true;
-    } else {
-        if (res_memory_flag) {
-            write_text_record();
-            reset_text_record();
-        }
-        current_text_record_length += _instruction->get_object_code().length() / 2;
-        current_text_record += SEPERATOR + _instruction->get_object_code();
-        current_column_counter += _instruction->get_object_code().length();
-    }
+
+    current_text_record_length += _instruction->get_object_code().length() / 2;
+    current_text_record += SEPERATOR + _instruction->get_object_code();
+    current_column_counter += _instruction->get_object_code().length();
 }
 
 void object_program_writter::write_text_record() {
@@ -120,7 +122,7 @@ void object_program_writter::reset_text_record() {
     current_text_record = "";
     current_starting_address = "";
     current_text_record_length = 0;
-    res_memory_flag = false;
+    // res_memory_flag = false;
 }
 
 void object_program_writter::write_end_record(int starting_address) {

@@ -1,53 +1,55 @@
-COPY     StArT   0x1000             this is just a comment
-FIRST    STL     RETADR
+COPY     START   0x1000
+FIRST    STL     ENDFIL
 CLOOP    JSUB    RDREC
-         LDA     LENGTH
-         COMP    =0
+         LDA     *
+         COMP    =c'ajdd'
+test     equ     zero+1
+test2    equ     *
          JEQ     ENDFIL
-         JSuB    WRREC
+seCond   equ     first
+         JSUB    WRREC
          J       CLOOP
-ENDFIL   LDA     =C'EOF'
-         STA     BUFFER
-         LDA     =3
-         LDA     =X'F1'
-         sta     LENGTH
-         JSuB    WRREC
-         LDL     RETADR
-         ORG     =x'1000'
-         ORG     *
-         ORG     endfil-6
-         org     *
+         ltorg
+ENDFIL   LDA     EOF
+         STA     =x'4535'
+test3    equ     *
+         LDA     ENDFIL
+         STA     =3
+         org     EndFil
+         JSUB    =x'45'
+         LDL     =65
          RSUB
-         LTORG
-. THIS IS FUCNKING COMMENT IGNORE IT.
+         ltorg
+EOF      BYTE    C'EOF'
+THREE    WORD    3
+ZERO     WORD    0
 RETADR   RESW    1
-BLAH     EQU     RETADR-1
-BLAH1    EQU     *
-BLAH2    EQU     0x1000
-BLAH3    EQU     blah2
-BLAH4    EQU     blah3
 LENGTH   RESW    1
-BUFFER   RESB    4096
-RDREC    LDx     =0
-         LDA     =0
-RLOOP    TD      =X'F1'
+BUFFER   RESW    4096
+RDREC    LDX     ZERO
+         LDA     ZERO
+RLOOP    TD      *
+         org     eof
+         org     0x1000
          JEQ     RLOOP
-         RD      =X'F1'
-         COMP    *
-         JEQ     EXIT
+         RD      INPUT
+         COMP    ZERO
+         JEQ     *
          STCH    BUFFER,X
-         TIX     =4096
+         org
+         TIX     =3
          JLT     RLOOP
-EXIT     STX     LENGTH
+EXIT     STX     =45
          RSUB
-WRREC    LDX     =0
+INPUT    BYTE    X'F1'
+MAXLEN   WORD    4096
+WRREC    LDX     ZERO
 WLOOP    TD      OUTPUT
-         JEQ     WLOOP
+         JEQ     =34
          LDCH    BUFFER,X
          WD      OUTPUT
          TIX     LENGTH
          JLT     WLOOP
-         RSUB     
+         RSUB
 OUTPUT   BYTE    X'05'
-.this will start execution from second statment
-         END     CLOOP               
+         END     FIRST

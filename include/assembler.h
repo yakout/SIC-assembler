@@ -7,18 +7,18 @@
  *
  *   - any hex value must be in the form 0x[hex value]
  *   - empty line are not allowed, all lines must be a valid statement or a comment.
- *   - we don't check for the undefined label   
- *   - pass one and two stop reading after finding end directive and will ignore any following instructions.
- *   so if another end directive or any instruction is found later no error will be thrown.
- *   - there is no LC for invalid instructions
+ *   - pass one and two stop reading after finding 'end' directive and will ignore any following instructions.
+ *     so if another end directive or any instruction is found later no error will be thrown.
+ *   - there is no LC for invalid instructions, and will not be written into intermediate file.
  *   - if there is errors in pass 1 there will be only intermediate file and the obj file will be incorrect.
- *   - the invalid instrution is not written in intermediate file
  *   - no space in expression is allowed
  *   - if there is any error in pass one pass two will not work.
  *   - epression *-* or *+* is not valid.
+ *   - in epxression location counter symbol '*' must comes first.
  *   - when resw or resb is incountered in intermediate file we make space for it in object program 
- *   then start a new text record.
+ *     then start a new text record.
  *   - no spaces after end,org.. directives is allowed unless there is comment or valid operand.
+ *   - literals that represents addresses (e.g =*) are not supported, since they need modification record.
  */
 
 
@@ -31,7 +31,14 @@
  *  TODO
  *  
  * 
- */ 
+ */
+
+/**
+ * DONE
+ *    handled forward reference in org and undefined labels in expression evaluator
+ *    handled negative values in expression evaluator
+ *    
+ */
 
 
 // l i t e r a l s
@@ -91,6 +98,9 @@
 #include <iomanip>
 #include <sstream>
 
+/**
+ * utility class for sic assmebler.
+ */
 class sic_assembler {
 public:
     static const int INSTRUCTION_LENGTH = 3;
